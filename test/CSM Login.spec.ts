@@ -50,6 +50,7 @@ test('Forgotten Password Flow', async ({ page }) => {
   await expect(page.getByRole('button', { name: 'Send Reset Code' })).toBeVisible();
   await page.getByRole('button', { name: 'Send Reset Code' }).click();
 
+  await page.waitForTimeout(3000); // Wait for 3 seconds
   await expect(page.getByRole('heading', { name: 'Reset Password' })).toBeVisible();
   await expect(page.getByRole('paragraph')).toContainText('Your password has been reset, please use the code sent to your email address to set a new password.');
   await expect(page.getByText('Your password has been reset')).toBeVisible();
