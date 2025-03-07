@@ -9,3 +9,4 @@ node_modules/
 
 # Environment variables (DO NOT TRACK)
 .env
+.DS_Store
