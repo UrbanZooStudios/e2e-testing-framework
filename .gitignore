@@ -1,0 +1,11 @@
+# Node dependencies
+node_modules/
+
+# Playwright test artifacts
+/test-results/
+/playwright-report/
+/blob-report/
+/playwright/.cache/
+
+# Environment variables (DO NOT TRACK)
+.env
