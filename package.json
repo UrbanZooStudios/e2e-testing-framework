@@ -1,0 +1,28 @@
+{
+  "name": "e2e-testing-framework",
+  "version": "1.0.0",
+  "description": "A scalable End-to-End (E2E) testing framework using Playwright for UI automation. Designed for reliable, fast, and maintainable web application testing",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/UrbanZooStudios/e2e-testing-framework.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/UrbanZooStudios/e2e-testing-framework/issues"
+  },
+  "homepage": "https://github.com/UrbanZooStudios/e2e-testing-framework#readme",
+  "devDependencies": {
+    "@playwright/test": "^1.51.0",
+    "@types/node": "^22.13.9",
+    "playwright": "^1.51.0"
+  },
+  "dependencies": {
+    "dotenv": "^16.4.7"
+  }
+}
