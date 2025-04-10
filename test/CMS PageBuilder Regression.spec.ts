@@ -53,7 +53,7 @@ await page.getByRole('textbox', { name: 'Password * Password *' }).fill(password
 
 });
 
-test.only('Regression - Page Settings', async ({ page }) => {
+test('Regression - Page Settings', async ({ page }) => {
     // Navigate to the login page
     await page.goto('https://cms.gc.uzgc2.com/login');
 
