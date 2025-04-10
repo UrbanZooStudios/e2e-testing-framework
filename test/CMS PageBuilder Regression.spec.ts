@@ -53,7 +53,7 @@ await page.getByRole('textbox', { name: 'Password * Password *' }).fill(password
 
 });
 
-test('Regression - Page Settings', async ({ page }) => {
+test.only('Regression - Page Settings', async ({ page }) => {
     // Navigate to the login page
     await page.goto('https://cms.gc.uzgc2.com/login');
 
@@ -78,6 +78,10 @@ await page.getByRole('textbox', { name: 'Password * Password *' }).fill(password
     await settingsButton.dblclick();
     await page.getByRole('textbox', { name: 'Page Title Slug Amend how the' }).fill(expectedText);
     await page.locator('#inputLabel').nth(1).click();
+// Update External URL
+    await page.locator('#inputLabel').nth(2).click();
+    await page.locator('#inputLabel').nth(2).fill('https://test.com')
+// Update Select Apply URL
     await page.getByRole('button', { name: 'Apply' }).click();
     await page.locator('#inputLabel').nth(1).click();
     await page.getByRole('button', { name: 'Apply' }).click();
