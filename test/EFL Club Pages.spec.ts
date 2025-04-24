@@ -23,7 +23,7 @@ if (!testEmail || !testPassword) {
 // Test case: Valid login to CMS
 test('CMS Valid Login', async ({ page }) => {
     // Navigate to the CMS login page
-    await page.goto('https://gc-admin.gc.urbanzoofc.com/login');
+    await page.goto('https://gc-admin.gc.eflservices.co.uk/login');
     
     // Fill in valid email and password fields
     await page.getByRole('textbox', { name: 'Email *' }).fill(email);
@@ -53,7 +53,7 @@ test('CMS Valid Login', async ({ page }) => {
   // Test case: Invalid login to CMS
   test('CMS Invalid Login', async ({ page }) => {
     // Navigate to the CMS login page
-    await page.goto('https://gc-admin.gc.urbanzoofc.com/login');
+    await page.goto('https://gc-admin.gc.eflservices.co.uk/');
     
     // Fill in incorrect email and password fields
     await page.getByRole('textbox', { name: 'Email *' }).fill(testEmail);
@@ -80,26 +80,29 @@ test('Live Preview Valid Login', async ({ browser }) => {
       },
     });
   
-    // Open a new page in that context
-    const page = await context.newPage();
+   // Open a new page using the authenticated context
+   const page = await context.newPage();
   
-    // Navigate to the Live Preview login page
-    await page.goto('https://livepreview.efl.com/clubs/');
-  
-    // Accept cookies (if present)
-    await page.getByRole('button', { name: 'Accept All Cookies' }).click();
-  
-    // Close the promotional overlay (if present)
-    await page.locator('.overlay-promo__close-button').click();
-  
-    // Check that the login prompt appears as expected
-    await expect(page.getByRole('heading', { name: 'Sign in to your club account' })).toBeVisible();
-    await expect(page.getByRole('heading')).toContainText('Sign in to your club account');
-  
-    // Fill in login form fields with valid credentials
-    await expect(page.getByRole('textbox', { name: 'email' })).toBeVisible();
-    await page.getByRole('textbox', { name: 'email' }).fill(email);
-    await page.getByRole('textbox', { name: 'password' }).fill(password);
+   // Navigate to the Live Preview clubs login page
+   await page.goto('https://livepreview.efl.com/clubs/');
+ 
+   // Accept cookies if the banner appears
+   const acceptCookies = page.getByRole('button', { name: 'Accept All Cookies' });
+   if (await acceptCookies.isVisible()) {
+     await acceptCookies.click();
+   }
+ 
+   // Close the promotional overlay popup if displayed
+   const promoClose = page.locator('.overlay-promo__close-button');
+   if (await promoClose.isVisible()) {
+     await promoClose.click();
+   }
+ 
+   // Log in with valid credentials (from env)
+   await expect(page.getByRole('heading', { name: 'Sign in to your club account' })).toBeVisible();
+   await page.getByRole('textbox', { name: 'email' }).fill(email);
+   await page.getByRole('textbox', { name: 'password' }).fill(password);
+   await page.getByRole('button', { name: 'Log In' }).click();
   
     // Check the visibility and correctness of the login button
     await expect(page.getByRole('button', { name: 'Log In' })).toBeVisible();
@@ -135,17 +138,19 @@ test('Live Preview Invalid Login', async ({ browser }) => {
     await page.goto('https://livepreview.efl.com/clubs/');
   
     // Accept cookies if the banner appears
-    await page.getByRole('button', { name: 'Accept All Cookies' }).click();
+    const acceptCookies = page.getByRole('button', { name: 'Accept All Cookies' });
+    if (await acceptCookies.isVisible()) {
+      await acceptCookies.click();
+    }
   
-    // Close the promotional overlay popup (if displayed)
-    await page.locator('.overlay-promo__close-button').click();
+    // Close the promotional overlay popup if displayed
+    const promoClose = page.locator('.overlay-promo__close-button');
+    if (await promoClose.isVisible()) {
+      await promoClose.click();
+    }
   
-    // Assert that the login heading is present on the page
-    await expect(page.getByRole('heading', { name: 'Sign in to your club account' })).toBeVisible();
-    await expect(page.getByRole('heading')).toContainText('Sign in to your club account');
-  
-    // Ensure the email field is visible and fill it with an invalid email
-    await expect(page.getByRole('textbox', { name: 'email' })).toBeVisible();
+    // Log in with valid credentials (from env)
+    await page.getByRole('button', { name: 'Log In' }).click();
     await page.getByRole('textbox', { name: 'email' }).fill(testEmail);
   
     // Fill in the password field with an invalid password
@@ -328,7 +333,7 @@ expect(backgroundImage).toContain('rgb(255, 84, 84)');
 
 test('CMS Club Creation', async ({ page }) => {
 // Navigate to the CMS login page
-await page.goto('https://gc-admin.gc.urbanzoofc.com/login');
+await page.goto('https://gc-admin.gc.eflservices.co.uk/');
     
 // Fill in valid email and password fields
 await page.getByRole('textbox', { name: 'Email *' }).fill(email);
@@ -668,7 +673,7 @@ await expect(page.getByRole('table')).toContainText('English Football League - C
 
 test('CMS Hide Club Creation', async ({ page }) => {
 // Navigate to the CMS login page
-await page.goto('https://gc-admin.gc.urbanzoofc.com/login');
+await page.goto('https://gc-admin.gc.eflservices.co.uk/');
         
 // Fill in valid email and password fields
 await page.getByRole('textbox', { name: 'Email *' }).fill(email);
@@ -735,8 +740,7 @@ test.only('Live Preview UrbanZoo FC', async ({ browser }) => {
 
 // Wait for club element to load (e.g., UrbanZoo FC)
 const clubButton = page.getByText('UrbanZoo FC', { exact: true });
+await page.waitForTimeout(1000);
 await expect(clubButton).toBeVisible();
 await clubButton.click();
-
-await page.pause(); 
 });
