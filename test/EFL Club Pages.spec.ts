@@ -590,7 +590,7 @@ await page.locator('div:nth-child(3) > .v-input > .v-input__control > .v-input__
 // Upload Home Kit Image
 await expect(page.locator('div:nth-child(4) > div > .flex').first()).toBeVisible();
 await expect(page.locator('.image-editor__image-library').first()).toBeVisible();
-await page.locator('.image-editor__image-library').first().click();
+await page.locator('.layout > div > .flex > .image-editor__image-wrap > .image-editor__actions > .v-dialog__container > .v-dialog__activator > .image-editor__image-library').first().click();
 
 // Search and select kit image
 await page.getByRole('textbox', { name: 'Search the library' }).click();
@@ -616,6 +616,11 @@ await expect(page.locator('#gamechanger')).toContainText('Shirt Text');
 await expect(page.getByText('documents', { exact: true })).toBeVisible();
 await expect(page.getByRole('button', { name: 'Add document' })).toBeVisible();
 await page.getByRole('button', { name: 'Add document' }).click();
+await page.getByRole('button', { name: 'Save' }).click();
+await expect(page.getByText('Required.').first()).toBeVisible();
+await expect(page.getByText('Required.').nth(1)).toBeVisible();
+await expect(page.getByText('Certain entries are invalid')).toBeVisible();
+await expect(page.locator('footer')).toContainText('Certain entries are invalid or required');
 await expect(page.getByText('Document name')).toBeVisible();
 await expect(page.getByText('Document URL')).toBeVisible();
 await page.locator('.flex > div > .v-input > .v-input__control > .v-input__slot > .v-text-field__slot > input').first().fill('Document Test');
@@ -705,7 +710,7 @@ await page.getByText('sports_soccerClubs').click();
 
 });
 
-test.only('Live Preview UrbanZoo FC', async ({ browser }) => {
+test('Live Preview UrbanZoo FC', async ({ browser }) => {
     // Create a browser context using HTTP Basic Auth credentials from env
     const context = await browser.newContext({
       httpCredentials: {
