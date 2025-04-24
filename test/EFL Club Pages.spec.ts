@@ -11,6 +11,8 @@ const testEmail = process.env.PLAYWRIGHT_TEST_EMAIL;
 const testPassword = process.env.PLAYWRIGHT_TEST_PASSWORD;
 const httpUsername = process.env.HTTP_USERNAME;
 const httpPassword = process.env.HTTP_PASSWORD;
+const adminemail = process.env.EFL_ADMIN_EMAIL;
+const adminpassword = process.env.EFL_ADMIN_PASSWORD;
 
 // Validate environment variables
 if (!email || !password) {
@@ -748,4 +750,49 @@ const clubButton = page.getByText('UrbanZoo FC', { exact: true });
 await page.waitForTimeout(1000);
 await expect(clubButton).toBeVisible();
 await clubButton.click();
+});
+
+test('CMS Club User Management', async ({ page }) => {
+  // Navigate to the CMS login page
+  await page.goto('https://gc-admin.gc.urbanzoofc.com/');
+          
+  if (!adminemail || !adminpassword) {
+    throw new Error("Admin email or password is not defined. Check your environment variables.");
+  }
+  
+  await page.getByRole('textbox', { name: 'Email *' }).fill(adminemail);
+  await page.getByRole('textbox', { name: 'Password *' }).fill(adminpassword);
+
+  // Submit the login form by clicking the Login button
+  await page.getByRole('button', { name: 'Login' }).click();
+          
+  // Close the welcome modal or message if it appears
+  await page.getByText('close', { exact: true }).click();
+  
+  //Selec Club Users section
+  await page.getByRole('link', { name: 'Club Users' }).click();
+
+// Verify that the user search field is rendered correctly with expected labels/text
+await expect(page.getByText('Field to searchEmailarrow_drop_downStarts with: Search Users')).toBeVisible();
+
+// Double-check that the same text is present in the DOM container with ID 'gamechanger'
+await expect(page.locator('#gamechanger')).toContainText('Field to searchEmailarrow_drop_downStarts with: Search Users');
+
+// Click on the "Starts with" search textbox to focus it
+await page.getByRole('textbox', { name: 'Starts with:' }).click();
+
+// Enter 'thomas' into the search textbox to filter/search for users
+await page.getByRole('textbox', { name: 'Starts with:' }).fill('thomas');
+
+// Expect that a user email containing 'thomas' appears in the search results
+await expect(page.getByText('thomasastley@urbanzoo.io')).toBeVisible();
+
+// Also ensure the email is present within the DOM element with ID 'gamechanger'
+await expect(page.locator('#gamechanger')).toContainText('thomasastley@urbanzoo.io');
+
+// ✏️ Clear the search textbox by clicking and filling it with an empty string
+await page.getByRole('textbox', { name: 'Starts with:' }).click();
+await page.getByRole('textbox', { name: 'Starts with:' }).fill('');
+
+
 });
