@@ -108,6 +108,12 @@ await page.getByRole('textbox', { name: 'Password * Password *' }).fill(password
 // Update External URL
     await page.locator('#inputLabel').nth(2).click();
     await page.locator('#inputLabel').nth(2).fill('https://test.com')
+
+//Update Third-Party-Scripts
+    await page.locator('#inputLabel').nth(4).click();
+    await page.locator('#inputLabel').nth(4).fill('This is a third party script');
+    await expect(page.locator('#inputLabel').nth(4)).toBeVisible();
+
 // Update Select Apply URL
     await page.getByRole('button', { name: 'Apply' }).click();
     await page.locator('#inputLabel').nth(1).click();
