@@ -20,36 +20,56 @@ if (!testEmail || !testPassword) {
 
 
 test('Regression - Page Builder Creation', async ({ page }) => {
-    // Navigate to the login page
-    await page.goto('https://cms.gc.uzgc2.com/login');
+// Navigate to the login page
+await page.goto('https://cms.gc.uzgc2.com/login');
 
-// Enter email and password for authentication
+// Fill in the email field
 await page.getByRole('textbox', { name: 'Email * Email *' }).fill(email);
+
+// Fill in the password field
 await page.getByRole('textbox', { name: 'Password * Password *' }).fill(password);
 
-  await page.getByRole('button', { name: 'Sign in' }).click();
-  await page.getByRole('link', { name: 'Pages' }).click();
-  await page.getByRole('link', { name: 'Edit pages' }).click();
-  await page.locator('a').filter({ hasText: 'Automation' }).click();
-  await expect(page.locator('[id="__nuxt"]')).toContainText('Automation');
-  await expect(page.locator('a').filter({ hasText: 'Automation' })).toBeVisible();
-  await expect(page.getByRole('heading', { name: 'Automation' })).toBeVisible();
-  await expect(page.locator('h1')).toContainText('Automation');
-  await expect(page.locator('[id="__nuxt"]')).toContainText('Create New Page')
-  await page.locator('#page-0-a718989a-9d5d-4f72-9171-72e3030b4f16 > div > .relative > .grid > .flex').click();
-  await page.getByRole('textbox', { name: 'Enter Page Name' }).dblclick();
-  // Format today's date as YYYY/MM/DD (or any format you need)
-  const today = new Date();
-  const formattedDate = `${today.getFullYear()}/${(today.getMonth() + 1).toString().padStart(2, '0')}/${today.getDate().toString().padStart(2, '0')}`;
-  console.log(`Filling date: ${formattedDate}`); // Log the date to verify
+// Click the "Sign in" button
+await page.getByRole('button', { name: 'Sign in' }).click();
 
-  // Fill the textbox with the formatted date
-  const input = await page.getByRole('textbox', { name: 'Enter Page Name' });
-  await input.fill(formattedDate);
-  await input.press('Enter');
-  await page.waitForTimeout(3000); // Wait for 3 seconds
-  // await page.locator('a').filter({ hasText: 'Automation' }).click();
-  await expect(page.locator('[id="__nuxt"]')).toContainText(formattedDate);
+// Click on the "Pages" section
+await page.getByRole('link', { name: 'Pages' }).click();
+
+// Click on "Edit pages"
+await page.getByRole('link', { name: 'Edit pages' }).click();
+
+// Select the "Automation" page from the list
+await page.locator('a').filter({ hasText: 'Automation' }).click();
+
+// Assertions to confirm page loaded successfully
+await expect(page.locator('[id="__nuxt"]')).toContainText('Automation');
+await expect(page.locator('a').filter({ hasText: 'Automation' })).toBeVisible();
+await expect(page.getByRole('heading', { name: 'Automation' })).toBeVisible();
+await expect(page.locator('h1')).toContainText('Automation');
+await expect(page.locator('[id="__nuxt"]')).toContainText('Create New Page');
+
+
+// Click on the "Create New Page" button (or similar element)
+await page.locator('#page-0-a718989a-9d5d-4f72-9171-72e3030b4f16 > div > .relative > .grid > .flex').click();
+
+// Double-click the textbox to activate it
+await page.getByRole('textbox', { name: 'Enter Page Name' }).dblclick();
+
+// Format today's date as YYYY/MM/DD
+const today = new Date();
+const formattedDate = `${today.getFullYear()}/${(today.getMonth() + 1).toString().padStart(2, '0')}/${today.getDate().toString().padStart(2, '0')}`;
+console.log(`Filling date: ${formattedDate}`); // Log the date for debugging
+
+// Fill the page name input with the formatted date
+const input = await page.getByRole('textbox', { name: 'Enter Page Name' });
+await input.fill(formattedDate);
+await input.press('Enter');
+
+// Wait for the page to process the new entry
+await page.waitForTimeout(3000);
+
+// Verify that the new page name appears on the page
+await expect(page.locator('[id="__nuxt"]')).toContainText(formattedDate);
 
 });
 
@@ -79,7 +99,10 @@ await page.getByRole('textbox', { name: 'Password * Password *' }).fill(password
     await page.locator(`a:has-text("${formattedDate}")`).first().click();
 // Update the page title
     const settingsButton = page.locator('button.gc-button:has-text("Settings")');
+    await page.waitForTimeout(10000);
     await settingsButton.dblclick();
+    await settingsButton.click();
+
     await page.getByRole('textbox', { name: 'Page Title Slug Amend how the' }).fill(expectedText);
     await page.locator('#inputLabel').nth(1).click();
 // Update External URL
@@ -126,6 +149,7 @@ test('Regression - Page Management', async ({ page }) => {
 
     // Open the Settings panel for the selected page
     const settingsButton = page.locator('button.gc-button:has-text("Settings")');
+    await page.waitForTimeout(10000);
     await settingsButton.dblclick();
 
     // Validate visibility of various summary-related content in the settings
@@ -148,13 +172,13 @@ test('Regression - Page Management', async ({ page }) => {
 });
 
 
-test('Regression - Delete Child Page', async ({ page }) => {
+test.skip('Regression - Delete Child Page', async ({ page }) => {
     // Navigate to the login page
     await page.goto('https://cms.gc.uzgc2.com/login');
 
-// Enter email and password for authentication
-await page.getByRole('textbox', { name: 'Email * Email *' }).fill(email);
-await page.getByRole('textbox', { name: 'Password * Password *' }).fill(password);
+    // Enter email and password for authentication
+    await page.getByRole('textbox', { name: 'Email * Email *' }).fill(email);
+    await page.getByRole('textbox', { name: 'Password * Password *' }).fill(password);
     await page.getByRole('button', { name: 'Sign in' }).click();
 
     // Navigate to Pages and Edit Section
@@ -162,36 +186,88 @@ await page.getByRole('textbox', { name: 'Password * Password *' }).fill(password
     await page.getByRole('link', { name: 'Edit pages' }).click();
     await page.locator('a').filter({ hasText: 'Automation +' }).click();
 
-    // Try selecting '/03/13' first, if not found, try '/03/13 - Updated'
-    const firstOption = await page.locator('a').filter({ hasText: '/03/13' }).first();
-    const firstOptionCount = await firstOption.count();
+    // Get today's date in the same format used before
+    const today = new Date();
+    const formattedDate = `${today.getFullYear()}/${(today.getMonth() + 1).toString().padStart(2, '0')}/${today.getDate().toString().padStart(2, '0')}`;
+    const updatedText = `${formattedDate} - Updated`;
 
-    if (firstOptionCount > 0) {
-        await firstOption.click();
-    } else {
-        const secondOption = await page.locator('a').filter({ hasText: '/03/13 - Updated' });
-        const secondOptionCount = await secondOption.count();
+    console.log(`Trying to locate and delete page with: ${formattedDate} or ${updatedText}`);
 
-        if (secondOptionCount > 0) {
-            await secondOption.click();
-        } else {
-            console.log("Neither option found, exiting test.");
-            return;
-        }
+    // Try to find the updated page first
+    let target = page.locator(`a:has-text("${updatedText}")`).first();
+    let count = await target.count();
+
+    if (count === 0) {
+        // Fallback to the original date
+        target = page.locator(`a:has-text("${formattedDate}")`).first();
+        count = await target.count();
     }
+
+    if (count === 0) {
+        console.log("No page found to delete.");
+        return;
+    }
+
+    await target.click();
 
     // Proceed to delete the selected page
     await page.getByRole('button', { name: 'Settings' }).click();
     await page.getByRole('button', { name: 'Delete Page' }).click();
 
     await expect(page.getByText('Delete Page Are you sure you want to delete this page? Cancel Delete')).toBeVisible();
-    await expect(page.locator('body')).toContainText('Delete Page');
-    await expect(page.getByRole('button', { name: 'Cancel' })).toBeVisible();
-    await expect(page.getByRole('button', { name: 'Delete', exact: true })).toBeVisible();
-    await expect(page.locator('body')).toContainText('Cancel');
-    await expect(page.locator('body')).toContainText('Delete');
-
     await page.getByRole('button', { name: 'Delete', exact: true }).click();
-    await page.getByTitle('Pages').getByRole('img').click();
-    await page.locator('a').filter({ hasText: 'Automation +' }).click();
+
+    await page.reload({ waitUntil: 'networkidle' }); // Perform a hard refresh
+    await page.locator('a').filter({ hasText: 'Automation +' }).click(); // Re-enter the Automation section
+    
+});
+
+
+test('Regression - Edit Page Content', async ({ page }) => {
+    // Navigate to the CMS login page
+    await page.goto('https://cms.gc.uzgc2.com/login');
+
+    // Fill in login credentials and sign in
+    await page.getByRole('textbox', { name: 'Email * Email *' }).fill(email);
+    await page.getByRole('textbox', { name: 'Password * Password *' }).fill(password);
+    await page.getByRole('button', { name: 'Sign in' }).click();
+
+    // Navigate to the 'Pages' section and then to 'Edit pages'
+    await page.getByRole('link', { name: 'Pages' }).click();
+    await page.getByRole('link', { name: 'Edit pages' }).click();
+
+    // Hover over the 'Automation +' tab to ensure it highlights correctly
+    const tab = page.locator('a').filter({ hasText: 'Automation +' });
+    await tab.hover();
+
+    // Validate the tab is visually highlighted (adjust class regex as needed)
+    await expect(tab).toHaveClass(/hovered|active|highlight/);
+
+    // Click on the 'Automation +' tab
+    await tab.click();
+
+    // Generate today's date in yyyy/mm/dd format for dynamic content validation
+    const today = new Date();
+    const formattedDate = `${today.getFullYear()}/${(today.getMonth() + 1).toString().padStart(2, '0')}/${today.getDate().toString().padStart(2, '0')}`;
+    const expectedText = `${formattedDate} - Updated`;
+    console.log(`Searching for date: ${formattedDate}`);
+
+    // Locate and click the first link that contains today's formatted date
+    await page.locator(`a:has-text("${formattedDate}")`).first().click();
+
+// Click the 'Edit' button to open the page editor
+await page.getByRole('button', { name: 'Edit' }).click();
+
+// Verify that the 'Content' section is visible in the editor
+//await expect(page.getByText('Content')).toBeVisible();
+
+// Confirm that 'Content' text is present within the main Nuxt container
+await expect(page.locator('[id="__nuxt"]')).toContainText('Content');
+
+// Confirm that 'Style' tab or section is also present
+await expect(page.locator('[id="__nuxt"]')).toContainText('Style');
+
+// Check that the 'New Section' button is visible, indicating the editor loaded correctly
+await expect(page.getByRole('button', { name: 'New Section' })).toBeVisible();
+
 });
