@@ -21,7 +21,7 @@ if (!testEmail || !testPassword) {
 
 test('Regression - Page Builder Creation', async ({ page }) => {
 // Navigate to the login page
-await page.goto('https://cms.gc.uzgc2.com/login');
+await page.goto('https://cms.gc.uzstaging1.co.uk/');
 
 // Fill in the email field
 await page.getByRole('textbox', { name: 'Email * Email *' }).fill(email);
@@ -75,7 +75,7 @@ await expect(page.locator('[id="__nuxt"]')).toContainText(formattedDate);
 
 test('Regression - Page Settings', async ({ page }) => {
     // Navigate to the login page
-    await page.goto('https://cms.gc.uzgc2.com/login');
+    await page.goto('https://cms.gc.uzstaging1.co.uk/');
 
 // Enter email and password for authentication
 await page.getByRole('textbox', { name: 'Email * Email *' }).fill(email);
@@ -123,7 +123,7 @@ await page.getByRole('textbox', { name: 'Password * Password *' }).fill(password
 
 test('Regression - Page Management', async ({ page }) => {
     // Navigate to the CMS login page
-    await page.goto('https://cms.gc.uzgc2.com/login');
+    await page.goto('https://cms.gc.uzstaging1.co.uk/');
 
     // Fill in login credentials and sign in
     await page.getByRole('textbox', { name: 'Email * Email *' }).fill(email);
@@ -180,7 +180,7 @@ test('Regression - Page Management', async ({ page }) => {
 
 test.skip('Regression - Delete Child Page', async ({ page }) => {
     // Navigate to the login page
-    await page.goto('https://cms.gc.uzgc2.com/login');
+    await page.goto('https://cms.gc.uzstaging1.co.uk/');
 
     // Enter email and password for authentication
     await page.getByRole('textbox', { name: 'Email * Email *' }).fill(email);
@@ -231,7 +231,7 @@ test.skip('Regression - Delete Child Page', async ({ page }) => {
 
 test('Regression - Edit Page Content', async ({ page }) => {
     // Navigate to the CMS login page
-    await page.goto('https://cms.gc.uzgc2.com/login');
+    await page.goto('https://cms.gc.uzstaging1.co.uk/');
 
     // Fill in login credentials and sign in
     await page.getByRole('textbox', { name: 'Email * Email *' }).fill(email);
@@ -307,7 +307,7 @@ await expect(page.locator('section > div:nth-child(2)').first()).toBeVisible();
 
 test('Regression - Page Options', async ({ page }) => {
     // Navigate to the CMS login page
-    await page.goto('https://cms.gc.uzgc2.com/login');
+    await page.goto('https://cms.gc.uzstaging1.co.uk/');
 
     // Fill in login credentials and sign in
     await page.getByRole('textbox', { name: 'Email * Email *' }).fill(email);
