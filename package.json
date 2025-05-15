@@ -20,9 +20,13 @@
   "devDependencies": {
     "@playwright/test": "^1.51.0",
     "@types/node": "^22.13.9",
+    "@types/pixelmatch": "^5.2.6",
+    "@types/pngjs": "^6.0.5",
     "playwright": "^1.51.0"
   },
   "dependencies": {
-    "dotenv": "^16.4.7"
+    "dotenv": "^16.4.7",
+    "pixelmatch": "^7.1.0",
+    "pngjs": "^7.0.0"
   }
 }
