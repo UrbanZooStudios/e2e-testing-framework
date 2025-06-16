@@ -9,6 +9,10 @@ export interface SiteToTest {
   liveMatchesUrl?: string;
   previewTeamsUrl?: string;
   liveTeamsUrl?: string;
+  previewTicketsUrl?: string;
+  liveTicketsUrl?: string;    
+  previewStoreUrl?: string;   
+  liveStoreUrl?: string;    
 }
 
 export const sitesToTest: SiteToTest[] = [
@@ -286,6 +290,10 @@ export const sitesToTest: SiteToTest[] = [
     liveMatchesUrl: "https://www.evertonfc.com/matches",
     previewTeamsUrl: "https://livepreview.evertonfc.com/teams",
     liveTeamsUrl: "https://www.evertonfc.com/teams",
+    previewTicketsUrl: "https://livepreview.evertonfc.com/tickets", // ✅ new
+    liveTicketsUrl: "https://www.evertonfc.com/tickets",             // ✅ new
+    previewStoreUrl: "https://livepreview.evertonfc.com/store",     // ✅ new
+    liveStoreUrl: "https://www.evertonfc.com/store",    
     cookieSelector: '#onetrust-accept-btn-handler',
   },
   {
