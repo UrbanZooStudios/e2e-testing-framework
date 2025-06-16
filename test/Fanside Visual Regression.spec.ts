@@ -1,4 +1,4 @@
-import { test, expect, chromium, Browser, Page, BrowserContext, Route } from '@playwright/test';
+import { test, chromium, Browser, Page, BrowserContext, Route } from '@playwright/test';
 import { PNG } from 'pngjs';
 import pixelmatch from 'pixelmatch';
 import dotenv from 'dotenv';
@@ -17,81 +17,62 @@ type VisualTestResult = {
 
 const results: VisualTestResult[] = [];
 
+function slugify(name: string) {
+  return name.toLowerCase().replace(/\s+/g, '_');
+}
+
 async function acceptCookiesIfPresent(page: Page, customSelector?: string) {
   const fallbackSelectors = [
+    customSelector,
     '#onetrust-accept-btn-handler',
     'button:has-text("Accept All Cookies")',
     'button:has-text("Accept Cookies")',
     'button:has-text("Got it")',
     '[aria-label="accept cookies"]',
     '.cookie-banner-accept',
-  ];
+  ].filter(Boolean);
 
-  const selectorsToTry = customSelector ? [customSelector, ...fallbackSelectors] : fallbackSelectors;
-
-  for (const selector of selectorsToTry) {
+  for (const selector of fallbackSelectors) {
     try {
-      const locator = page.locator(selector);
+      const locator = page.locator(selector!);
       if (await locator.isVisible({ timeout: 2000 })) {
         await locator.click({ timeout: 2000 });
         await page.waitForTimeout(1000);
         break;
       }
-    } catch {
-      // Ignore errors and try next
-    }
+    } catch {}
   }
 }
 
-async function hideDynamicAds(page: Page) {
-  await page.addStyleTag({
-    content: `
-      [id^="adlnk_"],
-      [id^="adCont_"],
-      iframe[src*="adition.com"],
-      iframe[src*="doubleclick.net"],
-      iframe[src*="googlesyndication.com"],
-      img[alt="Click here"],
-      img[alt*="advert"],
-      img[src*="adition.com"],
-      img[src*="doubleclick.net"],
-      img[src*="googlesyndication.com"],
-      div[class*="ad"],
-      div[id*="ad"],
-      .adslot,
-      .adsbygoogle,
-      .sponsor,
-      .sponsored,
-      [data-testid*="ad"] {
-        display: none !important;
-        visibility: hidden !important;
-      }
-    `,
-  });
-
-  await page.evaluate(() => {
-    const observer = new MutationObserver(mutations => {
-      mutations.forEach(mutation => {
-        mutation.addedNodes.forEach(node => {
-          if (
-            node instanceof HTMLElement &&
-            (
-              node.innerHTML.includes('ad') ||
-              node.id.includes('ad') ||
-              node.className.includes('ad') ||
-              node.innerHTML.includes('adition.com') ||
-              node.innerHTML.includes('doubleclick.net')
-            )
-          ) {
-            node.style.display = 'none';
-            node.style.visibility = 'hidden';
-          }
-        });
-      });
+async function autoScroll(page: Page) {
+  await page.evaluate(async () => {
+    await new Promise<void>((resolve) => {
+      let totalHeight = 0;
+      const distance = 100;
+      const timer = setInterval(() => {
+        window.scrollBy(0, distance);
+        totalHeight += distance;
+        if (totalHeight >= document.body.scrollHeight) {
+          clearInterval(timer);
+          resolve();
+        }
+      }, 100);
     });
-
-    observer.observe(document.body, { childList: true, subtree: true });
   });
+  await page.waitForTimeout(2000);
+}
+
+function normalizeImageSizes(imgA: PNG, imgB: PNG): [PNG, PNG] {
+  const width = Math.max(imgA.width, imgB.width);
+  const height = Math.max(imgA.height, imgB.height);
+
+  const pad = (img: PNG) => {
+    const padded = new PNG({ width, height });
+    PNG.bitblt(img, padded, 0, 0, img.width, img.height, 0, 0);
+    return padded;
+  };
+
+  return [pad(imgA), pad(imgB)];
 }
 
 function blockAdRequests(context: BrowserContext) {
@@ -118,7 +99,12 @@ async function runVisualTest(
   siteName: string,
   cookieSelector?: string
 ) {
-  console.log(`Running visual test: ${siteName} - ${label}`);
+  const slug = slugify(siteName);
+  const previewPath = `${screenshotsDir}/previews/${slug}_preview_${label}_${dateString}.png`;
+  const livePath = `${screenshotsDir}/lives/${slug}_live_${label}_${dateString}.png`;
+  const diffPath = `${screenshotsDir}/diffs/${slug}_diff_${label}_${dateString}.png`;
+
+  console.log(`🧪 Testing ${siteName} - ${label}`);
 
   const contextPreview = await browser.newContext({
     httpCredentials: {
@@ -129,57 +115,43 @@ async function runVisualTest(
   blockAdRequests(contextPreview);
   const pagePreview = await contextPreview.newPage();
   await pagePreview.setViewportSize({ width: 1280, height: 800 });
-  await pagePreview.goto(previewUrl, { timeout: 45000, waitUntil: 'load' });
+  await pagePreview.goto(previewUrl, { timeout: 60000, waitUntil: 'load' });
   await acceptCookiesIfPresent(pagePreview, cookieSelector);
-  await pagePreview.waitForTimeout(3000);
-  await hideDynamicAds(pagePreview);
-
-  const previewPath = `${screenshotsDir}/previews/${siteName}_preview_${label}_${dateString}.png`;
+  await autoScroll(pagePreview);
   await pagePreview.screenshot({ path: previewPath, fullPage: true });
-  console.log(`✅ Saved preview screenshot: ${previewPath}`);
 
   const contextLive = await browser.newContext();
   blockAdRequests(contextLive);
   const pageLive = await contextLive.newPage();
   await pageLive.setViewportSize({ width: 1280, height: 800 });
-  await pageLive.goto(liveUrl, { timeout: 45000, waitUntil: 'load' });
+  await pageLive.goto(liveUrl, { timeout: 60000, waitUntil: 'load' });
   await acceptCookiesIfPresent(pageLive, cookieSelector);
-  await pageLive.waitForTimeout(3000);
-  await hideDynamicAds(pageLive);
-
-  const livePath = `${screenshotsDir}/lives/${siteName}_live_${label}_${dateString}.png`;
+  await autoScroll(pageLive);
   await pageLive.screenshot({ path: livePath, fullPage: true });
-  console.log(`✅ Saved live screenshot: ${livePath}`);
 
   const img1 = PNG.sync.read(fs.readFileSync(previewPath));
   const img2 = PNG.sync.read(fs.readFileSync(livePath));
+  const [img1Norm, img2Norm] = normalizeImageSizes(img1, img2);
+  const diff = new PNG({ width: img1Norm.width, height: img1Norm.height });
 
   let pixelDiff = 0;
   let status = 'PASS';
 
   try {
-    if (img1.width !== img2.width || img1.height !== img2.height) {
-      throw new Error('Image sizes do not match');
-    }
-
-    const width = img1.width;
-    const height = img1.height;
-    const diff = new PNG({ width, height });
-
-    pixelDiff = pixelmatch(img1.data, img2.data, diff.data, width, height, { threshold: 0.1 });
-
-    const diffPath = `${screenshotsDir}/diffs/${siteName}_diff_${label}_${dateString}.png`;
+    pixelDiff = pixelmatch(
+      img1Norm.data,
+      img2Norm.data,
+      diff.data,
+      img1Norm.width,
+      img1Norm.height,
+      { threshold: 0.1 }
+    );
     fs.writeFileSync(diffPath, PNG.sync.write(diff));
-    console.log(`✅ Saved diff image: ${diffPath} (Pixel difference: ${pixelDiff})`);
-
-    if (pixelDiff >= 100) {
-      status = 'FAIL';
-      throw new Error(`Pixel difference: ${pixelDiff}`);
-    }
+    if (pixelDiff >= 100) status = 'FAIL';
   } catch (err) {
     status = 'FAIL';
-    pixelDiff = -1; // Indicate comparison failed
-    console.error(`⚠️ Visual comparison failed for ${siteName} - ${label}: ${(err as Error).message}`);
+    pixelDiff = -1;
+    console.error(`⚠️ Comparison failed for ${siteName} - ${label}:`, err);
   }
 
   results.push({
@@ -192,16 +164,14 @@ async function runVisualTest(
 
 function generateHtmlReport(results: VisualTestResult[], dateString: string, outputDir: string) {
   const rows = results.map(r => {
-    const previewImg = `../previews/${r.site}_preview_${r.label}_${dateString}.png`;
-    const liveImg = `../lives/${r.site}_live_${r.label}_${dateString}.png`;
-    const diffImg = `../diffs/${r.site}_diff_${r.label}_${dateString}.png`;
+    const slug = slugify(r.site);
     return `
       <tr>
         <td>${r.site}</td>
         <td>${r.label}</td>
-        <td><img src="${previewImg}" width="300"/></td>
-        <td><img src="${liveImg}" width="300"/></td>
-        <td><img src="${diffImg}" width="300"/></td>
+        <td><img src="../previews/${slug}_preview_${r.label}_${dateString}.png" width="300"/></td>
+        <td><img src="../lives/${slug}_live_${r.label}_${dateString}.png" width="300"/></td>
+        <td><img src="../diffs/${slug}_diff_${r.label}_${dateString}.png" width="300"/></td>
         <td>${r.diff >= 0 ? r.diff : 'ERROR'}</td>
         <td style="color: ${r.status === 'PASS' ? 'green' : 'red'};">${r.status}</td>
       </tr>
@@ -245,102 +215,55 @@ function generateHtmlReport(results: VisualTestResult[], dateString: string, out
 
 test.afterAll(() => {
   const today = new Date();
-  const day = String(today.getDate()).padStart(2, '0');
-  const month = String(today.getMonth() + 1).padStart(2, '0');
-  const dateString = `${day}-${month}`;
-
+  const dateString = `${String(today.getDate()).padStart(2, '0')}-${String(today.getMonth() + 1).padStart(2, '0')}`;
   const summaryDir = path.join('screenshots', 'summary');
-  if (!fs.existsSync(summaryDir)) {
-    fs.mkdirSync(summaryDir);
-  }
+  if (!fs.existsSync(summaryDir)) fs.mkdirSync(summaryDir, { recursive: true });
 
-  const summaryPath = path.join(summaryDir, `summary-${dateString}.csv`);
-  const header = 'Site,Page,Pixel Difference,Status\n';
-  const body = results
-    .map(r => `${r.site},${r.label},${r.diff},${r.status}`)
-    .join('\n');
-
-  fs.writeFileSync(summaryPath, header + body);
-  console.log(`\n📄 Summary saved to: ${summaryPath}`);
-
+  const csv = results.map(r => `${r.site},${r.label},${r.diff},${r.status}`).join('\n');
+  fs.writeFileSync(path.join(summaryDir, `summary-${dateString}.csv`), `Site,Page,Pixel Difference,Status\n${csv}`);
   generateHtmlReport(results, dateString, summaryDir);
 });
 
-test.describe('Visual regression for all club sites', () => {
+test.describe('Fanside Visual Regression - Flat Folder Layout', () => {
   const screenshotsDir = 'screenshots';
 
   test.beforeAll(() => {
-    if (!fs.existsSync(screenshotsDir)) {
-      fs.mkdirSync(screenshotsDir);
-    }
+    ['previews', 'lives', 'diffs'].forEach(dir => {
+      const full = path.join(screenshotsDir, dir);
+      if (!fs.existsSync(full)) fs.mkdirSync(full, { recursive: true });
 
-    const subdirs = ['previews', 'lives', 'diffs'];
-    for (const dir of subdirs) {
-      const fullPath = `${screenshotsDir}/${dir}`;
-      if (!fs.existsSync(fullPath)) {
-        fs.mkdirSync(fullPath);
-      }
-    }
-
-    const today = new Date();
-    const day = String(today.getDate()).padStart(2, '0');
-    const month = String(today.getMonth() + 1).padStart(2, '0');
-    const dateString = `${day}-${month}`;
-
-    for (const dir of subdirs) {
-      const fullPath = `${screenshotsDir}/${dir}`;
-      const files = fs.readdirSync(fullPath);
+      const today = new Date();
+      const dateString = `${String(today.getDate()).padStart(2, '0')}-${String(today.getMonth() + 1).padStart(2, '0')}`;
+      const files = fs.readdirSync(full);
       for (const file of files) {
         if (file.endsWith('.png') && !file.includes(dateString)) {
-          fs.unlinkSync(`${fullPath}/${file}`);
+          fs.unlinkSync(path.join(full, file));
         }
       }
-    }
+    });
   });
 
   for (const site of sitesToTest) {
     test.describe(site.name, () => {
       test('Visual regression check (home, news, matches, teams)', async () => {
-        test.setTimeout(180000);
-
         const today = new Date();
-        const day = String(today.getDate()).padStart(2, '0');
-        const month = String(today.getMonth() + 1).padStart(2, '0');
-        const dateString = `${day}-${month}`;
-
+        const dateString = `${String(today.getDate()).padStart(2, '0')}-${String(today.getMonth() + 1).padStart(2, '0')}`;
         const browser = await chromium.launch();
 
-        try {
-          console.log(`--- HOME PAGE TEST: ${site.name} ---`);
-          await runVisualTest(browser, 'home', site.previewUrl, site.liveUrl, screenshotsDir, dateString, site.name, site.cookieSelector);
-        } catch (e) {
-          console.error(`❌ Home test failed for ${site.name} - ${(e as Error).message}`);
-        }
+        const pages = [
+          { label: 'home', preview: site.previewUrl, live: site.liveUrl },
+          { label: 'news', preview: site.previewNewsUrl, live: site.liveNewsUrl },
+          { label: 'matches', preview: site.previewMatchesUrl, live: site.liveMatchesUrl },
+          { label: 'teams', preview: site.previewTeamsUrl, live: site.liveTeamsUrl },
+        ];
 
-        if (site.previewNewsUrl && site.liveNewsUrl) {
-          try {
-            console.log(`--- NEWS PAGE TEST: ${site.name} ---`);
-            await runVisualTest(browser, 'news', site.previewNewsUrl, site.liveNewsUrl, screenshotsDir, dateString, site.name, site.cookieSelector);
-          } catch (e) {
-            console.error(`❌ News test failed for ${site.name} - ${(e as Error).message}`);
-          }
-        }
-
-        if (site.previewMatchesUrl && site.liveMatchesUrl) {
-          try {
-            console.log(`--- MATCHES PAGE TEST: ${site.name} ---`);
-            await runVisualTest(browser, 'matches', site.previewMatchesUrl, site.liveMatchesUrl, screenshotsDir, dateString, site.name, site.cookieSelector);
-          } catch (e) {
-            console.error(`❌ Matches test failed for ${site.name} - ${(e as Error).message}`);
-          }
-        }
-
-        if (site.previewTeamsUrl && site.liveTeamsUrl) {
-          try {
-            console.log(`--- TEAMS PAGE TEST: ${site.name} ---`);
-            await runVisualTest(browser, 'teams', site.previewTeamsUrl, site.liveTeamsUrl, screenshotsDir, dateString, site.name, site.cookieSelector);
-          } catch (e) {
-            console.error(`❌ Teams test failed for ${site.name} - ${(e as Error).message}`);
+        for (const page of pages) {
+          if (page.preview && page.live) {
+            try {
+              await runVisualTest(browser, page.label, page.preview, page.live, screenshotsDir, dateString, site.name, site.cookieSelector);
+            } catch (e) {
+              console.error(`❌ ${page.label} test failed for ${site.name} - ${(e as Error).message}`);
+            }
           }
         }
 
