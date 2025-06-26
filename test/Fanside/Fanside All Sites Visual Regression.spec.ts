@@ -4,8 +4,7 @@ import pixelmatch from 'pixelmatch';
 import dotenv from 'dotenv';
 import fs from 'fs';
 import path from 'path';
-import { sitesToTest } from './config/sitesToTest';
-
+import { sitesToTest } from '../config/sitesToTest';
 dotenv.config();
 
 type VisualTestResult = {
