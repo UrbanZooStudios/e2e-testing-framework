@@ -1,3 +1,4 @@
+//  npx playwright test "test/Fanside/Fanside All Sites Visual Regression.spec.ts"
 import { test, chromium, Browser, Page, BrowserContext, Route } from '@playwright/test';
 import { PNG } from 'pngjs';
 import pixelmatch from 'pixelmatch';

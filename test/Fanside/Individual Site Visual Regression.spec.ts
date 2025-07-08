@@ -1,3 +1,4 @@
+// npx playwright test "test/Fanside/Individual Site Visual Regression.spec.ts"
 import { test, expect, chromium, Browser, Page } from '@playwright/test';
 import { PNG } from 'pngjs';
 import pixelmatch from 'pixelmatch';
@@ -83,6 +84,7 @@ async function runSingleVisualTest(
     });
   });
   await previewPage.waitForTimeout(2000);
+  await previewPage.waitForTimeout(10000); // ✅ Wait 10 seconds before preview screenshot
 
   const previewPath = `${screenshotsDir}/previews/${label}_${dateString}.png`;
   await previewPage.screenshot({ path: previewPath, fullPage: true });
@@ -109,6 +111,7 @@ async function runSingleVisualTest(
     });
   });
   await livePage.waitForTimeout(2000);
+  await livePage.waitForTimeout(10000); // ✅ Wait 10 seconds before live screenshot
 
   const livePath = `${screenshotsDir}/lives/${label}_${dateString}.png`;
   await livePage.screenshot({ path: livePath, fullPage: true });
@@ -133,14 +136,15 @@ async function runSingleVisualTest(
   console.log(`✅ ${label} | Pixel diff: ${pixelDiff}`);
 }
 
-// Multi-test setup: Each page gets its own test
 test.describe('Visual Regression Per Page', () => {
   const site = {
-    name: 'Wrexham AFC',
-    preview: 'https://livepreview.wrexhamafc.co.uk',
-    live: 'https://www.wrexhamafc.co.uk/',
+    //name: 'Wrexham AFC',
+    //preview: 'https://livepreview.wrexhamafc.co.uk',
+    //live: 'https://www.wrexhamafc.co.uk/',
+    name: 'Everton FC',
+    preview: "https://livepreview.evertonfc.com",
+    live: "https://www.evertonfc.com",
   };
-
   const pages = [
     { label: 'home', path: '/' },
     { label: 'news', path: '/news' },
