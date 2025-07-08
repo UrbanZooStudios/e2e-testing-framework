@@ -38,9 +38,6 @@ Section 1 - Images Layout = Image 1 = Narrow, Image 2 = Standard, Image 3 = Full
 Section 2 - Gallery Widget = Image 1 = Standard, Image 2 = Wide,Image 3 = Full Width, DEFECT - Gallery Widget
 Section 3 - Row - 1 Split Container - Gallery Widget - Image 1 = Standard, Image 2 = Wide,Image 3 = Full Width, DEFECT - Gallery Widget
 
-
-
-
 */
 
   const context = await browser.newContext({
