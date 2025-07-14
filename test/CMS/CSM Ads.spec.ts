@@ -1,3 +1,5 @@
+//npx playwright test "test/CMS/CSM Ads.spec.ts" --headed
+
 import { test, expect } from '@playwright/test';
 import * as dotenv from 'dotenv';
 
@@ -21,7 +23,8 @@ if (!testEmail || !testPassword) {
 test('Add Advertising', async ({ page }) => {
     
     // Navigate to the login page
-    await page.goto('https://cms.gc.uzgc2.com/login');
+    //await page.goto('https://cms.gc.uzgc2.com/login');
+    await page.goto('https://cms.gc.uzstaging1.co.uk/login');
 
     // Enter email and password for authentication
     await page.getByRole('textbox', { name: 'Email * Email *' }).fill(email);

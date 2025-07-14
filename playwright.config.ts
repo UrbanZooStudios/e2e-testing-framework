@@ -1,7 +1,12 @@
+import * as dotenv from 'dotenv';
+dotenv.config(); // ✅ Load environment variables from .env
+
 import { defineConfig } from '@playwright/test';
 
 export default defineConfig({
   testDir: './test',  // Adjust if your test directory is different
+  testIgnore: ['**/EFL/**'],  // Ignore the EFL folder
+
   timeout: 30000,
   expect: {
     timeout: 5000,

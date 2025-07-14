@@ -1,3 +1,5 @@
+//npx playwright test "test/CMS/CMS Live Preview Page 1.spec.ts" --headed
+
 import { test, expect } from '@playwright/test';
 import { PNG } from 'pngjs';
 import pixelmatch from 'pixelmatch';
