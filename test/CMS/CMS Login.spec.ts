@@ -1,4 +1,4 @@
-// npx playwright test "test/CMS/CSM Login.spec.ts" --headed
+// npx playwright test "test/CMS/CMS Login.spec.ts" --headed
 import { test, expect } from '@playwright/test';
 import { getCredentials } from '../Utils/getCredentials';
 
