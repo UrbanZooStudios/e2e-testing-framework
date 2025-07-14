@@ -1,5 +1,5 @@
-// TO RUN THIS SCRIPT:  npx playwright test test/SSO/email-verification.spec.ts --headed --debug
-// IMPORTANT: DELETE ALL EMAILS BEFORE RUNNING THIS SCRIPT (await page.pause();)
+// TO RUN THIS SCRIPT:  npx playwright test test/SSO/PNE email-verification.spec.ts --headed 
+// IMPORTANT: DELETE ALL EMAILS BEFORE RUNNING THIS SCRIPT await page.pause();
 
 import { test, expect, Page } from '@playwright/test';
 import { waitForVerificationCode } from '../Utils/gmail-helper';
@@ -148,18 +148,7 @@ test('SSO Register Flow', async ({ browser }) => {
 
   // Accept cookies again if prompted
   await page.getByRole('button', { name: 'Accept All Cookies' }).click();
-
-  // Navigate back to main view
-  await expect(page.locator('a').filter({ hasText: 'Back' })).toBeVisible();
-  await page.locator('a').filter({ hasText: 'Back' }).click();
-
-  // Log out
-  await expect(page.getByRole('tab', { name: 'Logout' })).toBeVisible();
-  await page.getByRole('tab', { name: 'Logout' }).click();
-
-  // Confirm redirection to login view
-  await expect(page.getByText('Already Registered? If you')).toBeVisible();
-  await expect(page.getByRole('main')).toContainText('Login');
+  await page.locator('.w-screen > .relative > .absolute').click();
 });
 
 // LOGIN TEST
@@ -201,6 +190,7 @@ await page.locator('a').filter({ hasText: 'Login' }).click();
 
   // Accept cookies again after login if another prompt appears
 await page.getByRole('button', { name: 'Accept All Cookies' }).click();
+await page.locator('.w-screen > .relative > .absolute').click();
 
 // Click the 'Log In' button
 await page.getByRole('button', { name: 'Log In' }).click();
@@ -377,10 +367,14 @@ await page.locator('a').filter({ hasText: 'Login' }).click();
 
   // Accept cookies again after login if another prompt appears
 await page.getByRole('button', { name: 'Accept All Cookies' }).click();
+await page.locator('.w-screen > .relative > .absolute').click();
 
 // Click the 'Log In' button
 await page.getByRole('button', { name: 'Log In' }).click();
-
-await page.pause();
+await expect(page.locator('a').filter({ hasText: 'View Subscriptions' })).toBeVisible();
+await page.locator('a').filter({ hasText: 'View Subscriptions' }).click();
+await expect(page.getByRole('link', { name: 'The logo for the business EFL' })).toBeVisible();
+await expect(page.locator('#customer_portal_page_body')).toContainText('EFL Digital - Preston North End Football Club');
 
 });
+

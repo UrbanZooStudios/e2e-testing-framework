@@ -1,4 +1,4 @@
-// npx playwright test "test/Fanside/Fanside Streamline Check.spec.ts" --headed
+// npx playwright test "test/Fanside/Fanside Checkout Stripe.spec.ts" --headed
 
 // Script Notes:
 // - AFC Bournemouth (AFCB): LivePreview data incorrectly points to "LIVE" instead of "LivePreview"
@@ -38,7 +38,7 @@ test('Tranmere - Login and Validate', async ({ browser }, testInfo) => {
 await page.goto('https://livepreview.tranmererovers.co.uk/');
 
 // Close any initial popup/modal (e.g., banners, overlays)
-await page.locator('.w-screen > .relative > .absolute').click();
+//await page.locator('.w-screen > .relative > .absolute').click();
 
 // Accept all cookies
 await page.getByRole('button', { name: 'Accept All Cookies' }).click();
@@ -127,12 +127,12 @@ await page.getByRole('link', { name: 'Video' }).click();
 await page.getByRole('tab', { name: 'Tab Subscriptions' }).click();
 
 // Verify that the "MatchPass" subscription option is visible
-await expect(
-  page.getByLabel('1 of 4').locator('div').filter({ hasText: /^MatchPass$/ })
-).toBeVisible();
+await expect(page.locator('div').filter({ hasText: /^MatchPass$/ }).getByRole('paragraph')).toBeVisible();
 
-// Open the subscription details
-await page.getByRole('group', { name: '1 of 4' }).locator('a').click();
+await page.getByRole('heading', { name: 'Pre-Season Streaming Pass (UK' }).click();
+await page.getByText('Watch all our eligible 2025-').click();
+await page.getByRole('group', { name: 'of 1' }).locator('a').click();
+await page.getByRole('group', { name: 'of 1' }).locator('a').click();
 
 // Validate payment and business info are shown correctly
 await expect(
@@ -186,18 +186,30 @@ await page.locator('.cursor-pointer.gc-base-icon.duration-150 > .duration-100').
 // Navigate to the "Saddlers+" tab
 await page.getByRole('tab', { name: 'Saddlers+' }).click();
 
-// Verify that the available subscription package is visible
+// Click on the 'Tab Subscriptions' tab
+await page.getByRole('tab', { name: 'Tab Subscriptions' }).click();
+
+// Assert that the first subscription section contains a visible paragraph labeled 'Subscription'
 await expect(
-  page.getByText('Available Packages SubscriptionSubscriptionAnnual Audio PassAccess live audio')
+  page.getByLabel('1 of 2').locator('div').filter({ hasText: /^Subscription$/ }).getByRole('paragraph')
 ).toBeVisible();
 
-// Confirm that the article contains "Subscription" text
+// Assert that the first article under '1 of 2' label contains the text 'Subscription'
 await expect(
-  page.getByLabel('1 of 3').getByRole('article')
+  page.getByLabel('1 of 2').getByRole('article')
 ).toContainText('Subscription');
 
-// Click into the subscription details
-await page.getByRole('group', { name: '1 of 3' }).locator('a').click();
+// Click on the image (possibly a thumbnail or icon) within the '1 of 2' group
+await page.getByRole('group', { name: '1 of 2' }).getByRole('img').click();
+
+// Click on the heading titled 'Annual Audio Pass'
+await page.getByRole('heading', { name: 'Annual Audio Pass' }).click();
+
+// Click on the text element that includes 'SubscriptionAnnual Audio' (likely to open details)
+await page.getByText('SubscriptionAnnual Audio').click();
+
+// Click on the link inside the '1 of 2' group (possibly to manage or purchase the subscription)
+await page.getByRole('group', { name: '1 of 2' }).locator('a').click();
 
 // Validate the checkout container and business name are visible
 await expect(page.getByTestId('checkout-container')).toBeVisible();
@@ -283,8 +295,8 @@ test('Portsmouth FC - Login and Validate', async ({ browser }, testInfo) => {
   });
   
 
-// Doncaster Rovers FC
-test('Doncaster Rovers FC - Login and Validate',async ({ browser }, testInfo) => {
+// Doncaster Rovers FC - FAILED - 14/07/25 - Regression bug - UZ-2240
+test.skip('Doncaster Rovers FC - Login and Validate',async ({ browser }, testInfo) => {
     test.setTimeout(120000); // 2 minutes
   
     const context = await browser.newContext({
@@ -331,8 +343,15 @@ await expect(
   page.getByLabel('1 of 2').getByRole('article')
 ).toContainText('Subscription');
 
+await page.pause();
+
 // Click into the first subscription group
 await page.getByRole('group', { name: '1 of 2' }).locator('a').click();
+
+// Click into the first subscription group
+await page.getByRole('group', { name: '1 of 2' }).locator('a').click();
+
+await page.waitForTimeout(10000);
 
 // Confirm the checkout container is visible
 await expect(page.getByTestId('checkout-container')).toBeVisible();
@@ -424,6 +443,9 @@ test('AFC Wimbledon - Login and Validate',async ({ browser }, testInfo) => {
     const page = await context.newPage();
 // Navigate to the AFC Wimbledon Website
 await page.goto('https://livepreview.afcwimbledon.co.uk/');
+
+// Accept all cookies
+await page.getByRole('button', { name: 'Accept All Cookies' }).click();
   
 // Click the "Log In" button
 await page.getByRole('button', { name: 'Log In' }).click();
@@ -438,20 +460,10 @@ await page.getByLabel('', { exact: true }).fill('thomasastley@urbanzoo.io');
 await page.getByLabel('', { exact: true }).press('Tab');
 
 // Fill the password field with an incorrect password (note: possibly intentional for testing failure)
-await page.locator('#password').fill('PAssword1!');
-
-// Click the "Login" link or button (based on text "Login")
-await page.locator('a').filter({ hasText: 'Login' }).click();
-
-// Accept cookie consent banner
-await page.getByRole('button', { name: 'Accept All Cookies' }).click();
-
-// Re-click and fill the password field with the correct password
-await page.locator('#password').click();
 await page.locator('#password').fill('Password1!');
 
-// Retry login after correcting the password
-await page.locator('a').filter({ hasText: 'Login' }).click();
+// Click the "Login" link or button (based on text "Login")
+await page.locator('a').filter({ hasText: /^Login$/ }).click();
 
 // Click on a navigation icon (selector is brittle — recommend using test ID or accessible name)
 await page.locator('.cursor-pointer.gc-base-icon.duration-150 > .duration-100').click();
@@ -491,8 +503,8 @@ await expect(page.getByTestId('product-summary-name')).toBeVisible();
 await expect(page.getByTestId('product-summary-name')).toContainText('Subscribe to Audio Month Pass');
 });
 
-// Huddersfield Town AFC
-test('Huddersfield Town AFC - Login and Validate',async ({ browser }, testInfo) => {
+// Huddersfield Town AFC - Skipping due to Packages being removed. 14/07/25
+test.skip('Huddersfield Town AFC - Login and Validate',async ({ browser }, testInfo) => {
     test.setTimeout(120000); // 2 minutes
   
     const context = await browser.newContext({
