@@ -271,7 +271,7 @@ await expect(firstNameTextbox).toBeVisible();
 await expect(mobilePhoneTextbox).toBeVisible();
 });
 
-test.only('SSO Flow - Preferences Validation', async ({ browser }) => {
+test('SSO Flow - Preferences Validation', async ({ browser }) => {
   // Define path to the saved credentials file from the registration test
   const credentialsPath = path.resolve(__dirname, '../tmp/credentials.json');
 
@@ -307,6 +307,7 @@ await page.getByRole('textbox', { name: 'Password' }).fill(password);
   // Click the Login button
 await page.locator('a').filter({ hasText: 'Login' }).click();
 await page.getByRole('button', { name: 'Accept All Cookies' }).click();
+await page.locator('.w-screen > .relative > .absolute').click();
 await page.getByRole('button', { name: 'Log In' }).click();
 await page.getByRole('link', { name: 'Manage Account' }).click();
 await page.getByRole('button', { name: 'Accept All Cookies' }).click();
