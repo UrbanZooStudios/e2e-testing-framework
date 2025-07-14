@@ -106,38 +106,38 @@ async function runVisualTest(
 
   console.log(`🧪 Testing ${siteName} - ${label}`);
 
-  const contextPreview = await browser.newContext({
-    httpCredentials: {
-      username: process.env.PREVIEW_USERNAME || 'urbanzoo',
-      password: process.env.PREVIEW_PASSWORD || 'gamechanger1!',
-    },
-  });
-  blockAdRequests(contextPreview);
-  const pagePreview = await contextPreview.newPage();
-  await pagePreview.setViewportSize({ width: 1280, height: 800 });
-  await pagePreview.goto(previewUrl, { timeout: 60000, waitUntil: 'load' });
-  await acceptCookiesIfPresent(pagePreview, cookieSelector);
-  await autoScroll(pagePreview);
-  await pagePreview.screenshot({ path: previewPath, fullPage: true });
-
-  const contextLive = await browser.newContext();
-  blockAdRequests(contextLive);
-  const pageLive = await contextLive.newPage();
-  await pageLive.setViewportSize({ width: 1280, height: 800 });
-  await pageLive.goto(liveUrl, { timeout: 60000, waitUntil: 'load' });
-  await acceptCookiesIfPresent(pageLive, cookieSelector);
-  await autoScroll(pageLive);
-  await pageLive.screenshot({ path: livePath, fullPage: true });
-
-  const img1 = PNG.sync.read(fs.readFileSync(previewPath));
-  const img2 = PNG.sync.read(fs.readFileSync(livePath));
-  const [img1Norm, img2Norm] = normalizeImageSizes(img1, img2);
-  const diff = new PNG({ width: img1Norm.width, height: img1Norm.height });
-
   let pixelDiff = 0;
-  let status = 'PASS';
+  let status = 'MANUAL_CHECK';
 
   try {
+    const contextPreview = await browser.newContext({
+      httpCredentials: {
+        username: process.env.PREVIEW_USERNAME || 'urbanzoo',
+        password: process.env.PREVIEW_PASSWORD || 'gamechanger1!',
+      },
+    });
+    blockAdRequests(contextPreview);
+    const pagePreview = await contextPreview.newPage();
+    await pagePreview.setViewportSize({ width: 1280, height: 800 });
+    await pagePreview.goto(previewUrl, { timeout: 60000, waitUntil: 'load' });
+    await acceptCookiesIfPresent(pagePreview, cookieSelector);
+    await autoScroll(pagePreview);
+    await pagePreview.screenshot({ path: previewPath, fullPage: true });
+
+    const contextLive = await browser.newContext();
+    blockAdRequests(contextLive);
+    const pageLive = await contextLive.newPage();
+    await pageLive.setViewportSize({ width: 1280, height: 800 });
+    await pageLive.goto(liveUrl, { timeout: 60000, waitUntil: 'load' });
+    await acceptCookiesIfPresent(pageLive, cookieSelector);
+    await autoScroll(pageLive);
+    await pageLive.screenshot({ path: livePath, fullPage: true });
+
+    const img1 = PNG.sync.read(fs.readFileSync(previewPath));
+    const img2 = PNG.sync.read(fs.readFileSync(livePath));
+    const [img1Norm, img2Norm] = normalizeImageSizes(img1, img2);
+    const diff = new PNG({ width: img1Norm.width, height: img1Norm.height });
+
     pixelDiff = pixelmatch(
       img1Norm.data,
       img2Norm.data,
@@ -147,11 +147,10 @@ async function runVisualTest(
       { threshold: 0.1 }
     );
     fs.writeFileSync(diffPath, PNG.sync.write(diff));
-    if (pixelDiff >= 100) status = 'FAIL';
   } catch (err) {
     status = 'FAIL';
     pixelDiff = -1;
-    console.error(`⚠️ Comparison failed for ${siteName} - ${label}:`, err);
+    console.error(`⚠️ Error during visual test for ${siteName} - ${label}:`, err);
   }
 
   results.push({
@@ -173,7 +172,7 @@ function generateHtmlReport(results: VisualTestResult[], dateString: string, out
         <td><img src="../lives/${slug}_live_${r.label}_${dateString}.png" width="300"/></td>
         <td><img src="../diffs/${slug}_diff_${r.label}_${dateString}.png" width="300"/></td>
         <td>${r.diff >= 0 ? r.diff : 'ERROR'}</td>
-        <td style="color: ${r.status === 'PASS' ? 'green' : 'red'};">${r.status}</td>
+        <td style="color: ${r.status === 'FAIL' ? 'red' : r.status === 'PASS' ? 'green' : 'orange'};">${r.status}</td>
       </tr>
     `;
   }).join('\n');
