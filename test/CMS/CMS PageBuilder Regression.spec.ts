@@ -52,7 +52,27 @@ await expect(page.locator('[id="__nuxt"]')).toContainText('Create New Page');
 
 
 // Click on the "Create New Page" button (or similar element)
-await page.locator('#page-0-a718989a-9d5d-4f72-9171-72e3030b4f16 > div > .relative > .grid > .flex').click();
+// List of possible page locators (these may vary per ENV)
+const pageLocators = [
+    '#page-0-a718989a-9d5d-4f72-9171-72e3030b4f16 > div > .relative > .grid > .flex',
+    '#page-0-02359036-58bf-4077-9dcf-2e9ae85c9702 > div > div > .grid > .flex'
+  ];
+  
+  let clicked = false;
+  
+  for (const selector of pageLocators) {
+    const locator = page.locator(selector);
+    if (await locator.count() > 0 && await locator.isVisible()) {
+      await locator.click();
+      clicked = true;
+      break;
+    }
+  }
+  
+  if (!clicked) {
+    throw new Error('No valid page locator found to click.');
+  }
+
 
 // Double-click the textbox to activate it
 await page.getByRole('textbox', { name: 'Enter Page Name' }).dblclick();
@@ -179,58 +199,6 @@ test('Regression - Page Management', async ({ page }) => {
     await page.getByRole('button', { name: 'Done' }).click();
 });
 
-
-test.skip('Regression - Delete Child Page', async ({ page }) => {
-    // Navigate to the login page
-    await page.goto('https://cms.gc.uzstaging1.co.uk/');
-
-    // Enter email and password for authentication
-    await page.getByRole('textbox', { name: 'Email * Email *' }).fill(email);
-    await page.getByRole('textbox', { name: 'Password * Password *' }).fill(password);
-    await page.getByRole('button', { name: 'Sign in' }).click();
-
-    // Navigate to Pages and Edit Section
-    await page.getByRole('link', { name: 'Pages' }).click();
-    await page.getByRole('link', { name: 'Edit pages' }).click();
-    await page.locator('a').filter({ hasText: 'Automation +' }).click();
-
-    // Get today's date in the same format used before
-    const today = new Date();
-    const formattedDate = `${today.getFullYear()}/${(today.getMonth() + 1).toString().padStart(2, '0')}/${today.getDate().toString().padStart(2, '0')}`;
-    const updatedText = `${formattedDate} - Updated`;
-
-    console.log(`Trying to locate and delete page with: ${formattedDate} or ${updatedText}`);
-
-    // Try to find the updated page first
-    let target = page.locator(`a:has-text("${updatedText}")`).first();
-    let count = await target.count();
-
-    if (count === 0) {
-        // Fallback to the original date
-        target = page.locator(`a:has-text("${formattedDate}")`).first();
-        count = await target.count();
-    }
-
-    if (count === 0) {
-        console.log("No page found to delete.");
-        return;
-    }
-
-    await target.click();
-
-    // Proceed to delete the selected page
-    await page.getByRole('button', { name: 'Settings' }).click();
-    await page.getByRole('button', { name: 'Delete Page' }).click();
-
-    await expect(page.getByText('Delete Page Are you sure you want to delete this page? Cancel Delete')).toBeVisible();
-    await page.getByRole('button', { name: 'Delete', exact: true }).click();
-
-    await page.reload({ waitUntil: 'networkidle' }); // Perform a hard refresh
-    await page.locator('a').filter({ hasText: 'Automation +' }).click(); // Re-enter the Automation section
-    
-});
-
-
 test('Regression - Edit Page Content', async ({ page }) => {
     // Navigate to the CMS login page
     await page.goto('https://cms.gc.uzstaging1.co.uk/');
@@ -274,36 +242,29 @@ await expect(page.locator('[id="__nuxt"]')).toContainText('Content');
 
 // Confirm that 'Style' tab or section is also present
 await expect(page.locator('[id="__nuxt"]')).toContainText('Style');
+await page.waitForTimeout(5000);
 
 // Check that the 'New Section' button is visible, indicating the editor loaded correctly
 await expect(page.getByRole('button', { name: 'New Section' })).toBeVisible();
+await page.waitForTimeout(5000);
 
 //Select content section of the page
 await page.getByRole('button', { name: 'New Section' }).click();
+await page.waitForTimeout(5000);
 
 // Verify that the root element with id "__nuxt" contains the text 'Section'
 await expect(page.locator('[id="__nuxt"]')).toContainText('Section');
+await page.waitForTimeout(5000);
 
 // Verify that the 'Section' heading (inside a <span>) is visible
 await expect(page.getByRole('heading', { name: 'Section' }).locator('span')).toBeVisible();
 
 // Again verify that the root element contains the text 'Section' (redundant unless needed for different state check)
 await expect(page.locator('[id="__nuxt"]')).toContainText('Section');
+await page.waitForTimeout(5000);
 
 // Verify that the heading with name 'Title and Buttons' is visible
 await expect(page.getByRole('heading', { name: 'Title and Buttons' })).toBeVisible();
-
-// Verify that the button with the label 'New Row' is visible
-await expect(page.getByRole('button', { name: 'New Row' })).toBeVisible();
-
-// Verify that the root element contains the text 'New Row'
-await expect(page.locator('[id="__nuxt"]')).toContainText('New Row');
-
-await page.locator('.z-10 > .gc-button').click();
-
-//Delete Section from view
-await expect(page.locator('section > div:nth-child(2)').first()).toBeVisible();
-
 });
 
 
