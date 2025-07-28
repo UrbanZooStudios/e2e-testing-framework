@@ -1,4 +1,4 @@
-// npx playwright test "test/Fanside/Individual Site Visual Regression.spec.ts"
+// npx playwright test "test/Visual Regression/Portsmouth FC.spec.ts"
 import { test, expect, chromium, Browser, Page } from '@playwright/test';
 import { PNG } from 'pngjs';
 import pixelmatch from 'pixelmatch';
@@ -138,12 +138,9 @@ async function runSingleVisualTest(
 
 test.describe('Visual Regression Per Page', () => {
   const site = {
-    //name: 'Wrexham AFC',
-    //preview: 'https://livepreview.wrexhamafc.co.uk',
-    //live: 'https://www.wrexhamafc.co.uk/',
-    name: 'Everton FC',
-    preview: "https://livepreview.evertonfc.com",
-    live: "https://www.evertonfc.com",
+    name: 'Portsmouth FC',
+    preview: "https://livepreview.portsmouthfc.co.uk",
+    live: "https://www.portsmouthfc.co.uk",
   };
   const pages = [
     { label: 'home', path: '/' },
@@ -151,7 +148,6 @@ test.describe('Visual Regression Per Page', () => {
     { label: 'matches', path: '/matches' },
     { label: 'teams', path: '/teams' },
     { label: 'tickets', path: '/tickets' },
-    { label: 'store', path: '/store' },
   ];
 
   for (const { label, path } of pages) {
