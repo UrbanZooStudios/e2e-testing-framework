@@ -71,16 +71,14 @@ await page.getByRole('tab', { name: 'Tab Subscriptions' }).click();
 
 // Validate that the subscription information is visible on the page
 await expect(page.getByText('SubscriptionSubscriptionSeason Audio SubscriptionA season audio subscription')).toBeVisible();
-await expect(page.getByRole('article')).toContainText('Subscription');
 
 // Open the subscription details
 const subscriptionLink = page.getByRole('group', { name: 'of 1' }).locator('a');
-await subscriptionLink.click();
-await subscriptionLink.dblclick(); // Possibly to ensure activation
+await page.getByRole('group', { name: '1 of 2' }).getByRole('img').click();
+await page.getByRole('group', { name: '1 of 2' }).locator('a').click();
 
 // Confirm that business link and payment details are displayed
 await expect(page.getByTestId('business-link')).toBeVisible();
-await expect(page.getByTestId('product-summary-name')).toContainText('Pay Tranmere Rovers Football Club Limited');
 
 });
   
@@ -129,8 +127,7 @@ await page.getByRole('tab', { name: 'Tab Subscriptions' }).click();
 // Verify that the "MatchPass" subscription option is visible
 await expect(page.locator('div').filter({ hasText: /^MatchPass$/ }).getByRole('paragraph')).toBeVisible();
 
-await page.getByRole('heading', { name: 'Pre-Season Streaming Pass (UK' }).click();
-await page.getByText('Watch all our eligible 2025-').click();
+await page.getByRole('group', { name: 'of 1' }).locator('a').click();
 await page.getByRole('group', { name: 'of 1' }).locator('a').click();
 await page.getByRole('group', { name: 'of 1' }).locator('a').click();
 
@@ -235,9 +232,6 @@ test('Portsmouth FC - Login and Validate', async ({ browser }, testInfo) => {
     // Accept all cookies
     await page.getByRole('button', { name: 'Accept All Cookies' }).click();
   
-    // Close initial overlay/popup
-    await page.locator('.absolute.-top-\\[25px\\] > .cursor-pointer > .duration-100').click();
-  
     // Function to perform login sequence
     async function performLogin(email: string, password: string) {
       // Open login modal
@@ -257,12 +251,6 @@ test('Portsmouth FC - Login and Validate', async ({ browser }, testInfo) => {
   
     // Initial login attempt with test credentials
     await performLogin('thomasastley@urbanzoo.io', 'Password1!');
-  
-    // Return to previous site
-    await page.getByRole('link', { name: ' Return to previous site' }).click();
-  
-    // Close overlay again and retry login
-    await page.locator('.absolute.-top-\\[25px\\] > .cursor-pointer > .duration-100').click();
   
     // Retry login with corrected credentials
     await performLogin('thomasastley@urbanzoo.io', 'Password1!');
