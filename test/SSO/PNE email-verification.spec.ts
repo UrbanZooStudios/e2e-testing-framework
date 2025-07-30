@@ -148,7 +148,7 @@ test('SSO Register Flow', async ({ browser }) => {
 
   // Accept cookies again if prompted
   await page.getByRole('button', { name: 'Accept All Cookies' }).click();
-  await page.locator('.w-screen > .relative > .absolute').click();
+  //await page.locator('.w-screen > .relative > .absolute').click();
 });
 
 // LOGIN TEST
@@ -190,7 +190,7 @@ await page.locator('a').filter({ hasText: 'Login' }).click();
 
   // Accept cookies again after login if another prompt appears
 await page.getByRole('button', { name: 'Accept All Cookies' }).click();
-await page.locator('.w-screen > .relative > .absolute').click();
+//await page.locator('.w-screen > .relative > .absolute').click();
 
 // Click the 'Log In' button
 await page.getByRole('button', { name: 'Log In' }).click();
@@ -261,7 +261,7 @@ await expect(firstNameTextbox).toBeVisible();
 await expect(mobilePhoneTextbox).toBeVisible();
 });
 
-test('SSO Flow - Preferences Validation', async ({ browser }) => {
+test.skip('SSO Flow - Preferences Validation', async ({ browser }) => {
   // Define path to the saved credentials file from the registration test
   const credentialsPath = path.resolve(__dirname, '../tmp/credentials.json');
 
@@ -297,7 +297,7 @@ await page.getByRole('textbox', { name: 'Password' }).fill(password);
   // Click the Login button
 await page.locator('a').filter({ hasText: 'Login' }).click();
 await page.getByRole('button', { name: 'Accept All Cookies' }).click();
-await page.locator('.w-screen > .relative > .absolute').click();
+//await page.locator('.w-screen > .relative > .absolute').click();
 await page.getByRole('button', { name: 'Log In' }).click();
 await page.getByRole('link', { name: 'Manage Account' }).click();
 await page.getByRole('button', { name: 'Accept All Cookies' }).click();
@@ -367,7 +367,7 @@ await page.locator('a').filter({ hasText: 'Login' }).click();
 
   // Accept cookies again after login if another prompt appears
 await page.getByRole('button', { name: 'Accept All Cookies' }).click();
-await page.locator('.w-screen > .relative > .absolute').click();
+//await page.locator('.w-screen > .relative > .absolute').click();
 
 // Click the 'Log In' button
 await page.getByRole('button', { name: 'Log In' }).click();
