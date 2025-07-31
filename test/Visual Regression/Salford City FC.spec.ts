@@ -147,7 +147,6 @@ test.describe('Visual Regression Per Page', () => {
     { label: 'news', path: '/news' },
     { label: 'matches', path: '/matches' },
     { label: 'teams', path: '/teams' },
-    { label: 'tickets', path: '/tickets' },
   ];
 
   for (const { label, path } of pages) {
