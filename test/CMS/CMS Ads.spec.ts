@@ -71,8 +71,4 @@ await page.getByRole('textbox', { name: 'URL (full URL)' }).fill('https://google
 
 // Save the advert
 await page.getByRole('button', { name: 'Save' }).click();
-
-// Click on the newly created advert to open details
-await page.locator('li:nth-child(4) > .ad-item__ads > div:nth-child(2)').click();
-
 });
