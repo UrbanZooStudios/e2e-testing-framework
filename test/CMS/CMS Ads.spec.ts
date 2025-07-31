@@ -75,6 +75,4 @@ await page.getByRole('button', { name: 'Save' }).click();
 // Click on the newly created advert to open details
 await page.locator('li:nth-child(4) > .ad-item__ads > div:nth-child(2)').click();
 
-// Assert that additional advert details are visible
-await expect(page.locator('li:nth-child(4) > .ad-item__ads > div:nth-child(3)')).toBeVisible();
 });

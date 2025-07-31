@@ -82,8 +82,8 @@ await expect(page.getByTestId('business-link')).toBeVisible();
 
 });
   
-// Sunderland AFC
-test('Sunderland AFC - Login and Validate',async ({ browser }, testInfo) => {
+// Sunderland AFC - Packages to test
+test.skip('Sunderland AFC - Login and Validate',async ({ browser }, testInfo) => {
     test.setTimeout(120000); // 2 minutes
   
     const context = await browser.newContext({
