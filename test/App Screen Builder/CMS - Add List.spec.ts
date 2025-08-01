@@ -21,9 +21,9 @@ if (!testEmail || !testPassword) {
 }
 
 
-test('CMS - App Screen Builder Validation', async ({ page }) => {
+test('App Screen Builder - CMS - Single List Item', async ({ page }) => {
 // Navigate to the login page
-await page.goto('https://cms.gc.uzstaging1.co.uk/');
+await page.goto('https://cms.gc.uzgc2.com');
 
 // Fill in the email field
 await page.getByRole('textbox', { name: 'Email * Email *' }).fill(email);
@@ -33,5 +33,7 @@ await page.getByRole('textbox', { name: 'Password * Password *' }).fill(password
 
 // Click the "Sign in" button
 await page.getByRole('button', { name: 'Sign in' }).click();
+
+await page.pause();
 
 });
