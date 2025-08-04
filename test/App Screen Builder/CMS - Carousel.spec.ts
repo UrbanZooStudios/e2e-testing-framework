@@ -1,4 +1,4 @@
-//npx playwright test "test/CMS/CMS PageBuilder Regression.spec" --headed
+//npx playwright test "test/App Screen Builder/CMS - Carousel.spec.ts" --headed 
 import { test, expect } from '@playwright/test';
 import * as dotenv from 'dotenv';
 
@@ -20,7 +20,7 @@ if (!testEmail || !testPassword) {
 }
 
 
-test('App Screen Builder - Section Tabs Button', async ({ page }) => {
+test('App Screen Builder - Section Tabs Option', async ({ page }) => {
   // Navigate to the login page
 await page.goto('https://cms.gc.uzgc2.com/');
 await page.getByRole('textbox', { name: 'Email * Email *' }).fill(email);
@@ -37,7 +37,7 @@ await page.getByText('Add Section').nth(1).click();
 
 // Add Section Title
 await page.getByRole('textbox', { name: 'Add Section Title' }).nth(1).click();
-await page.getByRole('textbox', { name: 'Add Section Title' }).nth(1).fill('Section 3');
+await page.getByRole('textbox', { name: 'Add Section Title' }).nth(1).fill('Carousel');
 
 // Save Newly created section
 await page.getByRole('button', { name: 'Save' }).click();
@@ -58,8 +58,47 @@ await expect(page.getByRole('list')).toContainText('Tab One');
 
 // Confirm the list contains "Tab Two"
 await expect(page.getByRole('list')).toContainText('Tab Two');
+await page.locator('div:nth-child(2) > .relative > div > .flex > button').first().click();
+await expect(page.locator('div').filter({ hasText: /^Tab Two$/ }).first()).toBeVisible();
 
+// Rename tab
+await page.getByRole('textbox', { name: 'Enter tab title...' }).click();
+await page.getByRole('textbox', { name: 'Enter tab title...' }).fill('Automation Tab 2');
+await expect(page.getByRole('list').getByText('Automation Tab 2')).toBeVisible();
+
+// Move Tab Left 
+await page.locator('div:nth-child(2) > .relative > div > .flex > button').first().click();
+await expect(page.locator('div').filter({ hasText: /^Automation Tab 2$/ }).first()).toBeVisible();
+
+//Move Tab Right
+await page.locator('.transition > .flex > button:nth-child(2)').first().click();
+await expect(page.locator('div').filter({ hasText: /^Automation Tab 2$/ }).first()).toBeVisible();
+
+// Delete Tab
+await page.locator('.z-30 > .flex > .gc-base-icon > svg > use').click();
+await page.locator('div').filter({ hasText: /^Tab Three$/ }).first().click();
+await page.locator('div:nth-child(3) > .relative > div > .flex > button:nth-child(4)').click();
+await page.locator('.z-30 > .flex > .gc-base-icon > svg > use').click();
+await page.locator('div').filter({ hasText: /^Tab Three$/ }).first().click();
+await page.locator('div:nth-child(3) > .relative > div > .flex > button:nth-child(4)').click();
+await expect(page.locator('div').filter({ hasText: /^Tab Three$/ }).first()).not.toBeVisible()
+
+// Save Newly created section
+await page.getByRole('button', { name: 'Save' }).click();
+await page.waitForTimeout(5000);
+});
+
+test('App Screen Builder - Add News Content', async ({ page }) => {
+  // Navigate to the login page
+await page.goto('https://cms.gc.uzgc2.com/');
+await page.getByRole('textbox', { name: 'Email * Email *' }).fill(email);
+await page.getByRole('textbox', { name: 'Password * Password *' }).fill(password);
+await page.getByRole('button', { name: 'Sign in' }).click();
+await page.getByRole('link', { name: 'Pages' }).click();
+await expect(page.locator('#app-screens')).toBeVisible();
+await page.locator('#app-screens').click();
+await page.locator('[id="__nuxt"]').getByText('Automation Content').click();
+await page.getByRole('button', { name: 'Edit' }).click();
 await page.pause();
-
 
 });

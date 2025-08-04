@@ -1,4 +1,4 @@
-//npx playwright test "test/CMS/CMS PageBuilder Regression.spec" --headed
+//npx playwright test "test/App Screen Builder/CMS - Section Navigation.spec.ts" --headed
 
 import { test, expect } from '@playwright/test';
 import * as dotenv from 'dotenv';
@@ -55,7 +55,7 @@ await expect(page.getByRole('banner')).toBeVisible();
 await expect(page.getByText('Manage AppFixed')).toBeVisible();
 
 // Select the Automation Tab From within App Screen Builder
-await page.locator('[id="__nuxt"]').getByText('Automation').click();
+await page.locator('[id="__nuxt"]').getByText('Automation', { exact: true }).click();
 
 // Verify that a heading with the name "Automation" is visible
 await expect(page.getByRole('heading', { name: 'Automation' })).toBeVisible();
@@ -76,7 +76,7 @@ await page.getByRole('button', { name: 'Sign in' }).click();
 await page.getByRole('link', { name: 'Pages' }).click();
 await expect(page.locator('#app-screens')).toBeVisible();
 await page.locator('#app-screens').click();
-await page.locator('[id="__nuxt"]').getByText('Automation').click();
+await page.locator('[id="__nuxt"]').getByText('Automation', { exact: true }).click();
 await page.getByRole('button', { name: 'Edit' }).click();
 
 // Select the edit button (assumed to be the third item in a list)
@@ -122,7 +122,7 @@ await page.getByRole('button', { name: 'Sign in' }).click();
 await page.getByRole('link', { name: 'Pages' }).click();
 await expect(page.locator('#app-screens')).toBeVisible();
 await page.locator('#app-screens').click();
-await page.locator('[id="__nuxt"]').getByText('Automation').click();
+await page.locator('[id="__nuxt"]').getByText('Automation', { exact: true }).click();
 await page.getByRole('button', { name: 'Edit' }).click();
 
 // Click on a deeply nested flex container (likely part of the UI layout or section control)
@@ -155,7 +155,7 @@ await page.getByRole('button', { name: 'Sign in' }).click();
 await page.getByRole('link', { name: 'Pages' }).click();
 await expect(page.locator('#app-screens')).toBeVisible();
 await page.locator('#app-screens').click();
-await page.locator('[id="__nuxt"]').getByText('Automation').click();
+await page.locator('[id="__nuxt"]').getByText('Automation', { exact: true }).click();
 await page.getByRole('button', { name: 'Edit' }).click();
 
 // Add New Section
@@ -213,7 +213,7 @@ test('App Screen Builder - Section Arrow Buttons', async ({ page }) => {
   await page.getByRole('link', { name: 'Pages' }).click();
   await expect(page.locator('#app-screens')).toBeVisible();
   await page.locator('#app-screens').click();
-  await page.locator('[id="__nuxt"]').getByText('Automation').click();
+  await page.locator('[id="__nuxt"]').getByText('Automation', { exact: true }).click();
   await page.getByRole('button', { name: 'Edit' }).click();
 
 // Hover the first section to trigger the toolbar & select down arrow
@@ -239,7 +239,7 @@ test('App Screen Builder - Section Duplicate Button', async ({ page }) => {
   await page.getByRole('link', { name: 'Pages' }).click();
   await expect(page.locator('#app-screens')).toBeVisible();
   await page.locator('#app-screens').click();
-  await page.locator('[id="__nuxt"]').getByText('Automation').click();
+  await page.locator('[id="__nuxt"]').getByText('Automation', { exact: true }).click();
   await page.getByRole('button', { name: 'Edit' }).click();
 
 // Hover the first section to trigger the toolbar & select down arrow
@@ -270,7 +270,7 @@ test('App Screen Builder - Section Deletion Button', async ({ page }) => {
   await page.getByRole('link', { name: 'Pages' }).click();
   await expect(page.locator('#app-screens')).toBeVisible();
   await page.locator('#app-screens').click();
-  await page.locator('[id="__nuxt"]').getByText('Automation').click();
+  await page.locator('[id="__nuxt"]').getByText('Automation', { exact: true }).click();
   await page.getByRole('button', { name: 'Edit' }).click();
 
 // Ensure at least one section is visible
@@ -307,7 +307,7 @@ await page.getByRole('button', { name: 'Sign in' }).click();
 await page.getByRole('link', { name: 'Pages' }).click();
 await expect(page.locator('#app-screens')).toBeVisible();
 await page.locator('#app-screens').click();
-await page.locator('[id="__nuxt"]').getByText('Automation').click();
+await page.locator('[id="__nuxt"]').getByText('Automation', { exact: true }).click();
 await page.getByRole('button', { name: 'Edit' }).click();
 
 // Click the "Add Section" button
@@ -320,8 +320,8 @@ await page.getByRole('textbox', { name: 'Add Section Title' }).fill('Section Tit
 // Assert the textbox contains the correct value
 await expect(page.getByRole('textbox', { name: 'Add Section Title' })).toHaveValue('Section Title Button');
 
-// Click the first button in the button group (e.g., save or confirm)
-await page.locator('.pt-4 > div > .flex > button').first().click();
+// Click the clear button to remove the text
+await page.locator('.text-2xl > div > .flex > button').first().click();
 
 // Assert the textbox is cleared after clicking
 await expect(page.getByRole('textbox', { name: 'Add Section Title' })).toBeEmpty();
@@ -357,7 +357,7 @@ await page.getByRole('button', { name: 'Sign in' }).click();
 await page.getByRole('link', { name: 'Pages' }).click();
 await expect(page.locator('#app-screens')).toBeVisible();
 await page.locator('#app-screens').click();
-await page.locator('[id="__nuxt"]').getByText('Automation').click();
+await page.locator('[id="__nuxt"]').getByText('Automation', { exact: true }).click();
 await page.getByRole('button', { name: 'Edit' }).click();
 
 // Add Section & Add Carousel option 
@@ -413,7 +413,7 @@ await page.getByRole('button', { name: 'Sign in' }).click();
 await page.getByRole('link', { name: 'Pages' }).click();
 await expect(page.locator('#app-screens')).toBeVisible();
 await page.locator('#app-screens').click();
-await page.locator('[id="__nuxt"]').getByText('Automation').click();
+await page.locator('[id="__nuxt"]').getByText('Automation', { exact: true }).click();
 await page.getByRole('button', { name: 'Edit' }).click();
 
 // CMS - Add Single Item Option 
@@ -469,7 +469,7 @@ await page.getByRole('button', { name: 'Sign in' }).click();
 await page.getByRole('link', { name: 'Pages' }).click();
 await expect(page.locator('#app-screens')).toBeVisible();
 await page.locator('#app-screens').click();
-await page.locator('[id="__nuxt"]').getByText('Automation').click();
+await page.locator('[id="__nuxt"]').getByText('Automation', { exact: true }).click();
 await page.getByRole('button', { name: 'Edit' }).click();
 await page.getByText('Add Section').click();
 
@@ -525,7 +525,7 @@ await page.getByRole('button', { name: 'Sign in' }).click();
 await page.getByRole('link', { name: 'Pages' }).click();
 await expect(page.locator('#app-screens')).toBeVisible();
 await page.locator('#app-screens').click();
-await page.locator('[id="__nuxt"]').getByText('Automation').click();
+await page.locator('[id="__nuxt"]').getByText('Automation', { exact: true }).click();
 await page.getByRole('button', { name: 'Edit' }).click();
 await page.getByText('Add Section').click();
 
