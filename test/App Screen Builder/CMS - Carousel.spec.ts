@@ -21,7 +21,7 @@ if (!testEmail || !testPassword) {
 
 
 test('App Screen Builder - Section Tabs Option', async ({ page }) => {
-  // Navigate to the login page
+  // Navigate to the login page..
 await page.goto('https://cms.gc.uzgc2.com/');
 await page.getByRole('textbox', { name: 'Email * Email *' }).fill(email);
 await page.getByRole('textbox', { name: 'Password * Password *' }).fill(password);
