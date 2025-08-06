@@ -1,4 +1,4 @@
-//npx playwright test "test/App Screen Builder/CMS - Single List Item.spec.ts" --headed
+//npx playwright test "test/App Screen Builder/Single List Item.spec.ts" --headed
 import { test, expect } from '@playwright/test';
 import * as dotenv from 'dotenv';
 
@@ -29,7 +29,7 @@ await page.getByRole('button', { name: 'Sign in' }).click();
 await page.getByRole('link', { name: 'Pages' }).click();
 await expect(page.locator('#app-screens')).toBeVisible();
 await page.locator('#app-screens').click();
-await page.locator('[id="__nuxt"]').getByText('Automation Single List Item').click();
+await page.locator('[id="__nuxt"]').getByText('Automation - Single List Item').click();
 await page.getByRole('button', { name: 'Edit' }).click();
 
 // Add New Section
@@ -85,7 +85,7 @@ await page.getByRole('button', { name: 'Sign in' }).click();
 await page.getByRole('link', { name: 'Pages' }).click();
 await expect(page.locator('#app-screens')).toBeVisible();
 await page.locator('#app-screens').click();
-await page.locator('[id="__nuxt"]').getByText('Automation Single List Item').click();
+await page.locator('[id="__nuxt"]').getByText('Automation - Single List Item').click();
 await page.getByRole('button', { name: 'Edit' }).click();
 
 // Hover and select Add single item
@@ -121,7 +121,7 @@ await page.getByRole('button', { name: 'Sign in' }).click();
 await page.getByRole('link', { name: 'Pages' }).click();
 await expect(page.locator('#app-screens')).toBeVisible();
 await page.locator('#app-screens').click();
-await page.locator('[id="__nuxt"]').getByText('Automation Single List Item').click();
+await page.locator('[id="__nuxt"]').getByText('Automation - Single List Item').click();
 await page.getByRole('button', { name: 'Edit' }).click();
 
 // Hover and select Add single item
@@ -168,7 +168,7 @@ await page.getByRole('button', { name: 'Sign in' }).click();
 await page.getByRole('link', { name: 'Pages' }).click();
 await expect(page.locator('#app-screens')).toBeVisible();
 await page.locator('#app-screens').click();
-await page.locator('[id="__nuxt"]').getByText('Automation Single List Item').click();
+await page.locator('[id="__nuxt"]').getByText('Automation - Single List Item').click();
 await page.getByRole('button', { name: 'Edit' }).click();
 
 // Hover and select Add single item
@@ -215,7 +215,7 @@ await page.getByRole('button', { name: 'Sign in' }).click();
 await page.getByRole('link', { name: 'Pages' }).click();
 await expect(page.locator('#app-screens')).toBeVisible();
 await page.locator('#app-screens').click();
-await page.locator('[id="__nuxt"]').getByText('Automation Single List Item').click();
+await page.locator('[id="__nuxt"]').getByText('Automation - Single List Item').click();
 await page.getByRole('button', { name: 'Edit' }).click();
 
 // Select the Delete option from the menu panel

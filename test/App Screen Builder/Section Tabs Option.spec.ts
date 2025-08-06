@@ -1,4 +1,4 @@
-//npx playwright test "test/App Screen Builder/CMS - Section Tabs Option.spec" --headed 
+//npx playwright test "test/App Screen Builder/Section Tabs Option.spec" --headed 
 import { test, expect } from '@playwright/test';
 import * as dotenv from 'dotenv';
 
@@ -29,7 +29,7 @@ await page.getByRole('button', { name: 'Sign in' }).click();
 await page.getByRole('link', { name: 'Pages' }).click();
 await expect(page.locator('#app-screens')).toBeVisible();
 await page.locator('#app-screens').click();
-await page.locator('[id="__nuxt"]').getByText('Automation Content').click();
+await page.locator('[id="__nuxt"]').getByText('Automation - Section Tabs Option').click();
 await page.getByRole('button', { name: 'Edit' }).click();
 
 // Add New Section
@@ -107,7 +107,7 @@ await page.getByRole('button', { name: 'Sign in' }).click();
 await page.getByRole('link', { name: 'Pages' }).click();
 await expect(page.locator('#app-screens')).toBeVisible();
 await page.locator('#app-screens').click();
-await page.locator('[id="__nuxt"]').getByText('Automation Content').click();
+await page.locator('[id="__nuxt"]').getByText('Automation - Section Tabs Option').click();
 await page.getByRole('button', { name: 'Edit' }).click();
 
 // Add New Section
@@ -169,7 +169,7 @@ await page.getByRole('button', { name: 'Sign in' }).click();
 await page.getByRole('link', { name: 'Pages' }).click();
 await expect(page.locator('#app-screens')).toBeVisible();
 await page.locator('#app-screens').click();
-await page.locator('[id="__nuxt"]').getByText('Automation Content').click();
+await page.locator('[id="__nuxt"]').getByText('Automation - Section Tabs Option').click();
 await page.getByRole('button', { name: 'Edit' }).click();
 
 // Add New Section
@@ -223,7 +223,7 @@ await page.getByRole('button', { name: 'Sign in' }).click();
 await page.getByRole('link', { name: 'Pages' }).click();
 await expect(page.locator('#app-screens')).toBeVisible();
 await page.locator('#app-screens').click();
-await page.locator('[id="__nuxt"]').getByText('Automation Content').click();
+await page.locator('[id="__nuxt"]').getByText('Automation - Section Tabs Option').click();
 await page.getByRole('button', { name: 'Edit' }).click();
 
 // Add New Section
@@ -271,7 +271,7 @@ await page.getByRole('button', { name: 'Sign in' }).click();
 await page.getByRole('link', { name: 'Pages' }).click();
 await expect(page.locator('#app-screens')).toBeVisible();
 await page.locator('#app-screens').click();
-await page.locator('[id="__nuxt"]').getByText('Automation Content').click();
+await page.locator('[id="__nuxt"]').getByText('Automation - Section Tabs Option').click();
 await page.getByRole('button', { name: 'Edit' }).click();
 
 // Add New Section
@@ -325,7 +325,7 @@ await page.getByRole('button', { name: 'Sign in' }).click();
 await page.getByRole('link', { name: 'Pages' }).click();
 await expect(page.locator('#app-screens')).toBeVisible();
 await page.locator('#app-screens').click();
-await page.locator('[id="__nuxt"]').getByText('Automation Content').click();
+await page.locator('[id="__nuxt"]').getByText('Automation - Section Tabs Option').click();
 await page.getByRole('button', { name: 'Edit' }).click();
   
   // Add New Section
@@ -371,7 +371,7 @@ await page.getByRole('button', { name: 'Sign in' }).click();
 await page.getByRole('link', { name: 'Pages' }).click();
 await expect(page.locator('#app-screens')).toBeVisible();
 await page.locator('#app-screens').click();
-await page.locator('[id="__nuxt"]').getByText('Automation Content').click();
+await page.locator('[id="__nuxt"]').getByText('Automation - Section Tabs Option').click();
 await page.getByRole('button', { name: 'Edit' }).click();
 
 // Click Tab 2 
@@ -401,7 +401,7 @@ await page.getByRole('button', { name: 'Sign in' }).click();
 await page.getByRole('link', { name: 'Pages' }).click();
 await expect(page.locator('#app-screens')).toBeVisible();
 await page.locator('#app-screens').click();
-await page.locator('[id="__nuxt"]').getByText('Automation Content').click();
+await page.locator('[id="__nuxt"]').getByText('Automation - Section Tabs Option').click();
 await page.getByRole('button', { name: 'Edit' }).click();
 
 // Click Plus icon to add a new tab
@@ -434,7 +434,7 @@ await page.getByRole('button', { name: 'Sign in' }).click();
 await page.getByRole('link', { name: 'Pages' }).click();
 await expect(page.locator('#app-screens')).toBeVisible();
 await page.locator('#app-screens').click();
-await page.locator('[id="__nuxt"]').getByText('Automation Content').click();
+await page.locator('[id="__nuxt"]').getByText('Automation - Section Tabs Option').click();
 await page.getByRole('button', { name: 'Edit' }).click();
 await page.waitForTimeout(5000);
 
@@ -473,7 +473,7 @@ await page.getByRole('button', { name: 'Sign in' }).click();
 await page.getByRole('link', { name: 'Pages' }).click();
 await expect(page.locator('#app-screens')).toBeVisible();
 await page.locator('#app-screens').click();
-await page.locator('[id="__nuxt"]').getByText('Automation Content').click();
+await page.locator('[id="__nuxt"]').getByText('Automation - Section Tabs Option').click();
 await page.getByRole('button', { name: 'Edit' }).click();
 await page.waitForTimeout(5000);
 
