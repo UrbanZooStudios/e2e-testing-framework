@@ -168,7 +168,7 @@ await page.waitForTimeout(5000);
 });
 
 
-test.only('App Screen Builder - Carousel - Fixture Carousel (Result)', async ({ page }) => {
+test('App Screen Builder - Carousel - Fixture Carousel (Result)', async ({ page }) => {
     // Navigate to the login page..
 await page.goto('https://cms.gc.uzgc2.com/');
 await page.getByRole('textbox', { name: 'Email * Email *' }).fill(email);
