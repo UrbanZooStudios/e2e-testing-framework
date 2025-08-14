@@ -514,7 +514,7 @@ await expect(page.getByRole('heading', { name: 'Videos' })).toBeVisible();
 await expect(page.getByRole('dialog')).toContainText('Videos');
 });
 
-test.only('App Screen Builder - Section Add Content Option', async ({ page }) => {
+test('App Screen Builder - Section Add Content Option', async ({ page }) => {
   // Navigate to the login page
 await page.goto('https://cms.gc.uzgc2.com/');
 await page.getByRole('textbox', { name: 'Email * Email *' }).fill(email);

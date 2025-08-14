@@ -18,7 +18,7 @@
   },
   "homepage": "https://github.com/UrbanZooStudios/e2e-testing-framework#readme",
   "devDependencies": {
-    "@playwright/test": "^1.51.0",
+    "@playwright/test": "^1.53.2",
     "@types/node": "^22.13.9",
     "@types/pixelmatch": "^5.2.6",
     "@types/pngjs": "^6.0.5",
@@ -30,6 +30,5 @@
     "googleapis": "^152.0.0",
     "pixelmatch": "^7.1.0",
     "pngjs": "^7.0.0"
-    
   }
 }
