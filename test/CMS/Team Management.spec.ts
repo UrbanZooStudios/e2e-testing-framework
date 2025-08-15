@@ -1,4 +1,4 @@
-//npx playwright test "test/PageBuilder/Team Management.spec.ts" --headed
+//npx playwright test "test/CMS/Team Management.spec.ts" --headed
 
 import { test, expect } from '@playwright/test';
 import * as dotenv from 'dotenv';
@@ -56,17 +56,33 @@ await expect(page.locator('body')).toContainText('Add New Sponsor');
 await page.getByRole('button', { name: 'Open Media library' }).click();
 await page.getByRole('textbox', { name: 'Search the library' }).fill('sponsor');
 await page.getByRole('button', { name: 'Search' }).click();
-await page.waitForTimeout(5000);
-await page.pause();
 await page.getByRole('article').filter({ hasText: 'png-transparent-coke-logo-' }).getByRole('button').first().click();
 await page.getByRole('button', { name: 'Add', exact: true }).click();
 await page.getByRole('button', { name: 'Save' }).click();
+});
+
+test('Player Sponsors > Fanside Validation', async ({ page }) => {
+  await page.goto('https://d2aghque3oy78a.cloudfront.net/teams');
+
+  // If you can, scope to one player card:
+  // const container = page.getByRole('link', { name: /Max Harris/i });
+
+  const base =
+    'a.flex.items-center.justify-between.w-full.p-4.bg-surface-high.text-clear.light.transition-all.duration-\\[1\\.2s\\].ease-in-out.transform.absolute.bottom-0.left-0.z-10.h-10';
+  const entering = `${base}.v-enter-active.v-enter-to`;
+  const leaving  = `${base}.v-leave-active, ${base}.translate-y-32`;
+
+  // Wait until at least one of the possible states exists & is visible
+  const anyChip = page.locator(`${entering}, ${leaving}`).first();
+  await anyChip.waitFor({ state: 'visible' });
+
+  // Assertion passes as soon as one is visible (no strict-mode violation)
+  await expect(anyChip).toBeVisible();
+
+  // Teams tab should be visbile
+  await expect(page.locator('#header').getByRole('link', { name: 'Teams' })).toBeVisible();
 
 
-// Access Fanside and select the “Teams” option from the top navigation bar
-// Locate the player and verify that the main card displays the correct sponsors
-// Click the player profile and verify that the correct sponsors are displayed.
-// Click the sponsor link and verify that the page redirects correctly
-// Click the player profile link and verify that the page redirects correctly
 
+  await page.pause();
 });
