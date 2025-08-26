@@ -90,6 +90,9 @@ test('SSO Register Flow', async ({ browser }) => {
   await page.getByPlaceholder('Mobile number').fill('07777777777');
   await page.getByPlaceholder('Post code*').fill('sw1 1la');
   await page.getByPlaceholder('Date of birth*').fill('1992-07-10');
+  await expect(page.getByText('Date of Birth*')).toBeVisible();
+  await expect(page.getByRole('main')).toContainText('Date of Birth*');
+  await expect(page.getByRole('textbox', { name: 'Date of Birth*' })).toBeVisible();
   await page.locator('a', { hasText: 'Continue' }).click();
 
   // Wait for iFollow section
