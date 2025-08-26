@@ -46,7 +46,7 @@ test('SSO Register Flow', async ({ browser }) => {
   });
 
   const page = await context.newPage();
-  await page.goto('https://livepreview.pnefc.net/sso/register');
+  await page.goto('https://livepreview.pnefc.net/');
 
   // Generate test data
   const firstName = 'Automation Test';
@@ -62,7 +62,16 @@ test('SSO Register Flow', async ({ browser }) => {
 
   // Accept cookies if present
   await acceptCookiesIfPresent(page);
-  await page.locator('.absolute > .cursor-pointer > .duration-100 > use').click();
+  //await page.locator('.absolute > .cursor-pointer > .duration-100 > use').click();
+
+// Click Login Button 
+  await expect(page.getByRole('button', { name: 'log In' })).toBeVisible();
+  await page.getByRole('button', { name: 'Log In' }).click();
+  await page.locator('a').filter({ hasText: 'Register' }).click();
+
+// Accept cookies if present
+  await page.getByRole('button', { name: 'Accept All Cookies' }).click();
+
 
   // Fill out the registration form
   const titleDropdown = page.getByLabel('TitleMrDrMrsMissMs');
@@ -179,7 +188,7 @@ await page.goto(loginUrl);
 
   // Handle any cookie banners if present
 await acceptCookiesIfPresent(page);
-await page.locator('.w-screen > .relative > .absolute').click();
+//await page.locator('.w-screen > .relative > .absolute').click();
 
   // Fill in the login form using credentials loaded from the file
 await page.getByRole('textbox', { name: 'Email' }).fill(email);
@@ -356,7 +365,7 @@ await page.goto(loginUrl);
 
   // Handle any cookie banners if present
 await acceptCookiesIfPresent(page);
-await page.locator('.w-screen > .relative > .absolute').click();
+//await page.locator('.w-screen > .relative > .absolute').click();
 
   // Fill in the login form using credentials loaded from the file
 await page.getByRole('textbox', { name: 'Email' }).fill(email);
@@ -375,6 +384,49 @@ await expect(page.locator('a').filter({ hasText: 'View Subscriptions' })).toBeVi
 await page.locator('a').filter({ hasText: 'View Subscriptions' }).click();
 await expect(page.getByRole('link', { name: 'The logo for the business EFL' })).toBeVisible();
 await expect(page.locator('#customer_portal_page_body')).toContainText('EFL Digital - Preston North End Football Club');
-
 });
 
+
+test('SSO - No Subscription Message', async ({ browser }) => {
+  // Define path to the saved credentials file from the registration test
+  const credentialsPath = path.resolve(__dirname, '../tmp/credentials.json');
+
+  // Ensure credentials file exists before proceeding
+  if (!fs.existsSync(credentialsPath)) {
+    throw new Error('Credentials file not found. Run the registration test first.');
+  }
+
+  // Load the email and password from the saved JSON file
+  const { email, password } = JSON.parse(fs.readFileSync(credentialsPath, 'utf-8'));
+
+  // Create a new browser context with basic authentication for the preview environment
+  const context = await browser.newContext({
+    httpCredentials: {
+      username: process.env.PREVIEW_USERNAME || 'urbanzoo',
+      password: process.env.PREVIEW_PASSWORD || 'gamechanger1!',
+    },
+  });
+
+  // Open a new page and navigate to the login URL
+  const page = await context.newPage();
+  const loginUrl = process.env.LOGIN_URL || 'https://beta.stockportcounty.com/';
+await page.goto(loginUrl);
+
+  // Handle any cookie banners if present
+await acceptCookiesIfPresent(page);
+
+// Select Login Button & Perform login
+await page.locator('button').filter({ hasText: 'Log in' }).click();
+await page.getByLabel('', { exact: true }).click()
+await page.getByLabel('', { exact: true }).fill('thomasastley+982@urbanzoo.io');
+await page.getByRole('textbox', { name: 'Password' }).click();
+await page.locator('#password').fill('Password1!');
+await page.locator('a').filter({ hasText: 'Login' }).click();
+
+// Click View Subscription
+await page.locator('a').filter({ hasText: 'View Subscriptions' }).click();
+
+// Subscription Validation 
+await expect(page.getByText('No subscriptions associated')).toBeVisible();
+await expect(page.locator('#page')).toContainText('No subscriptions associated with this account, please note one-off purchases such as match passes, PPV or season passes will not show here.');
+});
