@@ -11,7 +11,7 @@ export default defineConfig({
   expect: {
     timeout: 5000,
   },
-  reporter: 'html', // Generates an HTML report
+  reporter: 'junit', // Generates an HTML report
   use: {
     trace: 'on-first-retry', // Enables tracing for debugging
   },
