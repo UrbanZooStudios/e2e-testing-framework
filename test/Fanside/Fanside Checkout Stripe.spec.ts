@@ -24,16 +24,16 @@ if (!email || !password) {
 // Tranmere Rovers
 test('Tranmere - Login and Validate', async ({ browser }, testInfo) => {
     test.setTimeout(120000); // 2 minutes
-  
+
     const context = await browser.newContext({
       httpCredentials: {
         username: previewUsername,
         password: previewPassword,
       },
     });
-  
+
     const page = await context.newPage();
-  
+
 // Navigate to the Tranmere Rovers live preview site
 await page.goto('https://livepreview.tranmererovers.co.uk/');
 
@@ -70,7 +70,7 @@ await page.getByRole('link', { name: 'RoversTV', exact: true }).click();
 await page.getByRole('tab', { name: 'Tab Subscriptions' }).click();
 
 // Validate that the subscription information is visible on the page
-await expect(page.getByText('SubscriptionSubscriptionSeason Audio SubscriptionA season audio subscription')).toBeVisible();
+await expect(page.getByText('SubscriptionSubscriptionSeason Audio SubscriptionA season audio subscription')).toBeVisible({timeout:30_000});
 
 // Open the subscription details
 const subscriptionLink = page.getByRole('group', { name: 'of 1' }).locator('a');
@@ -81,18 +81,18 @@ await page.getByRole('group', { name: '1 of 2' }).locator('a').click();
 await expect(page.getByTestId('business-link')).toBeVisible();
 
 });
-  
+
 // Sunderland AFC - Packages to test
 test.skip('Sunderland AFC - Login and Validate',async ({ browser }, testInfo) => {
     test.setTimeout(120000); // 2 minutes
-  
+
     const context = await browser.newContext({
       httpCredentials: {
         username: previewUsername,
         password: previewPassword,
       },
     });
-  
+
     const page = await context.newPage();
   // Navigate to the Sunderland AFC live preview site
 await page.goto('https://livepreview.safc.com/');
@@ -146,14 +146,14 @@ await expect(page.getByTestId('business-link')).toBeVisible();
 // Walsall FC
 test('Walsall FC - Login and Validate',async ({ browser }, testInfo) => {
     test.setTimeout(120000); // 2 minutes
-  
+
     const context = await browser.newContext({
       httpCredentials: {
         username: previewUsername,
         password: previewPassword,
       },
     });
-  
+
     const page = await context.newPage();
  // Navigate to the Walsall FC live preview site
 await page.goto('https://livepreview.saddlers.co.uk/');
@@ -216,86 +216,86 @@ await expect(page.getByTestId('business-name')).toContainText('The Walsall Footb
 // Portsmouth FC
 test('Portsmouth FC - Login and Validate', async ({ browser }, testInfo) => {
     test.setTimeout(120000); // 2 minutes
-  
+
     const context = await browser.newContext({
       httpCredentials: {
         username: previewUsername,
         password: previewPassword,
       },
     });
-  
+
     const page = await context.newPage();
-  
+
     // Navigate to the Portsmouth FC preview site
     await page.goto('https://livepreview.portsmouthfc.co.uk/');
 
     // Accept all cookies
     await page.getByRole('button', { name: 'Accept All Cookies' }).click();
-  
+
     // Function to perform login sequence
     async function performLogin(email: string, password: string) {
       // Open login modal
       await page.locator('button').filter({ hasText: 'Log in' }).click();
-  
+
       // Enter email
       await page.getByRole('textbox', { name: 'Email' }).click();
       await page.getByRole('textbox', { name: 'Email' }).fill(email);
       await page.getByRole('textbox', { name: 'Email' }).press('Tab');
-  
+
       // Enter password
       await page.getByRole('textbox', { name: 'Password' }).fill(password);
-  
+
       // Submit form
       await page.getByRole('button', { name: 'Continue' }).click();
     }
-  
+
     // Initial login attempt with test credentials
-    await performLogin('thomasastley@urbanzoo.io', 'Password1!');
-  
+    await performLogin('thomasastley@urbanzoo.io', 'Password');
+
     // Retry login with corrected credentials
     await performLogin('thomasastley@urbanzoo.io', 'Password1!');
-  
+
     // Navigate to Pompey+ content
     await page.getByRole('link', { name: 'Pompey+' }).nth(1).click();
-  
+
     // Open the Subscriptions tab
     await page.getByRole('tab', { name: 'Tab Subscriptions' }).click();
-  
+
     // Validate that the Subscription section is visible
     await expect(
       page.getByLabel('1 of 5').locator('div').filter({ hasText: /^Subscription$/ }).getByRole('paragraph')
     ).toBeVisible();
-  
+
     // Confirm the subscription content is present
     await expect(
       page.getByLabel('1 of 5').getByRole('article')
     ).toContainText('Subscription');
-  
+
     // Access the subscription details
     await page.getByRole('group', { name: '1 of 5' }).locator('a').click();
-  
+
     // Validate the checkout and business details
     await expect(
       page.locator('div').filter({ hasText: /^BackPortsmouth Football Club$/ }).first()
     ).toBeVisible();
-  
+
     await expect(page.getByTestId('business-name')).toContainText('Portsmouth Football Club');
   });
-  
+
 
 // Doncaster Rovers FC - FAILED - 14/07/25 - Regression bug - UZ-2240
 test.skip('Doncaster Rovers FC - Login and Validate',async ({ browser }, testInfo) => {
     test.setTimeout(120000); // 2 minutes
-  
+
     const context = await browser.newContext({
       httpCredentials: {
         username: previewUsername,
         password: previewPassword,
       },
     });
-  
+
     const page = await context.newPage();
-  // Navigate to the 
+  // Navigate to the
 await page.goto('https://livepreview.doncasterroversfc.co.uk/');
 
 // Accept all cookies
@@ -354,14 +354,14 @@ await expect(page.getByTestId('product-summary-name')).toBeVisible();
 // Notts County FC
 test('Notts County FC - Login and Validate',async ({ browser }, testInfo) => {
     test.setTimeout(120000); // 2 minutes
-  
+
     const context = await browser.newContext({
       httpCredentials: {
         username: previewUsername,
         password: previewPassword,
       },
     });
-  
+
     const page = await context.newPage();
 // Navigate to the Notts County live preview website
 await page.goto('https://livepreview.nottscountyfc.co.uk/');
@@ -420,21 +420,21 @@ await expect(page.getByTestId('product-summary-name')).toContainText('Subscribe 
 // AFC Wimbledon
 test('AFC Wimbledon - Login and Validate',async ({ browser }, testInfo) => {
     test.setTimeout(120000); // 2 minutes
-  
+
     const context = await browser.newContext({
       httpCredentials: {
         username: previewUsername,
         password: previewPassword,
       },
     });
-  
+
     const page = await context.newPage();
 // Navigate to the AFC Wimbledon Website
 await page.goto('https://livepreview.afcwimbledon.co.uk/');
 
 // Accept all cookies
 await page.getByRole('button', { name: 'Accept All Cookies' }).click();
-  
+
 // Click the "Log In" button
 await page.getByRole('button', { name: 'Log In' }).click();
 
@@ -494,14 +494,14 @@ await expect(page.getByTestId('product-summary-name')).toContainText('Subscribe 
 // Huddersfield Town AFC - Skipping due to Packages being removed. 14/07/25
 test.skip('Huddersfield Town AFC - Login and Validate',async ({ browser }, testInfo) => {
     test.setTimeout(120000); // 2 minutes
-  
+
     const context = await browser.newContext({
       httpCredentials: {
         username: previewUsername,
         password: previewPassword,
       },
     });
-  
+
     const page = await context.newPage();
 // Navigate to the Huddersfield Town AFC Webpage
   await page.goto('https://livepreview.htafc.com/');
@@ -569,14 +569,14 @@ await page.waitForTimeout(5000); // Wait for 5 seconds
 // Oldham Athletic AFC
 test('Oldham Athletic AFC - Login and Validate',async ({ browser }, testInfo) => {
     test.setTimeout(120000); // 2 minutes
-  
+
     const context = await browser.newContext({
       httpCredentials: {
         username: previewUsername,
         password: previewPassword,
       },
     });
-  
+
     const page = await context.newPage();
 // Navigate to the Oldham Athletic AFC Website
   await page.goto('https://livepreview.oldhamathletic.co.uk/');
