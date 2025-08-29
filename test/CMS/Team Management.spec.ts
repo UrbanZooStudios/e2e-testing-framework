@@ -11,9 +11,14 @@ const email = process.env.UZGC2_EMAIL;
 const password = process.env.UZGC2_PASSWORD;
 const testEmail = process.env.UZGC2_TEST_EMAIL;
 const testPassword = process.env.UZGC2_TEST_PASSWORD;
+const STAGING_1_EMAIL = process.env.STAGING_1_EMAIL
+const STAGING_1_PASSWORD = process.env.STAGING_1_PASSWORD
+const previewUsername = process.env.PREVIEW_USERNAME || 'urbanzoo';
+const previewPassword = process.env.PREVIEW_PASSWORD || 'gamechanger1!';
+
 
 // Validate that the required environment variables are set
-if (!email || !password) {
+if (!STAGING_1_EMAIL || !STAGING_1_PASSWORD) {
   throw new Error("Main login Email or Password is not set in environment variables.");
 }
 if (!testEmail || !testPassword) {
@@ -25,13 +30,13 @@ test('Player Sponsors > Team Management > Current Squad ', async ({ page }) => {
 // Navigate to the login page
 //await page.goto('https://cms.gc.uzgc2.com/login');
 await page.goto('https://cms.gc.uzstaging1.co.uk/login');
-await page.getByRole('textbox', { name: 'Email * Email *' }).fill(email);
-await page.getByRole('textbox', { name: 'Password * Password *' }).fill(password);
+await page.getByRole('textbox', { name: 'Email * Email *' }).fill(STAGING_1_EMAIL);
+await page.getByRole('textbox', { name: 'Password * Password *' }).fill(STAGING_1_PASSWORD);
 await page.getByRole('button', { name: 'Sign in' }).click();
 
 // Access CMS > Team Management
 await page.getByRole('link', { name: 'Team Management' }).click();
-await page.waitForTimeout(5000);
+await page.waitForTimeout(1000);
 
 // Select Manage Squads
 await expect(page.getByRole('link', { name: 'Manage Squads' })).toBeVisible();
@@ -41,48 +46,42 @@ await page.getByRole('link', { name: 'Manage Squads' }).click();
 // Click current squad tab
 await expect(page.locator('body')).toContainText('Current Squad');
 
-
 // Select the player using the actions icon
-await page.getByRole('row', { name: 'Custom d45c2670-29f5-11ef-' }).getByRole('button').click();
+await page.getByRole('row', { name: 'Opta p111234 jordanpickford' }).getByRole('button').click();
 
 // Select “Player Sponsors,” upload an image, and click “Save.
-await page.locator('div:nth-child(12) > .mdi-plus-circle-outline').click();
+await page.getByRole('heading', { name: 'Player Sponsors' }).click();
 
 // Select Add New Sponsor button 
-await expect(page.getByRole('heading', { name: 'Player Sponsors' })).toBeVisible();
+await page.getByRole('button', { name: 'Add New Sponsor' }).click();
 await expect(page.locator('body')).toContainText('Add New Sponsor');
+await expect(page.getByRole('heading', { name: 'Player Sponsors' })).toBeVisible();
 
 // Select Open Media Library & search for image > Click image and click add then save
-await page.getByRole('button', { name: 'Open Media library' }).click();
+await page.getByRole('button', { name: 'Open Media library' }).first().click();
+await page.getByRole('textbox', { name: 'Search the library' }).click();
 await page.getByRole('textbox', { name: 'Search the library' }).fill('sponsor');
 await page.getByRole('button', { name: 'Search' }).click();
-await page.getByRole('article').filter({ hasText: 'png-transparent-coke-logo-' }).getByRole('button').first().click();
+await page.getByRole('article').filter({ hasText: 'png-clipart-logo-fila-brand-' }).getByRole('button').first().click();
 await page.getByRole('button', { name: 'Add', exact: true }).click();
 await page.getByRole('button', { name: 'Save' }).click();
+await page.waitForTimeout(1000);
 });
 
-test('Player Sponsors > Fanside Validation', async ({ page }) => {
-  await page.goto('https://d2aghque3oy78a.cloudfront.net/teams');
-
-  // If you can, scope to one player card:
-  // const container = page.getByRole('link', { name: /Max Harris/i });
-
-  const base =
-    'a.flex.items-center.justify-between.w-full.p-4.bg-surface-high.text-clear.light.transition-all.duration-\\[1\\.2s\\].ease-in-out.transform.absolute.bottom-0.left-0.z-10.h-10';
-  const entering = `${base}.v-enter-active.v-enter-to`;
-  const leaving  = `${base}.v-leave-active, ${base}.translate-y-32`;
-
-  // Wait until at least one of the possible states exists & is visible
-  const anyChip = page.locator(`${entering}, ${leaving}`).first();
-  await anyChip.waitFor({ state: 'visible' });
-
-  // Assertion passes as soon as one is visible (no strict-mode violation)
-  await expect(anyChip).toBeVisible();
-
-  // Teams tab should be visbile
-  await expect(page.locator('#header').getByRole('link', { name: 'Teams' })).toBeVisible();
-
-
-
-  await page.pause();
+test('Player Sponsors > Fanside Validation', async ({ browser }, testInfo) => {
+    test.setTimeout(120000); // 2 minutes
+  
+    const context = await browser.newContext({
+      httpCredentials: {
+        username: previewUsername,
+        password: previewPassword,
+      },
+    });
+  
+    const page = await context.newPage();
+  
+// Navigate to the Tranmere Rovers live preview site
+await page.goto('https://beta.gc.uzstaging1.co.uk/teams/men/jordanpickford');
+await expect(page.locator('.mx-2 > a').first()).toBeVisible();
 });
+  
