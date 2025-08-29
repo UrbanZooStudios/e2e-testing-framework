@@ -41,7 +41,9 @@ await page.getByRole('textbox', { name: 'Add Section Title' }).nth(1).fill('App 
 
 // Save Newly created section
 await page.getByRole('button', { name: 'Save' }).click();
-await page.waitForTimeout(5000);
+await page.waitForTimeout(1000);
+await page.locator('button').filter({ hasText: /^Save$/ }).click();
+await page.waitForTimeout(2000);
 
 // Hover over the section that contains the hidden button group
 const sectionContainer = page.locator('.group\\/section'); // or use an exact parent container if possible
@@ -95,7 +97,9 @@ await page.locator('section').filter({ hasText: 'LayoutContentStyleSection' }).g
 
 // Save Newly created section
 await page.getByRole('button', { name: 'Save' }).click();
-await page.waitForTimeout(5000);
+await page.waitForTimeout(1000);
+await page.locator('button').filter({ hasText: /^Save$/ }).click();
+await page.waitForTimeout(2000);
 });
 
 test('App Screen Builder - Name Tab', async ({ page }) => {
@@ -117,10 +121,6 @@ await page.getByText('Add Section').nth(1).click();
 await page.getByRole('textbox', { name: 'Add Section Title' }).nth(1).click();
 await page.getByRole('textbox', { name: 'Add Section Title' }).nth(1).fill('App Screen Builder - Name Tab');
 
-// Save Newly created section
-await page.getByRole('button', { name: 'Save' }).click();
-await page.waitForTimeout(5000);
-
 // Hover over the section that contains the hidden button group
 const sectionContainer = page.locator('.group\\/section'); // or use an exact parent container if possible
 await sectionContainer.nth(1).hover(); // Adjust the index as needed
@@ -131,33 +131,33 @@ await page.getByRole('button', { name: 'Tabs' }).nth(1).click();
 // Click Tab 1 & Rename it to Rename Tab 1
 await page.getByRole('textbox', { name: 'Enter tab title...' }).click();
 await page.getByRole('textbox', { name: 'Enter tab title...' }).fill('Rename Tab 1');
-await page.getByRole('button', { name: 'Save' }).click();
 
 // Save the content
 await page.getByRole('button', { name: 'Save' }).click();
-await page.waitForTimeout(5000);
+await page.waitForTimeout(1000);
+await page.locator('button').filter({ hasText: /^Save$/ }).click();
+await page.waitForTimeout(2000);
 
 // Click Tab 2 & Rename it to Rename Tab 2
-await page.locator('div:nth-child(3) > div > div > div').first().click();
-await page.locator('section').filter({ hasText: 'LayoutContentStylecomponentTabcomponentTabThemeThemeLight Dark Background' }).getByRole('button').nth(1).click();
+await page.locator('div').filter({ hasText: /^Tab Two$/ }).first().click();
 
 // Rename Tab 2 
 await page.getByRole('textbox', { name: 'Enter tab title...' }).click();
 await page.getByRole('textbox', { name: 'Enter tab title...' }).fill('Rename Tab 2');
-await page.getByRole('button', { name: 'Save' }).click();
-await page.waitForTimeout(5000);
 
 // Validate tabs 1 & 2 have been renamed
 await expect(page.getByRole('list')).toContainText('Rename Tab 1');
 await expect(page.getByRole('list')).toContainText('Rename Tab 2');
 
 //Clean Up Script to fully remove section
-await page.locator('[id="__nuxt"] span').filter({ hasText: /^Automation Content$/ }).click();
+await page.locator('[id="__nuxt"] span').filter({ hasText: /^Automation - Section Tabs Option$/ }).click();
 await page.locator('section').filter({ hasText: 'LayoutContentStyleSection' }).getByRole('button').nth(3).click();
 
 // Select Save Option
 await page.getByRole('button', { name: 'Save' }).click();
-await page.waitForTimeout(5000);
+await page.waitForTimeout(1000);
+await page.locator('button').filter({ hasText: /^Save$/ }).click();
+await page.waitForTimeout(2000);
 });
 
 test('App Screen Builder - Moving Tabs', async ({ page }) => {
@@ -181,7 +181,9 @@ await page.getByRole('textbox', { name: 'Add Section Title' }).nth(1).fill('App 
 
 // Save Newly created section
 await page.getByRole('button', { name: 'Save' }).click();
-await page.waitForTimeout(5000);
+await page.waitForTimeout(1000);
+await page.locator('button').filter({ hasText: /^Save$/ }).click();
+await page.waitForTimeout(2000);
 
 // Hover over the section that contains the hidden button group
 const sectionContainer = page.locator('.group\\/section'); // or use an exact parent container if possible
@@ -205,13 +207,15 @@ await page.locator('div:nth-child(2) > .relative > div > .flex > button').first(
 await page.waitForTimeout(5000);
 
 //Script Cleanup
-await page.locator('[id="__nuxt"] span').filter({ hasText: /^Automation Content$/ }).click();
+await page.locator('[id="__nuxt"] span').filter({ hasText: /^Automation - Section Tabs Option$/ }).click();
 await page.locator('section').filter({ hasText: 'LayoutContentStyleSection' }).getByRole('button').nth(3).click();
 
 
 // Save Newly created section
 await page.getByRole('button', { name: 'Save' }).click();
-await page.waitForTimeout(5000);
+await page.waitForTimeout(1000);
+await page.locator('button').filter({ hasText: /^Save$/ }).click();
+await page.waitForTimeout(2000);
 });
 
 test('App Screen Builder - Deleting Tabs', async ({ page }) => {
@@ -233,10 +237,6 @@ await page.getByText('Add Section').nth(1).click();
 await page.getByRole('textbox', { name: 'Add Section Title' }).nth(1).click();
 await page.getByRole('textbox', { name: 'Add Section Title' }).nth(1).fill('App Screen Builder - Deleting Tabs');
 
-// Save Newly created section
-await page.getByRole('button', { name: 'Save' }).click();
-await page.waitForTimeout(5000);
-
 // Hover over the section that contains the hidden button group
 const sectionContainer = page.locator('.group\\/section'); // or use an exact parent container if possible
 await sectionContainer.nth(1).hover(); // Adjust the index as needed
@@ -251,13 +251,12 @@ await page.locator('.transition > .flex > button:nth-child(4)').first().click();
 await expect(page.getByText('TabTab OneTabTab Two')).not.toBeVisible();
 
 // Save Newly created section
-await page.getByRole('button', { name: 'Save' }).click();
-await page.waitForTimeout(5000);
-
-await page.locator('[id="__nuxt"] span').filter({ hasText: /^Automation Content$/ }).click();
+await page.locator('[id="__nuxt"] span').filter({ hasText: /^Automation - Section Tabs Option$/ }).click();
 await page.locator('section').filter({ hasText: 'LayoutContentStyleSection' }).getByRole('button').nth(3).click();
 await page.getByRole('button', { name: 'Save' }).click();
-await page.waitForTimeout(5000);
+await page.waitForTimeout(1000);
+await page.locator('button').filter({ hasText: /^Save$/ }).click();
+await page.waitForTimeout(2000);
 
 
 });
@@ -281,10 +280,6 @@ await page.getByText('Add Section').nth(1).click();
 await page.getByRole('textbox', { name: 'Add Section Title' }).nth(1).click();
 await page.getByRole('textbox', { name: 'Add Section Title' }).nth(1).fill('App Screen Builder - Tab Title');
 
-// Save Newly created section
-await page.getByRole('button', { name: 'Save' }).click();
-await page.waitForTimeout(5000);
-
 // Hover over the section that contains the hidden button group
 const sectionContainer = page.locator('.group\\/section'); // or use an exact parent container if possible
 await sectionContainer.nth(1).hover(); // Adjust the index as needed
@@ -301,19 +296,18 @@ await expect(page.getByRole('list')).toContainText('Automation Tab 1');
 
 // Rename Tab 2 vai the side menu
 await page.locator('[id="__nuxt"]').getByText('App Screen Builder - Tab Title').click();
-await page.locator('section').filter({ hasText: 'LayoutContentStylecomponentTabcomponentTabThemeThemeLight Dark Background' }).getByRole('button').nth(1).click();
-await page.getByRole('textbox', { name: 'Enter tab title...' }).dblclick();
+await page.locator('section').filter({ hasText: 'LayoutContentStylecomponentTabcomponentTabThemeLight Dark Background' }).getByRole('button').nth(1).click();await page.getByRole('textbox', { name: 'Enter tab title...' }).dblclick();
 await page.getByRole('textbox', { name: 'Enter tab title...' }).fill('Automation Tab 2');
-await page.getByRole('button', { name: 'Save' }).click();
-await page.waitForTimeout(5000);
 
 // Clean Up Script
-await page.locator('[id="__nuxt"] span').filter({ hasText: /^Automation Content$/ }).click();
+await page.locator('[id="__nuxt"] span').filter({ hasText: /^Automation - Section Tabs Option$/ }).click();
 await page.locator('section').filter({ hasText: 'LayoutContentStyleSection' }).getByRole('button').nth(3).click();
 
 // Save Newly created section
 await page.getByRole('button', { name: 'Save' }).click();
-await page.waitForTimeout(5000);
+await page.waitForTimeout(1000);
+await page.locator('button').filter({ hasText: /^Save$/ }).click();
+await page.waitForTimeout(2000);
 });
 
 test('App Screen Builder - Add Carousel Option', async ({ page }) => {
@@ -335,10 +329,6 @@ await page.getByText('Add Section').nth(1).click();
 await page.getByRole('textbox', { name: 'Add Section Title' }).nth(1).click();
 await page.getByRole('textbox', { name: 'Add Section Title' }).nth(1).fill('Add Content (Carousel)');
 
-  // Save Newly created section
-await page.getByRole('button', { name: 'Save' }).click();
-await page.waitForTimeout(5000);
-
 // Hover over the section that contains the hidden button group
 const sectionContainer = page.locator('.group\\/section'); // or use an exact parent container if possible
 await sectionContainer.nth(1).hover(); // Adjust the index as needed
@@ -359,7 +349,9 @@ await page.waitForTimeout(5000);
 
 // Save Newly created section
 await page.getByRole('button', { name: 'Save' }).click();
-await page.waitForTimeout(5000);
+await page.waitForTimeout(1000);
+await page.locator('button').filter({ hasText: /^Save$/ }).click();
+await page.waitForTimeout(2000);
 });
 
 test('App Screen Builder - Tab Add Single Item Option', async ({ page }) => {
@@ -388,8 +380,10 @@ await page.waitForTimeout(5000);
 await page.getByRole('button', { name: 'Add to Canvas' }).click();
 
 // Save content
-await page.waitForTimeout(5000);
-await page.getByRole('button', { name: 'Save' }).click()
+await page.getByRole('button', { name: 'Save' }).click();
+await page.waitForTimeout(1000);
+await page.locator('button').filter({ hasText: /^Save$/ }).click();
+await page.waitForTimeout(2000);
 });
 
 test('App Screen Builder - Tab Add List Option', async ({ page }) => {
@@ -421,8 +415,10 @@ await page.waitForTimeout(5000);
 await page.getByRole('button', { name: 'Add to Canvas' }).click();
 
 // Click the Save Button
-await page.getByRole('button', { name: 'Save' }).click()
-await page.waitForTimeout(5000);
+await page.getByRole('button', { name: 'Save' }).click();
+await page.waitForTimeout(1000);
+await page.locator('button').filter({ hasText: /^Save$/ }).click();
+await page.waitForTimeout(2000);
 });
 
 test('App Screen Builder - Tab Add Content Option', async ({ page }) => {
@@ -455,13 +451,10 @@ await page.waitForTimeout(5000);
 await page.getByRole('button', { name: 'Add to Canvas' }).click();
 
 // Save content
-await page.getByRole('button', { name: 'Save' }).click()
-await page.waitForTimeout(5000);
-
-
-// Save content
-await page.getByRole('button', { name: 'Save' }).click()
-await page.waitForTimeout(5000);
+await page.getByRole('button', { name: 'Save' }).click();
+await page.waitForTimeout(1000);
+await page.locator('button').filter({ hasText: /^Save$/ }).click();
+await page.waitForTimeout(2000);
 });
 
 test('App Screen Builder - Tab Validation', async ({ page }) => {
@@ -487,5 +480,7 @@ await expect(page.getByRole('list')).toContainText('Tab Four');
 // Clean Up Script 
 await page.locator('section').filter({ hasText: 'LayoutContentStyleSection' }).getByRole('button').nth(3).click();
 await page.getByRole('button', { name: 'Save' }).click();
-await page.waitForTimeout(5000);
+await page.waitForTimeout(1000);
+await page.locator('button').filter({ hasText: /^Save$/ }).click();
+await page.waitForTimeout(2000);
 });

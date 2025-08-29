@@ -110,7 +110,9 @@ await page.getByRole('textbox', { name: 'Add Section Title' }).first().fill('Sec
 
 // Save Newly created section
 await page.getByRole('button', { name: 'Save' }).click();
-await page.waitForTimeout(5000);
+await page.waitForTimeout(1000);
+await page.locator('button').filter({ hasText: /^Save$/ }).click();
+await page.waitForTimeout(2000);
 });
 
 test('App Screen Builder - Add Mulitple Sections', async ({ page }) => {
@@ -143,7 +145,9 @@ await page.getByRole('textbox', { name: 'Add Section Title' }).nth(1).fill('Tab 
 
 // Save Newly created section
 await page.getByRole('button', { name: 'Save' }).click();
-await page.waitForTimeout(5000);
+await page.waitForTimeout(1000);
+await page.locator('button').filter({ hasText: /^Save$/ }).click();
+await page.waitForTimeout(2000);
 });
   
 test('App Screen Builder - Section Tabs Button', async ({ page }) => {
@@ -167,7 +171,9 @@ await page.getByRole('textbox', { name: 'Add Section Title' }).nth(2).fill('Sect
 
 // Save Newly created section
 await page.getByRole('button', { name: 'Save' }).click();
-await page.waitForTimeout(5000);
+await page.waitForTimeout(1000);
+await page.locator('button').filter({ hasText: /^Save$/ }).click();
+await page.waitForTimeout(1000);
 
 // Hover over the section that contains the hidden button group
 const sectionContainer = page.locator('.group\\/section'); // or use an exact parent container if possible
@@ -199,7 +205,9 @@ await expect(page.locator('div').filter({ hasText: /^Tab Three$/ }).first()).toB
 
 // Save Newly created section
 await page.getByRole('button', { name: 'Save' }).click();
-await page.waitForTimeout(5000);
+await page.waitForTimeout(2000);
+await page.locator('button').filter({ hasText: /^Save$/ }).click();
+await page.waitForTimeout(1000);
 });
 
 test('App Screen Builder - Section Arrow Buttons', async ({ page }) => {
@@ -225,7 +233,9 @@ await page.locator('button:nth-child(3)').first().click();
 await section.hover();
 await page.locator('div:nth-child(3) > div > div > div > div > div > div > button:nth-child(2)').click();
 await page.getByRole('button', { name: 'Save' }).click();
-await page.waitForTimeout(5000);
+await page.waitForTimeout(1000);
+await page.locator('button').filter({ hasText: /^Save$/ }).click();
+await page.waitForTimeout(2000);
 });
 
 test('App Screen Builder - Section Duplicate Button', async ({ page }) => {
@@ -255,7 +265,9 @@ await expect(page.getByRole('textbox', { name: 'Add Section Title' }).first()).t
 
 // Save Content
 await page.getByRole('button', { name: 'Save' }).click();
-await page.waitForTimeout(5000);
+await page.waitForTimeout(1000);
+await page.locator('button').filter({ hasText: /^Save$/ }).click();
+await page.waitForTimeout(2000);
 
 });
 
@@ -293,7 +305,9 @@ await page.locator('section').filter({ hasText: 'LayoutContentStyleSectionSectio
 
 // Wait for 5s then save
 await page.getByRole('button', { name: 'Save' }).click();
-await page.waitForTimeout(5000);
+await page.waitForTimeout(1000);
+await page.locator('button').filter({ hasText: /^Save$/ }).click();
+await page.waitForTimeout(2000);
 });
 
 test('App Screen Builder - Section Title Button', async ({ page }) => {
@@ -343,7 +357,9 @@ await page.locator('button:nth-child(6)').click();
 
 // Wait for 5s then save
 await page.getByRole('button', { name: 'Save' }).click();
-await page.waitForTimeout(5000);
+await page.waitForTimeout(1000);
+await page.locator('button').filter({ hasText: /^Save$/ }).click();
+await page.waitForTimeout(2000);
 });
 
 test('App Screen Builder - Section Add Carousel Option', async ({ page }) => {

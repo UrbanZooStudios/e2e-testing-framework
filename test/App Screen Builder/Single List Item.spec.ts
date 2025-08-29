@@ -19,7 +19,6 @@ if (!testEmail || !testPassword) {
   throw new Error("Test Email or Test Password is not set in environment variables.");
 }
 
-
 test('App Screen Builder - Single List Item - Upcoming Fixtures', async ({ page }) => {
   // Navigate to the login page..
 await page.goto('https://cms.gc.uzgc2.com/');
@@ -72,7 +71,9 @@ await page.getByRole('button', { name: 'Add to Canvas' }).click();
 
 // Select Save Option 
 await page.getByRole('button', { name: 'Save' }).click();
-await page.waitForTimeout(5000);
+await page.waitForTimeout(1000);
+await page.locator('button').filter({ hasText: /^Save$/ }).click();
+await page.waitForTimeout(2000);
 
 });
 
@@ -108,9 +109,10 @@ await expect(page.locator('div:nth-child(4) > div > div > div > .z-\\[1\\]')).to
 
 // Save Content
 await page.getByRole('button', { name: 'Save' }).click();
-await page.waitForTimeout(5000);
+await page.waitForTimeout(1000);
+await page.locator('button').filter({ hasText: /^Save$/ }).click();
+await page.waitForTimeout(2000);
 });
-
 
 test('App Screen Builder - Single List Item - News', async ({ page }) => {
   // Navigate to the login page..
@@ -155,9 +157,10 @@ await expect(page.locator('div:nth-child(5) > div > div > div > .z-\\[1\\]')).to
 
 // Save Content
 await page.getByRole('button', { name: 'Save' }).click();
-await page.waitForTimeout(5000);
+await page.waitForTimeout(1000);
+await page.locator('button').filter({ hasText: /^Save$/ }).click();
+await page.waitForTimeout(2000);
 });
-
 
 test('App Screen Builder - Single List Item - Video', async ({ page }) => {
   // Navigate to the login page..
@@ -172,7 +175,7 @@ await page.locator('[id="__nuxt"]').getByText('Automation - Single List Item').c
 await page.getByRole('button', { name: 'Edit' }).click();
 
 // Hover and select Add single item
-await page.locator('div:nth-child(5) > div > div:nth-child(2) > div > div > .group\\/hover-zone > div > .relative > div:nth-child(2) > .gc-button').click();
+await page.locator('.relative > div:nth-child(2) > .gc-button').click();
 
 // Select Video button
 await expect(page.getByRole('listitem').filter({ hasText: 'Video' })).toBeVisible();
@@ -190,7 +193,7 @@ await expect(page.getByRole('dialog').getByText('Latest').nth(2)).toBeVisible();
 
 // Select Category option from the dropdown
 await page.locator('.h-full > div:nth-child(2) > div > div > div:nth-child(2) > .min-w-0 > div > div > .relative').click();
-await page.getByRole('listitem').filter({ hasText: 'Latest' }).locator('div').click();
+await expect(page.locator('div:nth-child(2) > div > .grid.gap-2 > div:nth-child(2) > .min-w-0 > .relative.w-full > div > .relative')).toBeVisible();
 
 await page.waitForTimeout(5000);
 
@@ -198,13 +201,14 @@ await page.waitForTimeout(5000);
 await page.getByRole('button', { name: 'Add to Canvas' }).click();
 
 // Validate Video 
-await expect(page.locator('div:nth-child(6) > div > div > div > .z-\\[1\\]')).toBeVisible();
+await expect(page.locator('.z-\\[1\\]')).toBeVisible();
 
 // Save Content
 await page.getByRole('button', { name: 'Save' }).click();
-await page.waitForTimeout(5000);
+await page.waitForTimeout(1000);
+await page.locator('button').filter({ hasText: /^Save$/ }).click();
+await page.waitForTimeout(2000);
 });
-
 
 test('App Screen Builder - Single List Item - Clean Up Script', async ({ page }) => {
   // Navigate to the login page..
@@ -223,5 +227,7 @@ await page.locator('section').filter({ hasText: 'LayoutContentStyleSection' }).g
 
 // Save Content
 await page.getByRole('button', { name: 'Save' }).click();
-await page.waitForTimeout(5000);
+await page.waitForTimeout(1000);
+await page.locator('button').filter({ hasText: /^Save$/ }).click();
+await page.waitForTimeout(2000);
 });

@@ -66,13 +66,23 @@ await page.getByRole('button', { name: 'Add to Canvas' }).click();
 
 // Save Content
 await page.getByRole('button', { name: 'Save' }).click();
-await page.waitForTimeout(5000);
+await page.waitForTimeout(2000);
+await expect(page.getByText('Are you sure?Please wait up')).toBeVisible();
+await expect(page.getByRole('paragraph')).toContainText('Please wait up to 30 minutes for your changes to be reflected');
+await expect(page.locator('body')).toContainText('Are you sure?');
+await expect(page.locator('body')).toContainText('Cancel');
+await expect(page.locator('body')).toContainText('Save');
+await page.locator('button').filter({ hasText: /^Save$/ }).click();
+await page.waitForTimeout(2000);
 
 // Clean Up Script
 await page.locator('[id="__nuxt"] span').filter({ hasText: /^Automation - Carousel$/ }).click();
 await page.locator('section').filter({ hasText: 'LayoutContentStyleSection' }).getByRole('button').nth(3).click();
 await page.getByRole('button', { name: 'Save' }).click();
-await page.waitForTimeout(5000);
+await page.waitForTimeout(1000);
+await expect(page.getByText('Are you sure?Please wait up')).toBeVisible();
+await page.locator('button').filter({ hasText: /^Save$/ }).click();
+await page.waitForTimeout(2000);
 });
 
 
@@ -111,12 +121,16 @@ await expect(page.getByRole('list')).toContainText('Video Carousel');
 
 // Save Content
 await page.getByRole('button', { name: 'Save' }).click();
+await page.waitForTimeout(2000);
+await page.locator('button').filter({ hasText: /^Save$/ }).click();
 await page.waitForTimeout(5000);
 
 // Clean Up Script
 await page.locator('[id="__nuxt"] span').filter({ hasText: /^Automation - Carousel$/ }).click();
 await page.locator('section').filter({ hasText: 'LayoutContentStyleSection' }).getByRole('button').nth(3).click();
 await page.getByRole('button', { name: 'Save' }).click();
+await page.waitForTimeout(2000);
+await page.locator('button').filter({ hasText: /^Save$/ }).click();
 await page.waitForTimeout(5000);
 });
 
@@ -158,12 +172,16 @@ await expect(page.getByRole('list')).toContainText('Fixture Carousel: Upcoming')
 
 // Save Content
 await page.getByRole('button', { name: 'Save' }).click();
+await page.waitForTimeout(2000);
+await page.locator('button').filter({ hasText: /^Save$/ }).click();
 await page.waitForTimeout(5000);
 
 // Clean Up Script
 await page.locator('[id="__nuxt"] span').filter({ hasText: /^Automation - Carousel$/ }).click();
 await page.locator('section').filter({ hasText: 'LayoutContentStyleSection' }).getByRole('button').nth(3).click();
 await page.getByRole('button', { name: 'Save' }).click();
+await page.waitForTimeout(2000);
+await page.locator('button').filter({ hasText: /^Save$/ }).click();
 await page.waitForTimeout(5000);
 });
 
@@ -207,7 +225,6 @@ await expect(page.getByRole('dialog')).toContainText('Fixture');
 // Click Add to Canvas
 await page.getByRole('button', { name: 'Add to Canvas' }).click();
 await page.waitForTimeout(5000);
-await page.pause();
 
 // Fixture Validation 
 await expect(page.locator('.z-\\[1\\]')).toBeVisible();
@@ -215,10 +232,14 @@ await expect(page.getByRole('list')).toContainText('Fixture Carousel: Results');
 
 // Save Content
 await page.getByRole('button', { name: 'Save' }).click();
+await page.waitForTimeout(2000);
+await page.locator('button').filter({ hasText: /^Save$/ }).click();
 
 // Clean Up Script
 await page.locator('[id="__nuxt"] span').filter({ hasText: /^Automation - Carousel$/ }).click();
 await page.locator('section').filter({ hasText: 'LayoutContentStyleSection' }).getByRole('button').nth(3).click();
 await page.getByRole('button', { name: 'Save' }).click();
+await page.waitForTimeout(2000);
+await page.locator('button').filter({ hasText: /^Save$/ }).click();
 await page.waitForTimeout(5000);
 });

@@ -81,6 +81,12 @@ await expect(page.locator('.z-\\[1\\]').first()).toBeVisible();
 
 // Save Content
 await page.getByRole('button', { name: 'Save' }).click();
+await expect(page.getByText('Are you sure?Please wait up')).toBeVisible();
+await expect(page.getByRole('paragraph')).toContainText('Please wait up to 30 minutes for your changes to be reflected');
+await expect(page.locator('body')).toContainText('Are you sure?');
+await expect(page.locator('body')).toContainText('Cancel');
+await expect(page.locator('body')).toContainText('Save');
+await page.locator('button').filter({ hasText: /^Save$/ }).click();
 await page.waitForTimeout(5000);
 });
 
@@ -146,6 +152,12 @@ await expect(page.locator('.z-\\[1\\]').first()).toBeVisible();
 
 // Save Content
 await page.getByRole('button', { name: 'Save' }).click();
+await expect(page.getByText('Are you sure?Please wait up')).toBeVisible();
+await expect(page.getByRole('paragraph')).toContainText('Please wait up to 30 minutes for your changes to be reflected');
+await expect(page.locator('body')).toContainText('Are you sure?');
+await expect(page.locator('body')).toContainText('Cancel');
+await expect(page.locator('body')).toContainText('Save');
+await page.locator('button').filter({ hasText: /^Save$/ }).click();
 await page.waitForTimeout(5000);
 });
 
@@ -169,6 +181,12 @@ await page.locator('section').filter({ hasText: 'LayoutContentStyleSection' }).g
 
 // Click Save 
 await page.getByRole('button', { name: 'Save' }).click();
+await expect(page.getByText('Are you sure?Please wait up')).toBeVisible();
+await expect(page.getByRole('paragraph')).toContainText('Please wait up to 30 minutes for your changes to be reflected');
+await expect(page.locator('body')).toContainText('Are you sure?');
+await expect(page.locator('body')).toContainText('Cancel');
+await expect(page.locator('body')).toContainText('Save');
+await page.locator('button').filter({ hasText: /^Save$/ }).click();
 await page.waitForTimeout(5000);
 
 });
