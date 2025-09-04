@@ -322,7 +322,7 @@ await expect(page.locator('#customer_portal_page_body')).toContainText('EFL Digi
 });
 
 
-test('SSO - No Subscription Message', async ({ browser }) => {
+test.only('SSO - No Subscription Message', async ({ browser }) => {
   // Define path to the saved credentials file from the registration test
   const credentialsPath = path.resolve(__dirname, '../tmp/credentials.json');
 
@@ -349,6 +349,16 @@ await page.goto(loginUrl);
 
   // Handle any cookie banners if present
 await acceptCookiesIfPresent(page);
+
+const optionalButton = page.locator('.absolute.-top-\\[25px\\]');
+
+// Check visibility
+if (await optionalButton.isVisible()) {
+  await optionalButton.click();
+  console.log('✅ Optional button clicked');
+} else {
+  console.log('⚠️ Optional button not visible, skipping...');
+}
 
 // Select Login Button & Perform login
 await page.locator('button').filter({ hasText: 'Log in' }).click();
