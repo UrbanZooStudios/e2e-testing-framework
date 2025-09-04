@@ -80,7 +80,15 @@ test('Player Sponsors > Fanside Validation', async ({ browser }, testInfo) => {
     const page = await context.newPage();
   
 // Navigate to the Tranmere Rovers live preview site
-await page.goto('https://beta.gc.uzstaging1.co.uk/teams/men/jordanpickford');
-await expect(page.locator('.mx-2 > a').first()).toBeVisible();
+await page.goto('https://beta.gc.uzstaging1.co.uk/teams/men/jordanpickford', { waitUntil: 'networkidle' });
+
+// Wait explicitly for the selector before asserting visibility
+const imageLink = page.locator('.mx-2 > a').first();
+
+// Ensure the element is attached to the DOM
+await imageLink.waitFor({ state: 'visible', timeout: 10000 });
+
+// Assert it's visible
+await expect(imageLink).toBeVisible();
 });
   
