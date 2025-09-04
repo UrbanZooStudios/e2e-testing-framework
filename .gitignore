@@ -16,3 +16,4 @@ credentials.json
 token.json
 test/tmp/credentials.json
 /test/tmp
+test/tmp/credentials.json
