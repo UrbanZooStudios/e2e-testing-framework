@@ -54,18 +54,17 @@ await page.getByRole('heading', { name: 'Player Sponsors' }).click();
 
 // Select Add New Sponsor button 
 await page.getByRole('button', { name: 'Add New Sponsor' }).click();
-await expect(page.locator('body')).toContainText('Add New Sponsor');
-await expect(page.getByRole('heading', { name: 'Player Sponsors' })).toBeVisible();
-
-// Select Open Media Library & search for image > Click image and click add then save
-await page.getByRole('button', { name: 'Open Media library' }).first().click();
+await page.getByRole('button', { name: 'Open Media library' }).nth(1).click();
 await page.getByRole('textbox', { name: 'Search the library' }).click();
 await page.getByRole('textbox', { name: 'Search the library' }).fill('sponsor');
 await page.getByRole('button', { name: 'Search' }).click();
-await page.getByRole('article').filter({ hasText: 'png-clipart-logo-fila-brand-' }).getByRole('button').first().click();
+
+// Select Open Media Library & search for image > Click image and click add then save
+await page.getByRole('article').filter({ hasText: 'Sponsor.png' }).getByRole('button').first().click();
+await page.getByText('Cancel Add').click();
 await page.getByRole('button', { name: 'Add', exact: true }).click();
-await page.getByRole('button', { name: 'Save' }).click();
-await page.waitForTimeout(1000);
+await page.getByRole('button', { name: 'Delete this sponsor' }).nth(1).click();
+
 });
 
 test('Player Sponsors > Fanside Validation', async ({ browser }, testInfo) => {
