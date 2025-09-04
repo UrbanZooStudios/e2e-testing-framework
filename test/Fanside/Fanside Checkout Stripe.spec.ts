@@ -234,79 +234,10 @@ await expect(page.getByRole('article').filter({ hasText: 'SubscriptionSubscripti
 // Access the subscription details
 await page.locator('a').filter({ hasText: 'Buy Now For £54.99' }).click();
   
-    // Validate the checkout and business details
+// Validate the checkout and business details
 await expect(page.locator('div').filter({ hasText: /^BackPortsmouth Football Club$/ }).first()).toBeVisible();
-  await expect(page.getByTestId('business-name')).toContainText('Portsmouth Football Club');});
+await expect(page.getByTestId('business-name')).toContainText('Portsmouth Football Club');});
   
-
-// Doncaster Rovers FC - FAILED - 14/07/25 - Regression bug - UZ-2240
-test.skip('Doncaster Rovers FC - Login and Validate',async ({ browser }, testInfo) => {
-    test.setTimeout(120000); // 2 minutes
-  
-    const context = await browser.newContext({
-      httpCredentials: {
-        username: previewUsername,
-        password: previewPassword,
-      },
-    });
-  
-    const page = await context.newPage();
-  // Navigate to the 
-await page.goto('https://livepreview.doncasterroversfc.co.uk/');
-
-// Accept all cookies
-await page.getByRole('button', { name: 'Accept All Cookies' }).click();
-
-// Log in to the application
-await page.getByRole('button', { name: 'Log In' }).click();
-await page.getByRole('textbox', { name: 'Email' }).fill('thomasastley@urbanzoo.io');
-await page.locator('#password').click();
-  await page.locator('#password').fill('Password1!');
-
-// Submit login form (assuming anchor link is used for login)
-await page.locator('a').filter({ hasText: 'Login' }).click();
-
-// Open user/account menu
-await page.locator('.cursor-pointer.gc-base-icon.duration-150 > .duration-100').click();
-
-// Navigate to Rovers+ section
-await page.getByRole('link', { name: 'Rovers+' }).click();
-
-// Select the "Subscriptions" tab
-await page.getByRole('tab', { name: 'Tab Subscriptions' }).click();
-
-// Validate subscription section is visible and correct
-await expect(
-  page.getByLabel('1 of 2')
-    .locator('div')
-    .filter({ hasText: /^Subscription$/ })
-    .getByRole('paragraph')
-).toBeVisible();
-
-await expect(
-  page.getByLabel('1 of 2').getByRole('article')
-).toContainText('Subscription');
-
-await page.pause();
-
-// Click into the first subscription group
-await page.getByRole('group', { name: '1 of 2' }).locator('a').click();
-
-// Click into the first subscription group
-await page.getByRole('group', { name: '1 of 2' }).locator('a').click();
-
-await page.waitForTimeout(10000);
-
-// Confirm the checkout container is visible
-await expect(page.getByTestId('checkout-container')).toBeVisible();
-
-// Validate that the header contains expected club name
-await expect(page.getByRole('banner')).toContainText('BackFootball Club');
-
-// Confirm product summary name is visible
-await expect(page.getByTestId('product-summary-name')).toBeVisible();
-});
-
 // Notts County FC
 test('Notts County FC - Login and Validate',async ({ browser }, testInfo) => {
     test.setTimeout(120000); // 2 minutes
@@ -445,81 +376,6 @@ await expect(page.getByTestId('product-summary-name')).toBeVisible();
 
 // Assert the product summary contains the correct subscription name
 await expect(page.getByTestId('product-summary-name')).toContainText('Subscribe to Audio Month Pass');
-});
-
-// Huddersfield Town AFC - Skipping due to Packages being removed. 14/07/25
-test.skip('Huddersfield Town AFC - Login and Validate',async ({ browser }, testInfo) => {
-    test.setTimeout(120000); // 2 minutes
-  
-    const context = await browser.newContext({
-      httpCredentials: {
-        username: previewUsername,
-        password: previewPassword,
-      },
-    });
-  
-    const page = await context.newPage();
-// Navigate to the Huddersfield Town AFC Webpage
-  await page.goto('https://livepreview.htafc.com/');
-// Accept the cookie consent prompt
-await page.getByRole('button', { name: 'Accept All Cookies' }).click();
-await page.waitForTimeout(5000); // Wait for 5 seconds
-
-// Navigate to the "HTTV" tab
-await page.getByRole('tab', { name: 'HTTV' }).click();
-await page.waitForTimeout(5000); // Wait for 5 seconds
-
-// Navigate to the "Subscriptions" tab within HTTV
-await page.getByRole('tab', { name: 'Tab Subscriptions' }).click();
-await page.waitForTimeout(5000); // Wait for 5 seconds
-
-// Assert that the "MatchPass" paragraph is visible
-await expect(
-  page.locator('div')
-    .filter({ hasText: /^MatchPass$/ })
-    .getByRole('paragraph')
-).toBeVisible();
-await page.waitForTimeout(5000); // Wait for 5 seconds
-
-// Assert the article contains the text "MatchPass"
-await expect(page.getByRole('article')).toContainText('MatchPass');
-await page.waitForTimeout(5000); // Wait for 5 seconds
-
-// Click the subscription link in the group labeled "of 1"
-await page.getByRole('group', { name: 'of 1' }).locator('a').click();
-await page.waitForTimeout(5000); // Wait for 5 seconds
-
-// Click on the email input textbox
-await page.getByRole('textbox', { name: 'Email' }).click();
-await page.waitForTimeout(5000); // Wait for 5 seconds
-
-// Fill in the email address
-await page.getByRole('textbox', { name: 'Email' }).fill('thomasastley@urbanzoo.io');
-await page.waitForTimeout(5000); // Wait for 5 seconds
-
-// Press Tab to move focus to the password input
-await page.getByRole('textbox', { name: 'Email' }).press('Tab');
-await page.waitForTimeout(5000); // Wait for 5 seconds
-
-// Fill in the password
-await page.getByRole('textbox', { name: 'Password' }).fill('Password1!');
-await page.waitForTimeout(5000); // Wait for 5 seconds
-
-// Submit the login form
-await page.getByRole('button', { name: 'Log in' }).click();
-await page.waitForTimeout(5000); // Wait for 5 seconds
-
-// Click the subscription link again after logging in
-await page.getByRole('group', { name: 'of 1' }).locator('a').click();
-await page.waitForTimeout(5000); // Wait for 5 seconds
-
-// Assert the product summary name is visible
-await expect(page.getByTestId('product-summary-name')).toBeVisible();
-await page.waitForTimeout(5000); // Wait for 5 seconds
-
-// Assert the product summary contains the correct subscription name
-await expect(page.getByTestId('product-summary-name')).toContainText('Pay Huddersfield Town AFC');
-await page.waitForTimeout(5000); // Wait for 5 seconds
 });
 
 // Oldham Athletic AFC
