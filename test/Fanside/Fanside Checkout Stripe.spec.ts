@@ -68,9 +68,10 @@ await page.getByRole('link', { name: 'RoversTV', exact: true }).click();
 
 // Select the "Subscriptions" tab
 await page.getByRole('tab', { name: 'Tab Subscriptions' }).click();
+await page.waitForSelector('text=Season Audio Subscription', { timeout: 10000 });
 
 // Validate that the subscription information is visible on the page
-await expect(page.getByText('SubscriptionSubscriptionSeason Audio SubscriptionA season audio subscription')).toBeVisible();
+await expect(page.getByLabel('1 of 2').locator('div').filter({ hasText: /^Subscription$/ })).toBeVisible();
 
 // Open the subscription details
 const subscriptionLink = page.getByRole('group', { name: 'of 1' }).locator('a');
@@ -82,67 +83,6 @@ await expect(page.getByTestId('business-link')).toBeVisible();
 
 });
   
-// Sunderland AFC - Packages to test
-test.skip('Sunderland AFC - Login and Validate',async ({ browser }, testInfo) => {
-    test.setTimeout(120000); // 2 minutes
-  
-    const context = await browser.newContext({
-      httpCredentials: {
-        username: previewUsername,
-        password: previewPassword,
-      },
-    });
-  
-    const page = await context.newPage();
-  // Navigate to the Sunderland AFC live preview site
-await page.goto('https://livepreview.safc.com/');
-
-// Close any initial popup/modal (e.g., site overlay)
-await page.locator('.absolute.-top-\\[25px\\]').click();
-
-// Accept cookies
-await page.getByRole('button', { name: 'Accept All Cookies' }).click();
-
-// Open the login modal
-await page.getByRole('button', { name: 'Log In' }).click();
-
-// Enter email address
-await page.getByLabel('', { exact: true }).click();
-await page.getByLabel('', { exact: true }).fill('thomasastley@urbanzoo.io');
-await page.getByLabel('', { exact: true }).press('Tab');
-
-// Enter password
-await page.locator('#password').fill('Password1!');
-await page.locator('#password').press('Enter'); // Submit the form
-
-// Close any post-login notification or modal
-await page.locator('.cursor-pointer.gc-base-icon.duration-150 > .duration-100').click();
-
-// Navigate to the "Video" section
-await page.getByRole('link', { name: 'Video' }).click();
-
-// Select the "Subscriptions" tab
-await page.getByRole('tab', { name: 'Tab Subscriptions' }).click();
-
-// Verify that the "MatchPass" subscription option is visible
-await expect(page.locator('div').filter({ hasText: /^MatchPass$/ }).getByRole('paragraph')).toBeVisible();
-
-await page.getByRole('group', { name: 'of 1' }).locator('a').click();
-await page.getByRole('group', { name: 'of 1' }).locator('a').click();
-await page.getByRole('group', { name: 'of 1' }).locator('a').click();
-
-// Validate payment and business info are shown correctly
-await expect(
-  page.getByText('BackSunderland Association Football Club, Limited (The)Pay Sunderland')
-).toBeVisible();
-
-await expect(page.getByTestId('business-name')).toContainText(
-  'Sunderland Association Football Club, Limited (The)'
-);
-
-await expect(page.getByTestId('business-link')).toBeVisible();
-});
-
 // Walsall FC
 test('Walsall FC - Login and Validate',async ({ browser }, testInfo) => {
     test.setTimeout(120000); // 2 minutes
@@ -161,6 +101,15 @@ await page.goto('https://livepreview.saddlers.co.uk/');
 // Accept all cookies
 await page.getByRole('button', { name: 'Accept All Cookies' }).click();
 await page.waitForTimeout(5000); // Wait for 5 seconds
+
+const splashButton = page.locator('.absolute.-top-\\[25px\\]');
+
+if (await splashButton.isVisible()) {
+  await splashButton.click();
+  console.log('✅ Splash screen closed');
+} else {
+  console.log('⚠️ Splash screen not found, skipping...');
+}
 
 // Open the login modal
 await page.locator('button').filter({ hasText: 'Log in' }).click();
@@ -231,56 +180,63 @@ test('Portsmouth FC - Login and Validate', async ({ browser }, testInfo) => {
 
     // Accept all cookies
     await page.getByRole('button', { name: 'Accept All Cookies' }).click();
-  
-    // Function to perform login sequence
-    async function performLogin(email: string, password: string) {
-      // Open login modal
-      await page.locator('button').filter({ hasText: 'Log in' }).click();
-  
-      // Enter email
-      await page.getByRole('textbox', { name: 'Email' }).click();
-      await page.getByRole('textbox', { name: 'Email' }).fill(email);
-      await page.getByRole('textbox', { name: 'Email' }).press('Tab');
-  
-      // Enter password
-      await page.getByRole('textbox', { name: 'Password' }).fill(password);
-  
-      // Submit form
-      await page.getByRole('button', { name: 'Continue' }).click();
+
+    const splashButton1 = page.locator('.absolute.-top-\\[25px\\]');
+
+    if (await splashButton1.isVisible()) {
+      await splashButton1.click();
+      console.log('✅ Splash screen closed');
+    } else {
+      console.log('⚠️ Splash screen not found, skipping...');
     }
+
+// Function to perform login sequence
+async function performLogin(email: string, password: string) {
+// Open login modal
+await page.locator('button').filter({ hasText: 'Log in' }).click();
   
-    // Initial login attempt with test credentials
-    await performLogin('thomasastley@urbanzoo.io', 'Password1!');
+// Enter email
+await page.getByRole('textbox', { name: 'Email' }).click();
+await page.getByRole('textbox', { name: 'Email' }).fill(email);
+await page.getByRole('textbox', { name: 'Email' }).press('Tab');
   
-    // Retry login with corrected credentials
-    await performLogin('thomasastley@urbanzoo.io', 'Password1!');
+// Enter password
+await page.getByRole('textbox', { name: 'Password' }).fill(password);
   
-    // Navigate to Pompey+ content
-    await page.getByRole('link', { name: 'Pompey+' }).nth(1).click();
+// Submit form
+await page.getByRole('button', { name: 'Continue' }).click();}
   
-    // Open the Subscriptions tab
-    await page.getByRole('tab', { name: 'Tab Subscriptions' }).click();
+// Initial login attempt with test credentials
+await performLogin('thomasastley@urbanzoo.io', 'Password1!');
   
-    // Validate that the Subscription section is visible
-    await expect(
-      page.getByLabel('1 of 5').locator('div').filter({ hasText: /^Subscription$/ }).getByRole('paragraph')
-    ).toBeVisible();
+// Retry login with corrected credentials
+await performLogin('thomasastley@urbanzoo.io', 'Password1!');
+
+    // Close any initial popup/modal (e.g., site overlay)
+const splashButton = page.locator('.absolute.-top-\\[25px\\]');
+
+if (await splashButton.isVisible()) {
+  await splashButton.click();
+  console.log('✅ Splash screen closed');
+} else {
+  console.log('⚠️ Splash screen not found, skipping...');
+}
   
-    // Confirm the subscription content is present
-    await expect(
-      page.getByLabel('1 of 5').getByRole('article')
-    ).toContainText('Subscription');
+// Navigate to Pompey+ content
+await page.getByRole('link', { name: 'Pompey+' }).nth(1).click();
   
-    // Access the subscription details
-    await page.getByRole('group', { name: '1 of 5' }).locator('a').click();
+// Open the Subscriptions tab
+await page.getByRole('tab', { name: 'Tab Subscriptions' }).click();
+  
+// Validate that the Subscription section is visible
+await expect(page.getByRole('article').filter({ hasText: 'SubscriptionSubscriptionSeason Pass | Premium ContentYour season pass to access' }).getByRole('paragraph').first()).toBeVisible()
+  
+// Access the subscription details
+await page.locator('a').filter({ hasText: 'Buy Now For £54.99' }).click();
   
     // Validate the checkout and business details
-    await expect(
-      page.locator('div').filter({ hasText: /^BackPortsmouth Football Club$/ }).first()
-    ).toBeVisible();
-  
-    await expect(page.getByTestId('business-name')).toContainText('Portsmouth Football Club');
-  });
+await expect(page.locator('div').filter({ hasText: /^BackPortsmouth Football Club$/ }).first()).toBeVisible();
+  await expect(page.getByTestId('business-name')).toContainText('Portsmouth Football Club');});
   
 
 // Doncaster Rovers FC - FAILED - 14/07/25 - Regression bug - UZ-2240

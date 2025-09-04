@@ -177,9 +177,9 @@ await page.locator('section').filter({ hasText: 'LayoutContentStyleSection' }).g
 
 // Save Content
 await page.getByRole('button', { name: 'Save' }).click();
-await page.waitForTimeout(1000);
+await page.waitForLoadState('networkidle');
 await page.locator('button').filter({ hasText: /^Save$/ }).click();
-await page.waitForTimeout(2000);
+await page.waitForLoadState('networkidle');
 });
 
 test('App Screen Builder - Single List Item - Video', async ({ page }) => {
