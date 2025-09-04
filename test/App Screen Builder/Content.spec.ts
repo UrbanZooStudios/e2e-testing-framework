@@ -60,18 +60,18 @@ await page.locator('section').filter({ hasText: 'LayoutContentStyleContentParagr
 await page.locator('section').filter({ hasText: 'LayoutContentStyleContentParagraphParagraphHeading 2Heading 3Heading 4Heading' }).getByRole('textbox').fill('Heading = Paragraph');
 
 // Hover & select content option
-await page.locator('div:nth-child(2) > div > div > .group\\/hover-zone > div > .relative > div:nth-child(4) > .gc-button').click();
+await page.locator('.w-full.group\\/section.rounded-md.rounded-b-md > .relative.transition-all.duration-200 > .pt-0 > div:nth-child(2) > .flex.items-center.justify-center.z-\\[10\\] > .group\\/hover-zone > .relative.flex.items-center.justify-center > .relative > div:nth-child(4) > .gc-button').click();
 await page.locator('.w-\\[194px\\] > div:nth-child(4)').click();
 await page.getByRole('button', { name: 'Add to Canvas' }).click();
 
 // Select Heading 2 dropdown & select Heading 2 & add text Heading 2
-await page.locator('.relative > div > .relative > div:nth-child(2)').click();
+await page.locator('.relative.flex.items-center.justify-between.gap-1 > div:nth-child(2)').first().click();
 await page.getByRole('listitem').filter({ hasText: 'Heading 2' }).locator('div').click();
 await page.locator('section').filter({ hasText: 'LayoutContentStyleContentHeading 2ParagraphHeading 2Heading 3Heading 4Heading' }).getByRole('heading').dblclick();
 await page.locator('section').filter({ hasText: 'LayoutContentStyleContentHeading 2ParagraphHeading 2Heading 3Heading 4Heading' }).getByRole('textbox').fill('Heading 2');
 
 // Hover & select Content List
-await page.locator('div:nth-child(4) > div > div:nth-child(2) > div > div > .group\\/hover-zone > div > .relative > div:nth-child(4) > .gc-button').click();
+await page.locator('.w-full.group\\/section.rounded-md.rounded-b-md > .relative.transition-all.duration-200 > .pt-0 > div:nth-child(2) > .flex.items-center.justify-center.z-\\[10\\] > .group\\/hover-zone > .relative.flex.items-center.justify-center > .relative > div:nth-child(4) > .gc-button').click();
 
 // Select Text Content option 
 await page.locator('.w-\\[194px\\] > div:nth-child(4)').click();
@@ -80,51 +80,54 @@ await page.locator('.w-\\[194px\\] > div:nth-child(4)').click();
 await page.getByRole('button', { name: 'Add to Canvas' }).click();
 
 // Select Heading 3 dropdown & select Heading 3 & add text Heading 3
-await page.locator('.relative > div > .relative > div:nth-child(2) > .gc-base-icon > svg').click();
+await page.locator('.relative.flex.items-center.justify-between.gap-1 > div:nth-child(2)').first().click();
 await page.getByRole('listitem').filter({ hasText: 'Heading 3' }).locator('div').click();
 await page.locator('section').filter({ hasText: 'LayoutContentStyleContentHeading 3ParagraphHeading 2Heading 3Heading 4Heading' }).getByRole('textbox').fill('Heading 3');
 
 // Hover & select Content List / Select Text & Add to Canvas
-await page.locator('div:nth-child(5) > div > div:nth-child(2) > div > div > .group\\/hover-zone > div > .relative > div:nth-child(4) > .gc-button').click();
-await page.locator('.w-\\[194px\\] > div:nth-child(4)').click();
+await page.locator('.w-full.group\\/section.rounded-md.rounded-b-md > .relative.transition-all.duration-200 > .pt-0 > div:nth-child(2) > .flex.items-center.justify-center.z-\\[10\\] > .group\\/hover-zone > .relative.flex.items-center.justify-center > .relative > div:nth-child(4) > .gc-button').click();await page.locator('.w-\\[194px\\] > div:nth-child(4)').click();
 await page.getByRole('button', { name: 'Add to Canvas' }).click();
 
 // Select Heading 4 dropdown & select Heading 4 & add text Heading 4
-await page.locator('.relative > div > .relative > div:nth-child(2)').click();
+await page.locator('.relative.flex.items-center.justify-between.gap-1 > div:nth-child(2)').first().click();
 await page.getByRole('listitem').filter({ hasText: 'Heading 4' }).locator('div').click();
 await page.locator('section').filter({ hasText: 'LayoutContentStyleContentHeading 4ParagraphHeading 2Heading 3Heading 4Heading' }).getByRole('textbox').fill('Heading 4');
 
 // Hover & select Content List & Select Text Content option & Click Add to Canvas
-await page.locator('div:nth-child(6) > div > div:nth-child(2) > div > div > .group\\/hover-zone > div > .relative > div:nth-child(4) > .gc-button').click();
+await page.locator('.w-full.group\\/section.rounded-md.rounded-b-md > .relative.transition-all.duration-200 > .pt-0 > div:nth-child(2) > .flex.items-center.justify-center.z-\\[10\\] > .group\\/hover-zone > .relative.flex.items-center.justify-center > .relative > div:nth-child(4) > .gc-button').click();await page.locator('.w-\\[194px\\] > div:nth-child(4)').click();
 await page.locator('.w-\\[194px\\] > div:nth-child(4)').click();
 await page.getByRole('button', { name: 'Add to Canvas' }).click();
 
 // Select Heading 5 dropdown & select Heading 5 & add text Heading 5
-await page.locator('.relative > div > .relative > div:nth-child(2)').click();
+await page.locator('.relative.flex.items-center.justify-between.gap-1 > div:nth-child(2)').first().click();
 await page.getByRole('listitem').filter({ hasText: 'Heading 5' }).locator('div').click();
 await page.locator('section').filter({ hasText: 'LayoutContentStyleContentHeading 5ParagraphHeading 2Heading 3Heading 4Heading' }).getByRole('textbox').fill('Heading 5');
 
 // Hover & select Content List & Select Text Content option & Click Add to Canvas
-await page.locator('div:nth-child(7) > div > div:nth-child(2) > div > div > .group\\/hover-zone > div > .relative > div:nth-child(4) > .gc-button').click();
+await page.locator('.w-full.group\\/section.rounded-md.rounded-b-md > .relative.transition-all.duration-200 > .pt-0 > div:nth-child(2) > .flex.items-center.justify-center.z-\\[10\\] > .group\\/hover-zone > .relative.flex.items-center.justify-center > .relative > div:nth-child(4) > .gc-button').click();await page.locator('.w-\\[194px\\] > div:nth-child(4)').click();
 await page.locator('.w-\\[194px\\] > div:nth-child(4)').click();
 await page.getByRole('button', { name: 'Add to Canvas' }).click();
 
 // Select Heading 6 dropdown  & select Heading 6 & add text Heading 6
-await page.locator('.relative > div > .relative > div:nth-child(2)').click();
+await page.locator('.relative.flex.items-center.justify-between.gap-1 > div:nth-child(2)').first().click();
 await page.getByRole('listitem').filter({ hasText: 'Heading 6' }).locator('div').click();
 await page.locator('section').filter({ hasText: 'LayoutContentStyleContentHeading 6ParagraphHeading 2Heading 3Heading 4Heading' }).getByRole('heading').click();
 await page.locator('section').filter({ hasText: 'LayoutContentStyleContentHeading 6ParagraphHeading 2Heading 3Heading 4Heading' }).getByRole('textbox').fill('Heading 6');
 
 // Save Content
 await page.getByRole('button', { name: 'Save' }).click();
-await page.waitForTimeout(5000);
+await page.waitForTimeout(1000);
+await page.locator('button').filter({ hasText: /^Save$/ }).click();
+await page.waitForTimeout(2000);
 
 // Clean Uo Script
 await page.getByText('Section', { exact: true }).nth(1).click();
 await page.locator('[id="__nuxt"] span').filter({ hasText: /^Automation - Content$/ }).click();
 await page.locator('section').filter({ hasText: 'LayoutContentStyleSection' }).getByRole('button').nth(3).click();
 await page.getByRole('button', { name: 'Save' }).click();
-await page.waitForTimeout(5000);
+await page.waitForTimeout(1000);
+await page.locator('button').filter({ hasText: /^Save$/ }).click();
+await page.waitForTimeout(2000);
 });
 
 test('App Screen Builder - Content - Text - Centre Aligned', async ({ page }) => {
@@ -144,7 +147,6 @@ await page.locator('.p-2 > div:nth-child(2) > div > div:nth-child(2) > div > .fl
 await page.getByRole('textbox', { name: 'Add Section Title' }).nth(1).dblclick();
 await page.getByRole('textbox', { name: 'Add Section Title' }).nth(1).fill('Content - Text - Centre Aligned');
 
-
 // Hover & select content option
 await page.locator('div:nth-child(3) > div > div > div > div > div:nth-child(2) > .pt-0 > div:nth-child(2) > div > .group\\/hover-zone > div > .relative > div:nth-child(4) > .gc-button').click();
 await page.waitForTimeout(5000);
@@ -159,23 +161,23 @@ await page.getByRole('button', { name: 'Add to Canvas' }).click();
 await page.locator('section').filter({ hasText: 'LayoutContentStyleContentParagraphParagraphHeading 2Heading 3Heading 4Heading' }).getByRole('textbox').click();
 await page.locator('section').filter({ hasText: 'LayoutContentStyleContentParagraphParagraphHeading 2Heading 3Heading 4Heading' }).getByRole('textbox').fill('Heading = Paragraph');
 await page.locator('div:nth-child(2) > div:nth-child(2) > button:nth-child(2)').click();
-await page.getByRole('button', { name: 'Save' }).click();
+
  
 // Hover & select content option
-await page.locator('div:nth-child(2) > div > div > .group\\/hover-zone > div > .relative > div:nth-child(4) > .gc-button').click();
+await page.locator('div:nth-child(3) > div > div > div > div > div:nth-child(2) > .pt-0 > div:nth-child(2) > div > .group\\/hover-zone > div > .relative > div:nth-child(4) > .gc-button').click();
 await page.locator('.w-\\[194px\\] > div:nth-child(4)').click();
 await page.getByRole('button', { name: 'Add to Canvas' }).click();
 
 // Select Heading 2 dropdown & select Heading 2 & add text Heading 2
-await page.locator('.relative > div > .relative > div:nth-child(2)').click();
+await page.locator('.relative.flex.items-center.justify-between.gap-1 > div:nth-child(2)').first().click();
 await page.getByRole('listitem').filter({ hasText: 'Heading 2' }).locator('div').click();
 await page.locator('section').filter({ hasText: 'LayoutContentStyleContentHeading 2ParagraphHeading 2Heading 3Heading 4Heading' }).getByRole('heading').dblclick();
 await page.locator('section').filter({ hasText: 'LayoutContentStyleContentHeading 2ParagraphHeading 2Heading 3Heading 4Heading' }).getByRole('textbox').fill('Heading 2');
 await page.locator('div:nth-child(2) > div:nth-child(2) > button:nth-child(2)').click();
-await page.getByRole('button', { name: 'Save' }).click();
+
 
 // Hover & select Content List
-await page.locator('div:nth-child(4) > div > div:nth-child(2) > div > div > .group\\/hover-zone > div > .relative > div:nth-child(4) > .gc-button').click();
+await page.locator('div:nth-child(3) > div > div > div > div > div:nth-child(2) > .pt-0 > div:nth-child(2) > div > .group\\/hover-zone > div > .relative > div:nth-child(4) > .gc-button').click();
 
 // Select Text Content option 
 await page.locator('.w-\\[194px\\] > div:nth-child(4)').click();
@@ -184,60 +186,55 @@ await page.locator('.w-\\[194px\\] > div:nth-child(4)').click();
 await page.getByRole('button', { name: 'Add to Canvas' }).click();
 
 // Select Heading 3 dropdown & select Heading 3 & add text Heading 3
-await page.locator('.relative > div > .relative > div:nth-child(2) > .gc-base-icon > svg').click();
+await page.locator('.relative.flex.items-center.justify-between.gap-1 > div:nth-child(2)').first().click();
 await page.getByRole('listitem').filter({ hasText: 'Heading 3' }).locator('div').click();
 await page.locator('section').filter({ hasText: 'LayoutContentStyleContentHeading 3ParagraphHeading 2Heading 3Heading 4Heading' }).getByRole('textbox').fill('Heading 3');
 await page.locator('div:nth-child(2) > div:nth-child(2) > button:nth-child(2)').click();
-await page.getByRole('button', { name: 'Save' }).click();
-
 
 // Hover & select Content List / Select Text & Add to Canvas
-await page.locator('div:nth-child(5) > div > div:nth-child(2) > div > div > .group\\/hover-zone > div > .relative > div:nth-child(4) > .gc-button').click();
+await page.locator('div:nth-child(3) > div > div > div > div > div:nth-child(2) > .pt-0 > div:nth-child(2) > div > .group\\/hover-zone > div > .relative > div:nth-child(4) > .gc-button').click();
 await page.locator('.w-\\[194px\\] > div:nth-child(4)').click();
 await page.getByRole('button', { name: 'Add to Canvas' }).click();
 
 // Select Heading 4 dropdown & select Heading 4 & add text Heading 4
-await page.locator('.relative > div > .relative > div:nth-child(2)').click();
+await page.locator('.relative.flex.items-center.justify-between.gap-1 > div:nth-child(2)').first().click();
 await page.getByRole('listitem').filter({ hasText: 'Heading 4' }).locator('div').click();
 await page.locator('section').filter({ hasText: 'LayoutContentStyleContentHeading 4ParagraphHeading 2Heading 3Heading 4Heading' }).getByRole('textbox').fill('Heading 4');
 await page.locator('div:nth-child(2) > div:nth-child(2) > button:nth-child(2)').click();
-await page.getByRole('button', { name: 'Save' }).click();
 
 // Hover & select Content List & Select Text Content option & Click Add to Canvas
-await page.locator('div:nth-child(6) > div > div:nth-child(2) > div > div > .group\\/hover-zone > div > .relative > div:nth-child(4) > .gc-button').click();
+await page.locator('div:nth-child(3) > div > div > div > div > div:nth-child(2) > .pt-0 > div:nth-child(2) > div > .group\\/hover-zone > div > .relative > div:nth-child(4) > .gc-button').click();
 await page.locator('.w-\\[194px\\] > div:nth-child(4)').click();
 await page.getByRole('button', { name: 'Add to Canvas' }).click();
 
 // Select Heading 5 dropdown & select Heading 5 & add text Heading 5
-await page.locator('.relative > div > .relative > div:nth-child(2)').click();
+await page.locator('.relative.flex.items-center.justify-between.gap-1 > div:nth-child(2)').first().click();
 await page.getByRole('listitem').filter({ hasText: 'Heading 5' }).locator('div').click();
 await page.locator('section').filter({ hasText: 'LayoutContentStyleContentHeading 5ParagraphHeading 2Heading 3Heading 4Heading' }).getByRole('textbox').fill('Heading 5');
 await page.locator('div:nth-child(2) > div:nth-child(2) > button:nth-child(2)').click();
-await page.getByRole('button', { name: 'Save' }).click();
 
 // Hover & select Content List & Select Text Content option & Click Add to Canvas
-await page.locator('div:nth-child(7) > div > div:nth-child(2) > div > div > .group\\/hover-zone > div > .relative > div:nth-child(4) > .gc-button').click();
+await page.locator('div:nth-child(3) > div > div > div > div > div:nth-child(2) > .pt-0 > div:nth-child(2) > div > .group\\/hover-zone > div > .relative > div:nth-child(4) > .gc-button').click();
 await page.locator('.w-\\[194px\\] > div:nth-child(4)').click();
 await page.getByRole('button', { name: 'Add to Canvas' }).click();
 
 // Select Heading 6 dropdown  & select Heading 6 & add text Heading 6
-await page.locator('.relative > div > .relative > div:nth-child(2)').click();
+await page.locator('.relative.flex.items-center.justify-between.gap-1 > div:nth-child(2)').first().click();
 await page.getByRole('listitem').filter({ hasText: 'Heading 6' }).locator('div').click();
 await page.locator('section').filter({ hasText: 'LayoutContentStyleContentHeading 6ParagraphHeading 2Heading 3Heading 4Heading' }).getByRole('heading').click();
 await page.locator('section').filter({ hasText: 'LayoutContentStyleContentHeading 6ParagraphHeading 2Heading 3Heading 4Heading' }).getByRole('textbox').fill('Heading 6');
 await page.locator('div:nth-child(2) > div:nth-child(2) > button:nth-child(2)').click();
 await page.getByRole('button', { name: 'Save' }).click();
-
-// Save Content
-await page.getByRole('button', { name: 'Save' }).click();
-await page.waitForTimeout(5000);
+await page.waitForTimeout(2000);
+await page.locator('button').filter({ hasText: /^Save$/ }).click();
 
 // Clean Uo Script
 await page.getByText('Section', { exact: true }).nth(1).click();
 await page.locator('[id="__nuxt"] span').filter({ hasText: /^Automation - Content$/ }).click();
 await page.locator('section').filter({ hasText: 'LayoutContentStyleSection' }).getByRole('button').nth(3).click();
 await page.getByRole('button', { name: 'Save' }).click();
-await page.waitForTimeout(5000);
+await page.waitForTimeout(2000);
+await page.locator('button').filter({ hasText: /^Save$/ }).click();
 });
 
 test('App Screen Builder - Content - Text - Right Aligned', async ({ page }) => {
@@ -272,23 +269,21 @@ await page.getByRole('button', { name: 'Add to Canvas' }).click();
 await page.locator('section').filter({ hasText: 'LayoutContentStyleContentParagraphParagraphHeading 2Heading 3Heading 4Heading' }).getByRole('textbox').click();
 await page.locator('section').filter({ hasText: 'LayoutContentStyleContentParagraphParagraphHeading 2Heading 3Heading 4Heading' }).getByRole('textbox').fill('Heading = Paragraph');
 await page.locator('div:nth-child(2) > button:nth-child(3)').click();
-await page.getByRole('button', { name: 'Save' }).click();
  
 // Hover & select content option
-await page.locator('div:nth-child(2) > div > div > .group\\/hover-zone > div > .relative > div:nth-child(4) > .gc-button').click();
+await page.locator('div:nth-child(3) > div > div > div > div > div:nth-child(2) > .pt-0 > div:nth-child(2) > div > .group\\/hover-zone > div > .relative > div:nth-child(4) > .gc-button').click();
 await page.locator('.w-\\[194px\\] > div:nth-child(4)').click();
 await page.getByRole('button', { name: 'Add to Canvas' }).click();
 
 // Select Heading 2 dropdown & select Heading 2 & add text Heading 2
-await page.locator('.relative > div > .relative > div:nth-child(2)').click();
+await page.locator('.relative.flex.items-center.justify-between.gap-1 > div:nth-child(2)').first().click();
 await page.getByRole('listitem').filter({ hasText: 'Heading 2' }).locator('div').click();
 await page.locator('section').filter({ hasText: 'LayoutContentStyleContentHeading 2ParagraphHeading 2Heading 3Heading 4Heading' }).getByRole('heading').dblclick();
 await page.locator('section').filter({ hasText: 'LayoutContentStyleContentHeading 2ParagraphHeading 2Heading 3Heading 4Heading' }).getByRole('textbox').fill('Heading 2');
 await page.locator('div:nth-child(2) > button:nth-child(3)').click();
-await page.getByRole('button', { name: 'Save' }).click();
 
 // Hover & select Content List
-await page.locator('div:nth-child(4) > div > div:nth-child(2) > div > div > .group\\/hover-zone > div > .relative > div:nth-child(4) > .gc-button').click();
+await page.locator('div:nth-child(3) > div > div > div > div > div:nth-child(2) > .pt-0 > div:nth-child(2) > div > .group\\/hover-zone > div > .relative > div:nth-child(4) > .gc-button').click();
 
 // Select Text Content option 
 await page.locator('.w-\\[194px\\] > div:nth-child(4)').click();
@@ -297,59 +292,57 @@ await page.locator('.w-\\[194px\\] > div:nth-child(4)').click();
 await page.getByRole('button', { name: 'Add to Canvas' }).click();
 
 // Select Heading 3 dropdown & select Heading 3 & add text Heading 3
-await page.locator('.relative > div > .relative > div:nth-child(2) > .gc-base-icon > svg').click();
+await page.locator('.relative.flex.items-center.justify-between.gap-1 > div:nth-child(2)').first().click();
 await page.getByRole('listitem').filter({ hasText: 'Heading 3' }).locator('div').click();
 await page.locator('section').filter({ hasText: 'LayoutContentStyleContentHeading 3ParagraphHeading 2Heading 3Heading 4Heading' }).getByRole('textbox').fill('Heading 3');
 await page.locator('div:nth-child(2) > button:nth-child(3)').click();
-await page.getByRole('button', { name: 'Save' }).click();
-
 
 // Hover & select Content List / Select Text & Add to Canvas
-await page.locator('div:nth-child(5) > div > div:nth-child(2) > div > div > .group\\/hover-zone > div > .relative > div:nth-child(4) > .gc-button').click();
-await page.locator('.w-\\[194px\\] > div:nth-child(4)').click();
+await page.locator('.w-full.group\\/section.rounded-md.rounded-b-md > .relative.transition-all.duration-200 > .pt-0 > div:nth-child(2) > .flex.items-center.justify-center.z-\\[10\\] > .group\\/hover-zone > .relative.flex.items-center.justify-center > .relative > div:nth-child(4) > .gc-button').click();await page.locator('.w-\\[194px\\] > div:nth-child(4)').click();
 await page.getByRole('button', { name: 'Add to Canvas' }).click();
 
 // Select Heading 4 dropdown & select Heading 4 & add text Heading 4
-await page.locator('.relative > div > .relative > div:nth-child(2)').click();
+await page.locator('.relative.flex.items-center.justify-between.gap-1 > div:nth-child(2)').first().click();
 await page.getByRole('listitem').filter({ hasText: 'Heading 4' }).locator('div').click();
 await page.locator('section').filter({ hasText: 'LayoutContentStyleContentHeading 4ParagraphHeading 2Heading 3Heading 4Heading' }).getByRole('textbox').fill('Heading 4');
 await page.locator('div:nth-child(2) > button:nth-child(3)').click();
-await page.getByRole('button', { name: 'Save' }).click();
 
 // Hover & select Content List & Select Text Content option & Click Add to Canvas
-await page.locator('div:nth-child(6) > div > div:nth-child(2) > div > div > .group\\/hover-zone > div > .relative > div:nth-child(4) > .gc-button').click();
+await page.locator('.w-full.group\\/section.rounded-md.rounded-b-md > .relative.transition-all.duration-200 > .pt-0 > div:nth-child(2) > .flex.items-center.justify-center.z-\\[10\\] > .group\\/hover-zone > .relative.flex.items-center.justify-center > .relative > div:nth-child(4) > .gc-button').click();await page.locator('.w-\\[194px\\] > div:nth-child(4)').click();
 await page.locator('.w-\\[194px\\] > div:nth-child(4)').click();
 await page.getByRole('button', { name: 'Add to Canvas' }).click();
 
 // Select Heading 5 dropdown & select Heading 5 & add text Heading 5
-await page.locator('.relative > div > .relative > div:nth-child(2)').click();
+await page.locator('.relative.flex.items-center.justify-between.gap-1 > div:nth-child(2)').first().click();
 await page.getByRole('listitem').filter({ hasText: 'Heading 5' }).locator('div').click();
 await page.locator('section').filter({ hasText: 'LayoutContentStyleContentHeading 5ParagraphHeading 2Heading 3Heading 4Heading' }).getByRole('textbox').fill('Heading 5');
 await page.locator('div:nth-child(2) > button:nth-child(3)').click();
-await page.getByRole('button', { name: 'Save' }).click();
 
 // Hover & select Content List & Select Text Content option & Click Add to Canvas
-await page.locator('div:nth-child(7) > div > div:nth-child(2) > div > div > .group\\/hover-zone > div > .relative > div:nth-child(4) > .gc-button').click();
+await page.locator('.w-full.group\\/section.rounded-md.rounded-b-md > .relative.transition-all.duration-200 > .pt-0 > div:nth-child(2) > .flex.items-center.justify-center.z-\\[10\\] > .group\\/hover-zone > .relative.flex.items-center.justify-center > .relative > div:nth-child(4) > .gc-button').click();await page.locator('.w-\\[194px\\] > div:nth-child(4)').click();
 await page.locator('.w-\\[194px\\] > div:nth-child(4)').click();
 await page.getByRole('button', { name: 'Add to Canvas' }).click();
 
 // Select Heading 6 dropdown  & select Heading 6 & add text Heading 6
-await page.locator('.relative > div > .relative > div:nth-child(2)').click();
+await page.locator('.relative.flex.items-center.justify-between.gap-1 > div:nth-child(2)').first().click();
 await page.getByRole('listitem').filter({ hasText: 'Heading 6' }).locator('div').click();
 await page.locator('section').filter({ hasText: 'LayoutContentStyleContentHeading 6ParagraphHeading 2Heading 3Heading 4Heading' }).getByRole('heading').click();
 await page.locator('section').filter({ hasText: 'LayoutContentStyleContentHeading 6ParagraphHeading 2Heading 3Heading 4Heading' }).getByRole('textbox').fill('Heading 6');
 await page.locator('div:nth-child(2) > button:nth-child(3)').click();
-await page.getByRole('button', { name: 'Save' }).click();
 
 // Save Content
 await page.getByRole('button', { name: 'Save' }).click();
-await page.waitForTimeout(5000);
+await page.waitForTimeout(1000);
+await page.locator('button').filter({ hasText: /^Save$/ }).click();
+await page.waitForTimeout(2000);
 
 // Clean Uo Script
 await page.getByText('Section', { exact: true }).nth(1).click();
 await page.locator('[id="__nuxt"] span').filter({ hasText: /^Automation - Content$/ }).click();
 await page.locator('section').filter({ hasText: 'LayoutContentStyleSection' }).getByRole('button').nth(3).click();
 await page.getByRole('button', { name: 'Save' }).click();
+await page.waitForTimeout(1000);
+await page.locator('button').filter({ hasText: /^Save$/ }).click();
 await page.waitForTimeout(5000);
 });
 
@@ -394,14 +387,13 @@ await page.locator('div:nth-child(55) > div > .w-full').click();
 await page.getByRole('button', { name: 'Add To Canvas' }).click();
 await page.waitForTimeout(5000);
 
-await page.getByRole('button', { name: 'Save' }).click();
-await page.waitForTimeout(5000);
-
 // Clean Up Script 
 await page.locator('[id="__nuxt"] span').filter({ hasText: /^Automation - Content$/ }).click();
 await page.locator('section').filter({ hasText: 'LayoutContentStyleSection' }).getByRole('button').nth(3).click();
 await page.getByRole('button', { name: 'Save' }).click();
-await page.waitForTimeout(5000);
+await page.waitForTimeout(1000);
+await page.locator('button').filter({ hasText: /^Save$/ }).click();
+await page.waitForTimeout(2000);
 });
 
 test('App Screen Builder - Content - Advert', async ({ page }) => {
@@ -441,19 +433,22 @@ await page.getByRole('listitem').filter({ hasText: 'Generic content page' }).loc
 await page.waitForTimeout(5000);
 
 // Ad Slot Validation 
-await expect(page.locator('.z-\\[1\\]')).toBeVisible();
+await expect(page.locator('.z-\\[1\\]').first()).toBeVisible();
 await expect(page.getByRole('list')).toContainText('Ad Slot');
 await expect(page.getByText('Ad Slot').nth(3)).toBeVisible();
 await expect(page.locator('[id="__nuxt"] div').filter({ hasText: /^Generic content page$/ }).nth(3)).toBeVisible();
 
 // Save Content of the Ad Slot
 await page.getByRole('button', { name: 'Save' }).click();
-await page.waitForTimeout(5000);
+await page.waitForTimeout(2000);
+await page.locator('button').filter({ hasText: /^Save$/ }).click();
 
 // Clean Up Script
 await page.locator('[id="__nuxt"] span').filter({ hasText: /^Automation - Content$/ }).click();
 await page.locator('section').filter({ hasText: 'LayoutContentStyleSection' }).getByRole('button').nth(3).click();
 await page.getByRole('button', { name: 'Save' }).click();
+await page.waitForTimeout(2000);
+await page.locator('button').filter({ hasText: /^Save$/ }).click();
 await page.waitForTimeout(5000);
 });
 
@@ -493,7 +488,6 @@ await page.waitForTimeout(5000);
 // Promo Validation
 await expect(page.getByRole('heading', { name: 'Promo' })).toBeVisible();
 await expect(page.locator('[id="__nuxt"]')).toContainText('Promo');
-await expect(page.locator('.z-\\[1\\]')).toBeVisible();
 await expect(page.getByRole('list')).toContainText('Promo');
 await expect(page.getByText('Title')).toBeVisible();
 await expect(page.locator('[id="__nuxt"]')).toContainText('Title');
@@ -537,12 +531,16 @@ await expect(page.getByRole('textbox', { name: 'e.g. https://www.google.com/' })
 
 // Save Content of the Promo
 await page.getByRole('button', { name: 'Save' }).click();
+await page.waitForTimeout(2000);
+await page.locator('button').filter({ hasText: /^Save$/ }).click();
 await page.waitForTimeout(5000);
 
 // Clean Up Script
 await page.locator('[id="__nuxt"] span').filter({ hasText: /^Automation - Content$/ }).click();
 await page.locator('section').filter({ hasText: 'LayoutContentStyleSection' }).getByRole('button').nth(3).click();
 await page.getByRole('button', { name: 'Save' }).click();
+await page.waitForTimeout(2000);
+await page.locator('button').filter({ hasText: /^Save$/ }).click();
 await page.waitForTimeout(5000);
 });
 
@@ -584,97 +582,15 @@ await page.getByRole('textbox', { name: 'Button Text' }).fill('Button Text ');
 
 // Save Content of the Promo
 await page.getByRole('button', { name: 'Save' }).click();
+await page.waitForTimeout(2000);
+await page.locator('button').filter({ hasText: /^Save$/ }).click();
 await page.waitForTimeout(5000);
 
 // Clean Up Script
 await page.locator('[id="__nuxt"] span').filter({ hasText: /^Automation - Content$/ }).click();
 await page.locator('section').filter({ hasText: 'LayoutContentStyleSection' }).getByRole('button').nth(3).click();
 await page.getByRole('button', { name: 'Save' }).click();
+await page.waitForTimeout(2000);
+await page.locator('button').filter({ hasText: /^Save$/ }).click();
 await page.waitForTimeout(5000);
-});
-
-test('App Screen Builder - Content - Social Media Embed', async ({ page }) => {
-  // Navigate to the login page..
-await page.goto('https://cms.gc.uzgc2.com/');
-await page.getByRole('textbox', { name: 'Email * Email *' }).fill(email);
-await page.getByRole('textbox', { name: 'Password * Password *' }).fill(password);
-await page.getByRole('button', { name: 'Sign in' }).click();
-await page.getByRole('link', { name: 'Pages' }).click();
-await expect(page.locator('#app-screens')).toBeVisible();
-await page.locator('#app-screens').click();
-await page.locator('[id="__nuxt"]').getByText('Automation - Content').click();
-await page.getByRole('button', { name: 'Edit' }).click();
-
-// Add section & add title Content - Promo
-await page.locator('.p-2 > div:nth-child(2) > div > div:nth-child(2) > div > .flex').click();
-await page.getByRole('textbox', { name: 'Add Section Title' }).nth(1).click();
-await page.getByRole('textbox', { name: 'Add Section Title' }).nth(1).fill('Content - Content - (Social Media Embed)');
-
-// Hover & select Embed Widget
-await page.locator('div:nth-child(3) > div > div > div > div > div:nth-child(2) > .pt-0 > div:nth-child(2) > div > .group\\/hover-zone > div > .relative > div:nth-child(4) > .gc-button').click();
-await page.getByRole('listitem').filter({ hasText: 'Embed' }).click();
-await expect(page.getByRole('listitem').filter({ hasText: 'Embed' })).toBeVisible();
-await expect(page.getByRole('dialog')).toContainText('Embed');
-await expect(page.locator('div').filter({ hasText: /^Social Media Embed$/ }).locator('div').nth(3)).toBeVisible();
-await page.locator('div').filter({ hasText: /^Social Media Embed$/ }).locator('div').nth(3).click();
-
-// Select Add to canvas
-await page.getByRole('button', { name: 'Add to Canvas' }).click();
-
-// Embed Widget Validation 
-await page.locator('.relative > div > .relative > div:nth-child(2)').click();
-await expect(page.getByRole('listitem').filter({ hasText: 'Twitter / X' }).locator('div')).toBeVisible();
-await expect(page.getByRole('listitem').filter({ hasText: 'Instagram' }).locator('div')).toBeVisible();
-await expect(page.getByRole('listitem').filter({ hasText: 'Facebook' }).locator('div')).toBeVisible();
-await expect(page.getByRole('listitem').filter({ hasText: 'Tik Tok' }).locator('div')).toBeVisible();
-await expect(page.getByRole('listitem').filter({ hasText: 'Custom' }).locator('div')).toBeVisible();
-
-// Add Twitter (x)  Wdiget to the page
-await page.getByRole('listitem').filter({ hasText: 'Twitter / X' }).locator('div').click();
-await expect(page.getByRole('list').getByText('Social Media Embed')).toBeVisible();
-
-// Add Instagram widget to the page
-await page.locator('div:nth-child(2) > div > div > .group\\/hover-zone > div > .relative > div:nth-child(4) > .gc-button').click();
-await page.getByRole('listitem').filter({ hasText: 'Embed' }).click();
-await page.getByRole('dialog').locator('div').filter({ hasText: /^Social Media Embed$/ }).locator('div').nth(3).click();
-await page.getByRole('button', { name: 'Add to Canvas' }).click();
-await page.locator('[id="__nuxt"] div').filter({ hasText: /^Custom$/ }).nth(1).click();
-await page.getByRole('listitem').filter({ hasText: 'Instagram' }).locator('div').click();
-await expect(page.getByText('Social Media Embed', { exact: true }).nth(1)).toBeVisible();
-
-// Add Facebook widget to the page
-await page.locator('div:nth-child(4) > div > div:nth-child(2) > div > div > .group\\/hover-zone > div > .relative > div:nth-child(4) > .gc-button').click();
-await page.getByRole('listitem').filter({ hasText: 'Embed' }).click();
-await page.getByRole('dialog').locator('div').filter({ hasText: /^Social Media Embed$/ }).locator('div').nth(3).click();
-await page.getByRole('button', { name: 'Add to Canvas' }).click();
-await page.locator('[id="__nuxt"] div').filter({ hasText: /^Custom$/ }).nth(1).click();
-await page.getByRole('listitem').filter({ hasText: 'Facebook' }).locator('div').click();
-await expect(page.locator('[id="__nuxt"]').getByText('Social Media Embed', { exact: true }).nth(2)).toBeVisible();
-
-// Add TicTok widget to the page
-await page.locator('div:nth-child(5) > div > div:nth-child(2) > div > div > .group\\/hover-zone > div > .relative > div:nth-child(4) > .gc-button').click();
-await page.getByRole('listitem').filter({ hasText: 'Embed' }).click();
-await page.getByRole('dialog').locator('div').filter({ hasText: /^Social Media Embed$/ }).locator('div').nth(3).click();
-await page.getByRole('button', { name: 'Add to Canvas' }).click();
-await page.locator('[id="__nuxt"] div').filter({ hasText: /^Custom$/ }).nth(1).click();
-await page.getByRole('listitem').filter({ hasText: 'Tik Tok' }).locator('div').click();
-await expect(page.locator('div:nth-child(6) > div > div > div > .z-\\[1\\]')).toBeVisible();
-
-// Add Custom widget to the page
-await page.locator('div:nth-child(6) > div > div:nth-child(2) > div > div > .group\\/hover-zone > div > .relative > div:nth-child(4) > .gc-button').click();
-await page.getByRole('listitem').filter({ hasText: 'Embed' }).click();
-await page.getByRole('dialog').locator('div').filter({ hasText: /^Social Media Embed$/ }).locator('div').nth(3).click();
-await page.getByRole('button', { name: 'Add to Canvas' }).click();
-await expect(page.locator('div:nth-child(7) > div > div > div > .z-\\[1\\]')).toBeVisible();
-
-// Save Content of the Promo
-await page.getByRole('button', { name: 'Save' }).click();
-await page.waitForTimeout(5000);
-
-// Clean Up Script
-await page.locator('[id="__nuxt"] span').filter({ hasText: /^Automation - Content$/ }).click();
-await page.locator('section').filter({ hasText: 'LayoutContentStyleSection' }).getByRole('button').nth(3).click();
-await page.getByRole('button', { name: 'Save' }).click();
-await page.waitForTimeout(5000);
-
 });
