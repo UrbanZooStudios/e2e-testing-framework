@@ -224,9 +224,6 @@ await page.getByRole('listitem').filter({ hasText: 'Heading 6' }).locator('div')
 await page.locator('section').filter({ hasText: 'LayoutContentStyleContentHeading 6ParagraphHeading 2Heading 3Heading 4Heading' }).getByRole('heading').click();
 await page.locator('section').filter({ hasText: 'LayoutContentStyleContentHeading 6ParagraphHeading 2Heading 3Heading 4Heading' }).getByRole('textbox').fill('Heading 6');
 await page.locator('div:nth-child(2) > div:nth-child(2) > button:nth-child(2)').click();
-await page.getByRole('button', { name: 'Save' }).click();
-await page.waitForTimeout(2000);
-await page.locator('button').filter({ hasText: /^Save$/ }).click();
 
 // Clean Uo Script
 await page.getByText('Section', { exact: true }).nth(1).click();
