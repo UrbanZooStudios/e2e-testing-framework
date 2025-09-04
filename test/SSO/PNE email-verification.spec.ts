@@ -322,7 +322,7 @@ await expect(page.locator('#customer_portal_page_body')).toContainText('EFL Digi
 });
 
 
-test.only('SSO - No Subscription Message', async ({ browser }) => {
+test('SSO - No Subscription Message', async ({ browser }) => {
   // Define path to the saved credentials file from the registration test
   const credentialsPath = path.resolve(__dirname, '../tmp/credentials.json');
 
@@ -345,7 +345,9 @@ test.only('SSO - No Subscription Message', async ({ browser }) => {
   // Open a new page and navigate to the login URL
   const page = await context.newPage();
   const loginUrl = process.env.LOGIN_URL || 'https://beta.stockportcounty.com/';
-await page.goto(loginUrl);
+
+  // Wait until page fully loads (network goes idle)
+  await page.goto(loginUrl, { waitUntil: 'networkidle' });
 
   // Handle any cookie banners if present
 await acceptCookiesIfPresent(page);
