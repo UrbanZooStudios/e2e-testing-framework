@@ -69,12 +69,15 @@ await expect(page.getByRole('spinbutton')).toBeVisible();
 //Select Add the Canvas has been added 
 await page.getByRole('button', { name: 'Add to Canvas' }).click();
 
+// Delete Newly created item
+await page.locator('[id="__nuxt"] span').filter({ hasText: /^Automation - Single List Item$/ }).click();
+await page.locator('section').filter({ hasText: 'LayoutContentStyleSection' }).getByRole('button').nth(3).click();
+
 // Select Save Option 
 await page.getByRole('button', { name: 'Save' }).click();
 await page.waitForTimeout(1000);
 await page.locator('button').filter({ hasText: /^Save$/ }).click();
 await page.waitForTimeout(2000);
-
 });
 
 test('App Screen Builder - Single List Item - Fixtures - Results', async ({ page }) => {
@@ -89,8 +92,11 @@ await page.locator('#app-screens').click();
 await page.locator('[id="__nuxt"]').getByText('Automation - Single List Item').click();
 await page.getByRole('button', { name: 'Edit' }).click();
 
-// Hover and select Add single item
-await page.locator('div:nth-child(2) > div > div > .group\\/hover-zone > div > .relative > div:nth-child(2) > .gc-button').click();
+// Add a new section
+await page.locator('.p-2 > div:nth-child(2) > div > div:nth-child(2) > div > .flex').click();
+
+// Hover and select Sub menu 
+await page.locator('.w-full.group\\/section.rounded-md.rounded-b-md > .relative.transition-all.duration-200 > .pt-0 > .flex.items-center.justify-center.w-full > .flex.items-center.justify-center.z-\\[10\\] > .group\\/hover-zone > .relative.flex.items-center.justify-center > .relative > div:nth-child(2) > .gc-button').click();
 
 // Select Fixture button
 await page.getByRole('listitem').filter({ hasText: 'Fixture' }).click();
@@ -105,13 +111,17 @@ await page.getByRole('button', { name: 'Add to Canvas' }).click();
 
 // Result Validate of the Fixtue Result card
 await expect(page.getByRole('list').getByText('Fixture: Result')).toBeVisible();
-await expect(page.locator('div:nth-child(4) > div > div > div > .z-\\[1\\]')).toBeVisible();
+
+// Delete Newly created item
+await page.locator('[id="__nuxt"] span').filter({ hasText: /^Automation - Single List Item$/ }).click();
+await page.locator('section').filter({ hasText: 'LayoutContentStyleSection' }).getByRole('button').nth(3).click();
 
 // Save Content
 await page.getByRole('button', { name: 'Save' }).click();
 await page.waitForTimeout(1000);
 await page.locator('button').filter({ hasText: /^Save$/ }).click();
 await page.waitForTimeout(2000);
+
 });
 
 test('App Screen Builder - Single List Item - News', async ({ page }) => {
@@ -126,8 +136,11 @@ await page.locator('#app-screens').click();
 await page.locator('[id="__nuxt"]').getByText('Automation - Single List Item').click();
 await page.getByRole('button', { name: 'Edit' }).click();
 
+// Add a new section
+await page.locator('.p-2 > div:nth-child(2) > div > div:nth-child(2) > div > .flex').click();
+
 // Hover and select Add single item
-await page.locator('div:nth-child(4) > div > div:nth-child(2) > div > div > .group\\/hover-zone > div > .relative > div:nth-child(2) > .gc-button').click();
+await page.locator('.w-full.group\\/section.rounded-md.rounded-b-md > .relative.transition-all.duration-200 > .pt-0 > .flex.items-center.justify-center.w-full > .flex.items-center.justify-center.z-\\[10\\] > .group\\/hover-zone > .relative.flex.items-center.justify-center > .relative > div:nth-child(2) > .gc-button').click();
 
 // Select News button
 await page.locator('.w-\\[194px\\] > div:nth-child(4)').click();
@@ -147,13 +160,20 @@ await expect(page.getByRole('listitem').filter({ hasText: 'By Category' }).locat
 // Select Category option from the dropdown
 await page.getByRole('listitem').filter({ hasText: 'By Category' }).locator('div').click();
 
-await page.waitForTimeout(5000);
+// Select First option on the list
+await page.locator('div').filter({ hasText: /^Test 1Published: 24th Jun 2025 - 3:47 PMCommercial News$/ }).nth(3).click();
+await page.waitForTimeout(2000);
 
 // Select Add to canvas
 await page.getByRole('button', { name: 'Add to Canvas' }).click();
+await page.waitForTimeout(1000);
 
 // Result Validate of the news 
-await expect(page.locator('div:nth-child(5) > div > div > div > .z-\\[1\\]')).toBeVisible();
+await expect(page.getByRole('list').getByText('News', { exact: true })).toBeVisible();
+
+// Delete Newly created item
+await page.locator('[id="__nuxt"] span').filter({ hasText: /^Automation - Single List Item$/ }).click();
+await page.locator('section').filter({ hasText: 'LayoutContentStyleSection' }).getByRole('button').nth(3).click();
 
 // Save Content
 await page.getByRole('button', { name: 'Save' }).click();
@@ -227,7 +247,8 @@ await page.locator('[id="__nuxt"]').getByText('Automation - Single List Item').c
 await page.getByRole('button', { name: 'Edit' }).click();
 
 // Select the Delete option from the menu panel
-await page.locator('section').filter({ hasText: 'LayoutContentStyleSection' }).getByRole('button').nth(3).click();
+await page.locator('section').filter({ hasText: 'LayoutContentStyleSection' }).getByRole('button').nth(1).click();
+await page.getByRole('list').locator('div').nth(2).click();
 
 // Save Content
 await page.getByRole('button', { name: 'Save' }).click();
