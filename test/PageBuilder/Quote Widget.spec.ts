@@ -150,14 +150,13 @@ await page.getByRole('button', { name: 'Add to Canvas' }).click();
 
 // Add Media file to the container
 await page.getByRole('button', { name: 'Select file' }).click();
-await page.waitForTimeout(5000);
+await page.waitForTimeout(3000);
 
 // Select the search & type Sponsor 
 await page.getByRole('textbox', { name: 'Search' }).fill('Sponsor');
-await page.waitForTimeout(5000);
-await page.locator('img').nth(3).click();
-await page.locator('img').nth(3).click();
 await page.waitForTimeout(3000);
+await page.locator('img').nth(3).click();
+await page.locator('img').nth(3).click();
 
 // Select Add to Canvas
 await page.getByRole('button', { name: 'Add To Canvas' }).click();
