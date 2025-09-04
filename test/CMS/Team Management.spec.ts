@@ -11,8 +11,8 @@ const email = process.env.UZGC2_EMAIL;
 const password = process.env.UZGC2_PASSWORD;
 const testEmail = process.env.UZGC2_TEST_EMAIL;
 const testPassword = process.env.UZGC2_TEST_PASSWORD;
-const STAGING_1_EMAIL = process.env.STAGING_1_EMAIL
-const STAGING_1_PASSWORD = process.env.STAGING_1_PASSWORD
+const STAGING_1_EMAIL = 'admin@urbanzoo.io'
+const STAGING_1_PASSWORD = 'QSS]a;CLj4(&=sg?U4'
 const previewUsername = process.env.PREVIEW_USERNAME || 'urbanzoo';
 const previewPassword = process.env.PREVIEW_PASSWORD || 'gamechanger1!';
 
@@ -26,7 +26,7 @@ if (!testEmail || !testPassword) {
 }
 
 test('Player Sponsors > Team Management > Current Squad ', async ({ page }) => {
-    
+
 // Navigate to the login page
 //await page.goto('https://cms.gc.uzgc2.com/login');
 await page.goto('https://cms.gc.uzstaging1.co.uk/login');
@@ -52,7 +52,7 @@ await page.getByRole('row', { name: 'Opta p111234 jordanpickford' }).getByRole('
 // Select “Player Sponsors,” upload an image, and click “Save.
 await page.getByRole('heading', { name: 'Player Sponsors' }).click();
 
-// Select Add New Sponsor button 
+// Select Add New Sponsor button
 await page.getByRole('button', { name: 'Add New Sponsor' }).click();
 await expect(page.locator('body')).toContainText('Add New Sponsor');
 await expect(page.getByRole('heading', { name: 'Player Sponsors' })).toBeVisible();
@@ -70,18 +70,17 @@ await page.waitForTimeout(1000);
 
 test('Player Sponsors > Fanside Validation', async ({ browser }, testInfo) => {
     test.setTimeout(120000); // 2 minutes
-  
+
     const context = await browser.newContext({
       httpCredentials: {
         username: previewUsername,
         password: previewPassword,
       },
     });
-  
+
     const page = await context.newPage();
-  
+
 // Navigate to the Tranmere Rovers live preview site
 await page.goto('https://beta.gc.uzstaging1.co.uk/teams/men/jordanpickford');
 await expect(page.locator('.mx-2 > a').first()).toBeVisible();
 });
-  
