@@ -180,9 +180,9 @@ await page.waitForTimeout(5000);
 await page.locator('[id="__nuxt"] span').filter({ hasText: /^Automation - Carousel$/ }).click();
 await page.locator('section').filter({ hasText: 'LayoutContentStyleSection' }).getByRole('button').nth(3).click();
 await page.getByRole('button', { name: 'Save' }).click();
-await page.waitForTimeout(2000);
+await page.waitForTimeout(1000);
 await page.locator('button').filter({ hasText: /^Save$/ }).click();
-await page.waitForTimeout(5000);
+await page.waitForTimeout(3000);
 });
 
 
