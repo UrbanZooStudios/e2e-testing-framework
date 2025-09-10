@@ -55,6 +55,14 @@ test('SSO Register Flow', async ({ browser }) => {
   const email = `thomasastley+${randomNum}@urbanzoo.io`;
   const password = 'PAssword1!';
 
+  const splashButton1 = page.locator('.absolute.-top-\\[25px\\]');
+  if (await splashButton1.isVisible()) {
+    await splashButton1.click();
+    console.log('✅ Splash screen closed');
+  } else {
+    console.log('⚠️ Splash screen not found, skipping...');
+  }
+
   // Save generated credentials to a file for reuse
   const credentialsPath = path.resolve(__dirname, '../tmp/credentials.json');
   fs.mkdirSync(path.dirname(credentialsPath), { recursive: true });
@@ -63,6 +71,9 @@ test('SSO Register Flow', async ({ browser }) => {
   // Accept cookies if present
   await acceptCookiesIfPresent(page);
   //await page.locator('.absolute > .cursor-pointer > .duration-100 > use').click();
+
+   // Accept all cookies
+   await page.getByRole('button', { name: 'Accept All Cookies' }).click();
 
 // Click Login Button 
   await expect(page.getByRole('button', { name: 'log In' })).toBeVisible();
