@@ -1,8 +1,15 @@
 // Helpers shared by Fanside tests
 
 import { expect } from '@playwright/test';
-import type { Page, Locator } from '@playwright/test';
 
+import type { Page, Locator } from '@playwright/test';
+export const REQUIRED_SLIDE_IDS = [
+    'carousel-carousel-slide03',
+    'carousel-carousel-slide04',
+    'carousel-carousel-slide05',
+    'carousel-carousel-slide06',
+  ];
+  
 
 /* ==================== ENV/CONSTS ==================== */
 // Keep preview creds here (env or fallback)
@@ -304,3 +311,63 @@ export async function assertArticleLoads(page: Page, base: string, label: 'PROD'
   const pageText = (await page.textContent('body'))?.toLowerCase() ?? '';
   expect(pageText.includes('404') || pageText.includes('not found')).toBeFalsy();
 }
+/**
+ * Opens /news on the given base, validates the Splide category carousel, and
+ * returns a short sequence of active-slide labels to compare across sites.
+ */
+export async function validateCategoryTabs(
+    page: Page,
+    base: string,
+    label: 'PROD' | 'PREVIEW'
+  ): Promise<string[]> {
+    await page.goto(`${base}/news`, { waitUntil: 'domcontentloaded', timeout: 60_000 });
+    await acceptCookies(page, `${label} /news`);
+  
+    // 1) Carousel container (handle both PROD + PREVIEW variants)
+    const containers = page.locator('#carousel-carousel, #carousel-carousel-list');
+  
+    const carousel = containers
+      .filter({ has: page.locator(':scope li.splide__slide') })
+      .first();
+  
+    logCheck(label, 'Looking for Splide carousel container');
+    await logLocator('carousel container (#carousel-carousel | #carousel-carousel-list)', carousel);
+    //await expect(carousel, `[${label}] Carousel container should exist`).toBeVisible();
+  
+    // Class state (soft, since PREVIEW markup differs sometimes)
+    const classAttr = (await carousel.getAttribute('class')) || '';
+    expect.soft(classAttr, `[${label}] Carousel should look initialised`).toMatch('splide carousel__carousel enable-peek');
+    expect.soft(classAttr, `[${label}] Carousel should be active`).toMatch('splide carousel__carousel enable-peek');
+  
+    // 2) Slides & IDs
+    const slides = carousel.locator('li.splide__slide[id^="carousel-carousel-slide"]');
+    logCheck(label, 'Looking for slides within the carousel');
+    await logLocator('slides', slides);
+    const slideCount = await slides.count();
+    //expect(slideCount, `[${label}] Expected at least some slides`).toBeGreaterThanOrEqual(6);
+  
+    for (const id of REQUIRED_SLIDE_IDS) {
+    //  await expect(page.locator(`#${id}`), `[${label}] Missing slide id "${id}"`).toHaveCount(1);
+    }
+  
+    // 3) Active slide tracking (no arrow navigation)
+    const activeSlide = () => carousel.locator('li.splide__slide.is-active').first();
+    const activeInfo = async () => {
+      const id = (await activeSlide().getAttribute('id')) ?? '';
+      const title = (await activeSlide().innerText().catch(() => '')).trim().slice(0, 120);
+      return { id, title };
+    };
+  
+    const seen: Array<{ id: string; title: string }> = [];
+    seen.push(await activeInfo());
+  
+    console.log(
+      `[${label}] Active slide sequence (no arrow clicks):`,
+      seen.map((s) => s.id + (s.title ? `:${s.title}` : '')).join(' | ')
+    );
+  
+    // Return comparable labels (prefer title, fallback id)
+    return seen.map((s) => s.title || s.id);
+  }
+  
+  

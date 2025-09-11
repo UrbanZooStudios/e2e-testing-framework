@@ -1,5 +1,5 @@
 // npx playwright test "test/Fanside/Fanside News Article.spec.ts"
-import { test } from '@playwright/test';
+import { test, expect } from '@playwright/test';  // <-- add expect
 import * as dotenv from 'dotenv';
 dotenv.config();
 
@@ -10,6 +10,7 @@ import {
   expectNewsHeroHrefPopulated,
   expectNewsListingHrefsPopulated,
   assertArticleLoads,
+  validateCategoryTabs,
 } from '../Utils/FansideNewsArticle.helpers';
 
 /* ============ TESTS ============ */
@@ -39,7 +40,7 @@ test('Feature News Article — hero/news href is populated on PROD and PREVIEW /
     previewPage.setDefaultNavigationTimeout(60_000);
     const resp = await previewPage.goto(`${PREVIEW_BASE}/news`, { waitUntil: 'domcontentloaded', timeout: 60_000 });
     test.expect.soft(resp?.ok()).toBeTruthy();
-    await acceptCookies(previewPage, 'PREVIEW /news');
+    await previewPage.getByRole('button', { name: 'Accept All Cookies' }).click();    
     await expectNewsHeroHrefPopulated(previewPage, 'PREVIEW');
   } finally {
     await previewContext.close();
@@ -103,3 +104,33 @@ test('News Page - News Story', async ({ browser }) => {
     await previewContext.close();
   }
 });
+
+test('News Page - News Category Tabs', async ({ browser }) => {
+  // --- PREVIEW ---
+  const previewCtx = await browser.newContext({
+    httpCredentials: { username: previewUsername, password: previewPassword },});
+  const previewPage = await previewCtx.newPage();
+  const previewSeq = await validateCategoryTabs(previewPage, PREVIEW_BASE, 'PREVIEW').finally(() => previewCtx.close());
+
+  // --- PROD ---
+  const prodCtx = await browser.newContext();
+  const prodPage = await prodCtx.newPage();
+  const prodSeq = await validateCategoryTabs(prodPage, PROD_BASE, 'PROD').finally(() => prodCtx.close());
+
+// Compare sequences (sanity only, not strict equality)
+const n = Math.min(previewSeq.length, prodSeq.length);
+const pv = previewSeq.slice(0, n);
+const pr = prodSeq.slice(0, n);
+
+// Ensure both environments surface tabs
+expect(pv.length, '[PREVIEW] should expose at least one category tab').toBeGreaterThan(0);
+expect(pr.length,   '[PROD] should expose at least one category tab').toBeGreaterThan(0);
+
+// Ensure labels are “visible” in the sense of non-empty text
+for (const [i, t] of pv.entries()) {
+  expect((t ?? '').trim().length, `[PREVIEW] tab ${i} should have text`).toBeGreaterThan(0);
+}
+for (const [i, t] of pr.entries()) {
+  expect((t ?? '').trim().length, `[PROD] tab ${i} should have text`).toBeGreaterThan(0);
+}});
+
