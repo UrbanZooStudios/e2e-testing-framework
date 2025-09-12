@@ -53,13 +53,13 @@ await expect(page.getByRole('banner')).toBeVisible();
 
 // Verify that the "Manage AppFixed" text is visible (may be a typo or separate element)
 await expect(page.getByText('Manage AppFixed')).toBeVisible();
-
+await page.waitForLoadState('networkidle');
 // Select the Automation Tab From within App Screen Builder
 await page.locator('[id="__nuxt"]').getByText('Automation - Section Navigation', { exact: true }).click();
-
+await page.waitForLoadState('networkidle');
 // Verify that a heading with the name "Automation" is visible
 await expect(page.getByRole('heading', { name: 'Automation - Section Navigation' })).toBeVisible();
-await page.waitForTimeout(5000);
+await page.waitForLoadState('networkidle');
 // Ensure the first <h1> element contains the text "Automation"
 await expect(page.locator('h1')).toContainText('Automation - Section Navigation');
 

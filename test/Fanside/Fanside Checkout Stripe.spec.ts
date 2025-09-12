@@ -318,7 +318,14 @@ test('AFC Wimbledon - Login and Validate',async ({ browser }, testInfo) => {
     const page = await context.newPage();
 // Navigate to the AFC Wimbledon Website
 await page.goto('https://livepreview.afcwimbledon.co.uk/');
+await page.waitForLoadState('networkidle');
 
+const locator = page.locator('.absolute.-top-\\[25px\\]');
+if (await locator.isVisible()) {
+  await locator.click();
+} else {
+  console.log("Element not visible, skipping click.");
+}
 // Accept all cookies
 await page.getByRole('button', { name: 'Accept All Cookies' }).click();
   

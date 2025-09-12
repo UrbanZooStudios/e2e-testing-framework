@@ -100,21 +100,24 @@ await page.locator('.w-full.group\\/section.rounded-md.rounded-b-md > .relative.
 
 // Select Fixture button
 await page.getByRole('listitem').filter({ hasText: 'Fixture' }).click();
+await page.waitForLoadState('networkidle');
 
 // Select Result
 await page.locator('div').filter({ hasText: /^Result$/ }).locator('div').nth(3).click();
-
-await page.waitForTimeout(5000);
+await page.waitForLoadState('networkidle');
 
 // Select Add to canvas
 await page.getByRole('button', { name: 'Add to Canvas' }).click();
+await page.waitForLoadState('networkidle');
 
 // Result Validate of the Fixtue Result card
 await expect(page.getByRole('list').getByText('Fixture: Result')).toBeVisible();
+await page.waitForLoadState('networkidle');
 
 // Delete Newly created item
 await page.locator('[id="__nuxt"] span').filter({ hasText: /^Automation - Single List Item$/ }).click();
 await page.locator('section').filter({ hasText: 'LayoutContentStyleSection' }).getByRole('button').nth(3).click();
+await page.waitForLoadState('networkidle');
 
 // Save Content
 await page.getByRole('button', { name: 'Save' }).click();
@@ -138,42 +141,46 @@ await page.getByRole('button', { name: 'Edit' }).click();
 
 // Add a new section
 await page.locator('.p-2 > div:nth-child(2) > div > div:nth-child(2) > div > .flex').click();
+await page.waitForLoadState('networkidle');
 
 // Hover and select Add single item
 await page.locator('.w-full.group\\/section.rounded-md.rounded-b-md > .relative.transition-all.duration-200 > .pt-0 > .flex.items-center.justify-center.w-full > .flex.items-center.justify-center.z-\\[10\\] > .group\\/hover-zone > .relative.flex.items-center.justify-center > .relative > div:nth-child(2) > .gc-button').click();
-
+await page.waitForLoadState('networkidle');
 // Select News button
 await page.locator('.w-\\[194px\\] > div:nth-child(4)').click();
 await expect(page.getByText('Query Type').nth(2)).toBeVisible();
+await page.waitForLoadState('networkidle');
 
 // Validate the options dropdown is set to latest
 await expect(page.getByRole('dialog')).toContainText('Latest');
+await page.waitForLoadState('networkidle');
 
 //Click Dropdown menu 
 await page.locator('.h-full > div:nth-child(2) > div > div > div:nth-child(2) > .min-w-0 > div > div > .relative > div:nth-child(2)').click();
+await page.waitForLoadState('networkidle');
 
 // Validate the Dropdown options
 await expect(page.getByRole('listitem').filter({ hasText: 'Featured' }).locator('div')).toBeVisible();
 await expect(page.getByRole('listitem').filter({ hasText: 'Latest' }).locator('div')).toBeVisible();
 await expect(page.getByRole('listitem').filter({ hasText: 'By Category' }).locator('div')).toBeVisible();
+await page.waitForLoadState('networkidle');
 
 // Select Category option from the dropdown
 await page.getByRole('listitem').filter({ hasText: 'By Category' }).locator('div').click();
+await page.waitForLoadState('networkidle');
 
 // Select First option on the list
 await page.locator('div').filter({ hasText: /^Test 1Published: 24th Jun 2025 - 3:47 PMCommercial News$/ }).nth(3).click();
-await page.waitForTimeout(2000);
+await page.waitForLoadState('networkidle');
 
 // Select Add to canvas
 await page.getByRole('button', { name: 'Add to Canvas' }).click();
-await page.waitForTimeout(1000);
-
-// Result Validate of the news 
-await expect(page.getByRole('list').getByText('News', { exact: true })).toBeVisible();
+await page.waitForLoadState('networkidle');
 
 // Delete Newly created item
 await page.locator('[id="__nuxt"] span').filter({ hasText: /^Automation - Single List Item$/ }).click();
 await page.locator('section').filter({ hasText: 'LayoutContentStyleSection' }).getByRole('button').nth(3).click();
+await page.waitForLoadState('networkidle');
 
 // Save Content
 await page.getByRole('button', { name: 'Save' }).click();

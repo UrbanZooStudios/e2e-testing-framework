@@ -1,4 +1,4 @@
-//npx playwright test "test/CMS/CMS PageBuilder Regression.spec" --headed
+//npx playwright test "test/PageBuilder/PageBuilder Regression.spec" --headed
 
 import { test, expect } from '@playwright/test';
 import * as dotenv from 'dotenv';

@@ -47,6 +47,7 @@ test('SSO Register Flow', async ({ browser }) => {
 
   const page = await context.newPage();
   await page.goto('https://livepreview.pnefc.net/');
+  await page.waitForTimeout(2000);
 
   // Generate test data
   const firstName = 'Automation Test';
@@ -54,6 +55,9 @@ test('SSO Register Flow', async ({ browser }) => {
   const randomNum = Math.floor(Math.random() * 9999) + 1;
   const email = `thomasastley+${randomNum}@urbanzoo.io`;
   const password = 'PAssword1!';
+
+  // Accept all cookies
+  await page.getByRole('button', { name: 'Accept All Cookies' }).click();
 
   const splashButton1 = page.locator('.absolute.-top-\\[25px\\]');
   if (await splashButton1.isVisible()) {
@@ -68,21 +72,21 @@ test('SSO Register Flow', async ({ browser }) => {
   fs.mkdirSync(path.dirname(credentialsPath), { recursive: true });
   fs.writeFileSync(credentialsPath, JSON.stringify({ email, password }));
 
-  // Accept cookies if present
-  await acceptCookiesIfPresent(page);
-  //await page.locator('.absolute > .cursor-pointer > .duration-100 > use').click();
-
-   // Accept all cookies
-   await page.getByRole('button', { name: 'Accept All Cookies' }).click();
-
 // Click Login Button 
   await expect(page.getByRole('button', { name: 'log In' })).toBeVisible();
   await page.getByRole('button', { name: 'Log In' }).click();
   await page.locator('a').filter({ hasText: 'Register' }).click();
+  await page.waitForTimeout(2000);
 
 // Accept cookies if present
   await page.getByRole('button', { name: 'Accept All Cookies' }).click();
-
+  const splashButton2 = page.locator('.absolute.-top-\\[25px\\]');
+  if (await splashButton2.isVisible()) {
+    await splashButton2.click();
+    console.log('✅ Splash screen closed');
+  } else {
+    console.log('⚠️ Splash screen not found, skipping...');
+  }
 
   // Fill out the registration form
   const titleDropdown = page.getByLabel('TitleMrDrMrsMissMs');
@@ -196,13 +200,16 @@ test('SSO Login Flow - Manage Account', async ({ browser }) => {
   });
 
   // Open a new page and navigate to the login URL
-  const page = await context.newPage();
-  const loginUrl = process.env.LOGIN_URL || 'https://livepreview.pnefc.net/sso/login';
+const page = await context.newPage();
+const loginUrl = process.env.LOGIN_URL || 'https://livepreview.pnefc.net/sso/login';
 await page.goto(loginUrl);
+await page.waitForTimeout(2000);
 
-  // Handle any cookie banners if present
-await acceptCookiesIfPresent(page);
-//await page.locator('.w-screen > .relative > .absolute').click();
+// Accept all cookies
+await page.getByRole('button', { name: 'Accept All Cookies' }).click();
+
+const splashButton1 = page.locator('.absolute.-top-\\[25px\\]');
+if (await splashButton1.isVisible()) {await splashButton1.click();console.log('✅ Splash screen closed');} else {console.log('⚠️ Splash screen not found, skipping...');}
 
   // Fill in the login form using credentials loaded from the file
 await page.getByRole('textbox', { name: 'Email' }).fill(email);
@@ -211,11 +218,16 @@ await page.getByRole('textbox', { name: 'Password' }).fill(password);
   // Click the Login button
 await page.locator('a').filter({ hasText: 'Login' }).click();
 
-  // Accept cookies again after login if another prompt appears
+// Accept all cookies
 await page.getByRole('button', { name: 'Accept All Cookies' }).click();
-//await page.locator('.w-screen > .relative > .absolute').click();
+await page.waitForTimeout(1000);
 
-// Click the 'Log In' button
+const splashButton2 = page.locator('.absolute.-top-\\[25px\\]');if (
+await splashButton2.isVisible()) {
+await splashButton2.click();console.log('✅ Splash screen closed');} 
+else {console.log('⚠️ Splash screen not found, skipping...');}
+
+  // Click the 'Log In' button
 await page.getByRole('button', { name: 'Log In' }).click();
 
 // Verify 'Manage Account' link is visible after login
@@ -227,8 +239,14 @@ await expect(page.locator('#page')).toContainText('Manage Account');
 // Navigate to the 'Manage Account' section
 await page.getByRole('link', { name: 'Manage Account' }).click();
 
-// Accept cookie consent banner
+// Accept all cookies
 await page.getByRole('button', { name: 'Accept All Cookies' }).click();
+await page.waitForTimeout(1000);
+
+const splashButton3 = page.locator('.absolute.-top-\\[25px\\]');if (
+await splashButton3.isVisible()) {
+await splashButton3.click();console.log('✅ Splash screen closed');} 
+else {console.log('⚠️ Splash screen not found, skipping...');}
 
 // Define common selectors
 const firstNameTextbox = page.getByRole('textbox', { name: 'First Name*' });
@@ -310,8 +328,14 @@ test('SSO - View Subscription', async ({ browser }) => {
 await page.goto(loginUrl);
 
   // Handle any cookie banners if present
-await acceptCookiesIfPresent(page);
-//await page.locator('.w-screen > .relative > .absolute').click();
+  await page.getByRole('button', { name: 'Accept All Cookies' }).click();
+  await page.waitForTimeout(1000);
+
+  const splashButton1 = page.locator('.absolute.-top-\\[25px\\]');if (
+  await splashButton1.isVisible()) {
+  await splashButton1.click();console.log('✅ Splash screen closed');} 
+  else {console.log('⚠️ Splash screen not found, skipping...');}
+  
 
   // Fill in the login form using credentials loaded from the file
 await page.getByRole('textbox', { name: 'Email' }).fill(email);
@@ -322,7 +346,13 @@ await page.locator('a').filter({ hasText: 'Login' }).click();
 
   // Accept cookies again after login if another prompt appears
 await page.getByRole('button', { name: 'Accept All Cookies' }).click();
-//await page.locator('.w-screen > .relative > .absolute').click();
+await page.waitForTimeout(1000);
+
+const splashButton2 = page.locator('.absolute.-top-\\[25px\\]');if (
+await splashButton2.isVisible()) {
+await splashButton2.click();console.log('✅ Splash screen closed');} 
+else {console.log('⚠️ Splash screen not found, skipping...');}
+
 
 // Click the 'Log In' button
 await page.getByRole('button', { name: 'Log In' }).click();
@@ -331,7 +361,6 @@ await page.locator('a').filter({ hasText: 'View Subscriptions' }).click();
 await expect(page.getByRole('link', { name: 'The logo for the business EFL' })).toBeVisible();
 await expect(page.locator('#customer_portal_page_body')).toContainText('EFL Digital - Preston North End Football Club');
 });
-
 
 test('SSO - No Subscription Message', async ({ browser }) => {
   // Define path to the saved credentials file from the registration test
