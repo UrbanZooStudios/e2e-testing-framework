@@ -27,7 +27,7 @@ import {
 
 /* ============ TESTS ============ */
 
-test('Feature News Article — hero/news href is populated on PROD and PREVIEW /news', async ({ browser }) => {
+test('Feature News Article', async ({ browser }) => {
   test.setTimeout(90_000);
 
   // PROD
