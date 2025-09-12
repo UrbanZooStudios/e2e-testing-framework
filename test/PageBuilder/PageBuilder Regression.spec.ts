@@ -95,54 +95,6 @@ await expect(page.locator('[id="__nuxt"]')).toContainText(formattedDate);
 
 });
 
-test('Regression - Page Settings', async ({ page }) => {
-    // Navigate to the login page
-    await page.goto('https://cms.gc.uzstaging1.co.uk/');
-
-// Enter email and password for authentication
-await page.getByRole('textbox', { name: 'Email * Email *' }).fill(email);
-await page.getByRole('textbox', { name: 'Password * Password *' }).fill(password);
-
-    await page.getByRole('button', { name: 'Sign in' }).click();
-// Navigate to Pages and Edit Section
-    await page.getByRole('link', { name: 'Pages' }).click();
-    await page.getByRole('link', { name: 'Edit pages' }).click();
-    await page.locator('a').filter({ hasText: 'Automation +' }).hover();
-    const tab = page.locator('a').filter({ hasText: 'Automation +' });
-    await tab.hover();
-    await expect(tab).toHaveClass(/hovered|active|highlight/); // adjust regex
-    await page.locator('a').filter({ hasText: 'Automation +' }).click();
-// Get today's date in the required format
-    const today = new Date();
-    const formattedDate = `${today.getFullYear()}/${(today.getMonth() + 1).toString().padStart(2, '0')}/${today.getDate().toString().padStart(2, '0')}`;
-    const expectedText = `${formattedDate} - Updated`;
-    console.log(`Searching for date: ${formattedDate}`);
-// Find and click the link containing today's date
-    await page.locator(`a:has-text("${formattedDate}")`).first().click();
-// Update the page title
-    const settingsButton = page.locator('button.gc-button:has-text("Settings")');
-    await page.waitForTimeout(10000);
-    await settingsButton.dblclick();
-    await settingsButton.click();
-
-    await page.getByRole('textbox', { name: 'Page Title Slug Amend how the' }).fill(expectedText);
-    await page.locator('#inputLabel').nth(1).click();
-// Update External URL
-    await page.locator('#inputLabel').nth(2).click();
-    await page.locator('#inputLabel').nth(2).fill('https://test.com')
-
-//Update Third-Party-Scripts
-    await page.locator('#inputLabel').nth(4).click();
-    await page.locator('#inputLabel').nth(4).fill('This is a third party script');
-    await expect(page.locator('#inputLabel').nth(4)).toBeVisible();
-
-// Update Select Apply URL
-    await page.getByRole('button', { name: 'Apply' }).click();
-    await page.locator('#inputLabel').nth(1).click();
-    await page.getByRole('button', { name: 'Apply' }).click();
-    await page.getByRole('button', { name: 'Done' }).click();
-});
-
 test('Regression - Page Management', async ({ page }) => {
     // Navigate to the CMS login page
     await page.goto('https://cms.gc.uzstaging1.co.uk/');

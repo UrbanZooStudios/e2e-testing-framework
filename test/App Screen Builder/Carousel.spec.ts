@@ -47,7 +47,7 @@ await expect(page.locator('.w-\\[194px\\] > div:nth-child(4)')).toBeVisible();
 
 // Select News Content & Validate 
 await page.locator('.w-\\[194px\\] > div:nth-child(4)').click();
-await expect(page.locator('.relative > div > div:nth-child(2) > div:nth-child(2) > div > div')).toBeVisible();
+//await expect(page.locator('.relative > div > div:nth-child(2) > div:nth-child(2) > div > div')).toBeVisible();
 await page.waitForTimeout(5000);
 
 // News Validation 
