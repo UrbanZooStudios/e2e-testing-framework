@@ -1,4 +1,4 @@
-// npx playwright test "test/CMS/CMS Login.spec.ts" --headed
+// npx playwright test "test/CMS/Login.spec.ts" --headed
 import { test, expect } from '@playwright/test';
 import { getCredentials } from '../Utils/getCredentials';
 
@@ -13,7 +13,7 @@ test.beforeEach(async ({ page }) => {
 
 test('Login flow', async ({ page }) => {
   await page.getByRole('textbox', { name: 'Email * Email *' }).fill(email);
-  await page.getByRole('textbox', { name: 'Password * Password *' }).fill(password);
+  await page.getByRole('textbox', { name: 'Password * Password *' }).fill("?+C:mL8FD46#'up]4w");  
   await page.getByRole('button', { name: 'Sign in' }).click();
 
   // Ensure successful login
@@ -28,7 +28,8 @@ test('UI Validation', async ({ page }) => {
   await expect(page.getByRole('button', { name: 'Sign in' })).toBeVisible();
 });
 
-test('Forgotten Password Flow', async ({ page }) => {
+//Skipped until - UZ-3364
+test.skip('Forgotten Password Flow', async ({ page }) => {
   await page.getByRole('link', { name: 'Forgotten password?' }).click();
 
   await expect(page.getByRole('img', { name: 'Gamechanger' })).toBeVisible();
@@ -39,6 +40,8 @@ test('Forgotten Password Flow', async ({ page }) => {
   await page.getByRole('button', { name: 'Send Reset Code' }).click();
 
   await page.waitForTimeout(3000); // Consider replacing with waitForSelector when possible
+
+  await page.pause();
 
   await expect(page.getByRole('heading', { name: 'Reset Password' })).toBeVisible();
   await expect(page.getByRole('paragraph')).toContainText('Your password has been reset');

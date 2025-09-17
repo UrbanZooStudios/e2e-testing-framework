@@ -29,8 +29,7 @@ await page.goto('https://cms.gc.gc2stagingservices.co.uk/');
 await page.getByRole('textbox', { name: 'Email * Email *' }).fill(email);
 
 // Fill in the password field
-await page.getByRole('textbox', { name: 'Password * Password *' }).fill(password);
-
+await page.getByRole('textbox', { name: 'Password * Password *' }).fill("?+C:mL8FD46#'up]4w");
 // Click the "Sign in" button
 await page.getByRole('button', { name: 'Sign in' }).click();
 
