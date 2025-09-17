@@ -29,7 +29,7 @@ test('UI Validation', async ({ page }) => {
 });
 
 //Skipped until - UZ-3364
-test.skip('Forgotten Password Flow', async ({ page }) => {
+test('Forgotten Password Flow', async ({ page }) => {
   await page.getByRole('link', { name: 'Forgotten password?' }).click();
 
   await expect(page.getByRole('img', { name: 'Gamechanger' })).toBeVisible();
@@ -40,8 +40,6 @@ test.skip('Forgotten Password Flow', async ({ page }) => {
   await page.getByRole('button', { name: 'Send Reset Code' }).click();
 
   await page.waitForTimeout(3000); // Consider replacing with waitForSelector when possible
-
-  await page.pause();
 
   await expect(page.getByRole('heading', { name: 'Reset Password' })).toBeVisible();
   await expect(page.getByRole('paragraph')).toContainText('Your password has been reset');

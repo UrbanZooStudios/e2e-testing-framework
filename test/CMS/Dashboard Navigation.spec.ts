@@ -1,4 +1,4 @@
-//npx playwright test "test/CMS Dashboard Navigation.spec.ts" --headed
+//npx playwright test "test/CMS/Dashboard Navigation.spec.ts" --headed
 
 import { test, expect } from '@playwright/test';
 import * as dotenv from 'dotenv';
