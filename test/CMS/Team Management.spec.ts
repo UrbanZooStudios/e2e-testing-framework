@@ -29,7 +29,7 @@ test('Player Sponsors > Team Management > Current Squad ', async ({ page }) => {
     
 // Navigate to the login page
 //await page.goto('https://cms.gc.uzgc2.com/login');
-await page.goto('https://cms.gc.uzstaging1.co.uk/login');
+await page.goto('https://cms.gc.gc2stagingservices.co.uk/');
 await page.getByRole('textbox', { name: 'Email * Email *' }).fill(STAGING_1_EMAIL);
 await page.getByRole('textbox', { name: 'Password * Password *' }).fill(STAGING_1_PASSWORD);
 await page.getByRole('button', { name: 'Sign in' }).click();

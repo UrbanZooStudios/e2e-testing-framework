@@ -23,7 +23,7 @@ if (!testEmail || !testPassword) {
 
 test('CMS - Content - Quote Widget', async ({ page }) => {
   // Navigate to the login page..
-await page.goto('https://cms.gc.uzstaging1.co.uk/');
+await page.goto('https://cms.gc.gc2stagingservices.co.uk/');
 await page.getByRole('textbox', { name: 'Email * Email *' }).fill(email);
 await page.getByRole('textbox', { name: 'Password * Password *' }).fill(password);
 await page.getByRole('button', { name: 'Sign in' }).click();
@@ -92,7 +92,7 @@ const context = await browser.newContext({ httpCredentials: {
 const page = await context.newPage();
 
     // Navigate to the live preview page
-await page.goto('https://beta.gc.uzstaging1.co.uk/preview/77515f53-54da-42a9-8b2f-052dca0c3ec3', {
+await page.goto('https://cms.gc.gc2stagingservices.co.uk/', {
 waitUntil: 'domcontentloaded',});
   
     // Text we expect

@@ -5,7 +5,7 @@ import { getCredentials } from '../Utils/getCredentials';
 const { email, password, testEmail, testPassword } = getCredentials();
 
 //const loginUrl = 'https://cms.gc.uzgc2.com/login';
-const loginUrl = 'https://cms.gc.uzstaging1.co.uk/login'
+const loginUrl = 'https://cms.gc.gc2stagingservices.co.uk/'
 
 test.beforeEach(async ({ page }) => {
   await page.goto(loginUrl);

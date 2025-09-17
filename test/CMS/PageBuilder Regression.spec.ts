@@ -23,7 +23,7 @@ if (!testEmail || !testPassword) {
 
 test('Regression - Page Builder Creation', async ({ page }) => {
 // Navigate to the login page
-await page.goto('https://cms.gc.uzstaging1.co.uk/');
+await page.goto('https://cms.gc.gc2stagingservices.co.uk/');
 
 // Fill in the email field
 await page.getByRole('textbox', { name: 'Email * Email *' }).fill(email);
