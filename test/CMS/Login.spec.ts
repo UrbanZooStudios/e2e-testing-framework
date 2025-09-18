@@ -1,8 +1,6 @@
 // npx playwright test "test/CMS/Login.spec.ts" --headed
 import { test, expect } from '@playwright/test';
-import { getCredentials } from '../Utils/getCredentials';
 
-const { email, password, testEmail, testPassword } = getCredentials();
 
 //const loginUrl = 'https://cms.gc.uzgc2.com/login';
 const loginUrl = 'https://cms.gc.gc2stagingservices.co.uk/'
@@ -12,8 +10,8 @@ test.beforeEach(async ({ page }) => {
 });
 
 test('Login flow', async ({ page }) => {
-  await page.getByRole('textbox', { name: 'Email * Email *' }).fill("admin@urbanzoo.io");
-  await page.getByRole('textbox', { name: 'Password * Password *' }).fill("?+C:mL8FD46#'up]4w");
+  await page.getByRole('textbox', { name: 'Email * Email *' }).fill("automation@urbanzoo.io");
+  await page.getByRole('textbox', { name: 'Password * Password *' }).fill('hsP25v9\\\\quT{');
   await page.getByRole('button', { name: 'Sign in' }).click();
 
   // Ensure successful login

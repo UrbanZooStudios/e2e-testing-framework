@@ -2,14 +2,8 @@
 import { test, expect } from '@playwright/test';
 import * as dotenv from 'dotenv';
 dotenv.config();
-const email = process.env.PLAYWRIGHT_EMAIL;
-const password = process.env.PLAYWRIGHT_PASSWORD;
 const previewUsername = process.env.PREVIEW_USERNAME || 'urbanzoo';
 const previewPassword = process.env.PREVIEW_PASSWORD || 'gamechanger1!';
-
-if (!email || !password) {
-  throw new Error("PLAYWRIGHT_EMAIL or PLAYWRIGHT_PASSWORD is not set.");
-}
 
 test('First Team Squad - Live Preview', async ({ browser }, testInfo) => {
     test.setTimeout(120000); // 2 minutes

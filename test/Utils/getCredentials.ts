@@ -1,6 +1,6 @@
 import * as dotenv from 'dotenv';
 dotenv.config();
-
+/*
 console.log("Loaded ENV:", {
   email: process.env.PLAYWRIGHT_EMAIL,
   password: process.env.PLAYWRIGHT_PASSWORD,
@@ -23,3 +23,4 @@ export function getCredentials() {
 
   return { email, password, testEmail, testPassword };
 }
+*/

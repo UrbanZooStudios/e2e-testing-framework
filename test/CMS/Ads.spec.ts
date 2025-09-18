@@ -6,20 +6,6 @@ import * as dotenv from 'dotenv';
 // Load environment variables from the .env file
 dotenv.config();
 
-// Fetch environment variables for authentication
-const email = process.env.PLAYWRIGHT_EMAIL;
-const password = process.env.PLAYWRIGHT_PASSWORD;
-const testEmail = process.env.PLAYWRIGHT_TEST_EMAIL;
-const testPassword = process.env.PLAYWRIGHT_TEST_PASSWORD;
-
-// Validate that the required environment variables are set
-if (!email || !password) {
-  throw new Error("Main login Email or Password is not set in environment variables.");
-}
-if (!testEmail || !testPassword) {
-  throw new Error("Test Email or Test Password is not set in environment variables.");
-}
-
 test('Add Advertising', async ({ page }) => {
     
     // Navigate to the login page
@@ -27,8 +13,8 @@ test('Add Advertising', async ({ page }) => {
     await page.goto('https://cms.gc.gc2stagingservices.co.uk/');
 
     // Enter email and password for authentication
-    await page.getByRole('textbox', { name: 'Email * Email *' }).fill("admin@urbanzoo.io");
-    await page.getByRole('textbox', { name: 'Password * Password *' }).fill("?+C:mL8FD46#'up]4w");
+    await page.getByRole('textbox', { name: 'Email * Email *' }).fill("automation@urbanzoo.io");
+    await page.getByRole('textbox', { name: 'Password * Password *' }).fill('hsP25v9\\\\quT{');
 
     // Click the "Sign in" button
     await page.getByRole('button', { name: 'Sign in' }).click();

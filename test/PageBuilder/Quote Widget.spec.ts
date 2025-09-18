@@ -13,8 +13,8 @@ const previewPassword = process.env.PREVIEW_PASSWORD || 'gamechanger1!';
 test('CMS - Content - Quote Widget', async ({ page }) => {
   // Navigate to the login page..
 await page.goto('https://cms.gc.gc2stagingservices.co.uk/');
-await page.getByRole('textbox', { name: 'Email * Email *' }).fill("admin@urbanzoo.io");
-await page.getByRole('textbox', { name: 'Password * Password *' }).fill("?+C:mL8FD46#'up]4w");
+await page.getByRole('textbox', { name: 'Email * Email *' }).fill("automation@urbanzoo.io");
+await page.getByRole('textbox', { name: 'Password * Password *' }).fill('hsP25v9\\\\quT{');
 
 
 await page.getByRole('button', { name: 'Sign in' }).click();
@@ -100,8 +100,8 @@ await expect(page.getByText('We have a positive').first()).toBeVisible();
 test('CMS - Spilt Container - 1 Container', async ({ page }) => {
     // Navigate to the login page..
 await page.goto('https://cms.gc.uzstaging1.co.uk/');
-await page.getByRole('textbox', { name: 'Email * Email *' }).fill("admin@urbanzoo.io");
-await page.getByRole('textbox', { name: 'Password * Password *' }).fill("?+C:mL8FD46#'up]4w");
+await page.getByRole('textbox', { name: 'Email * Email *' }).fill("automation@urbanzoo.io");
+await page.getByRole('textbox', { name: 'Password * Password *' }).fill('hsP25v9\\\\quT{');
 
 
 await page.getByRole('button', { name: 'Sign in' }).click();

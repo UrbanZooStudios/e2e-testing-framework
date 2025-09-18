@@ -8,8 +8,8 @@ dotenv.config();
 test('App Screen Builder - Content - Text - Left Aligned', async ({ page }) => {
   // Navigate to the login page..
 await page.goto('https://cms.gc.uzgc2.com/');
-await page.getByRole('textbox', { name: 'Email * Email *' }).fill("admin@urbanzoo.io");
-await page.getByRole('textbox', { name: 'Password * Password *' }).fill('hsP25v9\\quT{');
+await page.getByRole('textbox', { name: 'Email * Email *' }).fill("automation@urbanzoo.io");
+await page.getByRole('textbox', { name: 'Password * Password *' }).fill('hsP25v9\\\\quT{');
 await page.getByRole('button', { name: 'Sign in' }).click();
 await page.getByRole('link', { name: 'Pages' }).click();
 await expect(page.locator('#app-screens')).toBeVisible();
@@ -118,8 +118,8 @@ await page.waitForTimeout(2000);
 test('App Screen Builder - Content - Text - Centre Aligned', async ({ page }) => {
   // Navigate to the login page..
 await page.goto('https://cms.gc.uzgc2.com/');
-await page.getByRole('textbox', { name: 'Email * Email *' }).fill("admin@urbanzoo.io");
-await page.getByRole('textbox', { name: 'Password * Password *' }).fill('hsP25v9\\quT{');
+await page.getByRole('textbox', { name: 'Email * Email *' }).fill("automation@urbanzoo.io");
+await page.getByRole('textbox', { name: 'Password * Password *' }).fill('hsP25v9\\\\quT{');
 await page.getByRole('button', { name: 'Sign in' }).click();
 await page.getByRole('link', { name: 'Pages' }).click();
 await expect(page.locator('#app-screens')).toBeVisible();
@@ -222,8 +222,8 @@ await page.locator('button').filter({ hasText: /^Save$/ }).click();
 test('App Screen Builder - Content - Text - Right Aligned', async ({ page }) => {
   // Navigate to the login page..
 await page.goto('https://cms.gc.uzgc2.com/');
-await page.getByRole('textbox', { name: 'Email * Email *' }).fill("admin@urbanzoo.io");
-await page.getByRole('textbox', { name: 'Password * Password *' }).fill('hsP25v9\\quT{');
+await page.getByRole('textbox', { name: 'Email * Email *' }).fill("automation@urbanzoo.io");
+await page.getByRole('textbox', { name: 'Password * Password *' }).fill('hsP25v9\\\\quT{');
 await page.getByRole('button', { name: 'Sign in' }).click();
 await page.getByRole('link', { name: 'Pages' }).click();
 await expect(page.locator('#app-screens')).toBeVisible();
@@ -331,8 +331,8 @@ await page.waitForTimeout(5000);
 test('App Screen Builder - Content - Image', async ({ page }) => {
   // Navigate to the login page..
 await page.goto('https://cms.gc.uzgc2.com/');
-await page.getByRole('textbox', { name: 'Email * Email *' }).fill("admin@urbanzoo.io");
-await page.getByRole('textbox', { name: 'Password * Password *' }).fill('hsP25v9\\quT{');
+await page.getByRole('textbox', { name: 'Email * Email *' }).fill("automation@urbanzoo.io");
+await page.getByRole('textbox', { name: 'Password * Password *' }).fill('hsP25v9\\\\quT{');
 await page.getByRole('button', { name: 'Sign in' }).click();
 await page.getByRole('link', { name: 'Pages' }).click();
 await expect(page.locator('#app-screens')).toBeVisible();
@@ -381,8 +381,8 @@ await page.waitForTimeout(2000);
 test('App Screen Builder - Content - Advert', async ({ page }) => {
   // Navigate to the login page..
 await page.goto('https://cms.gc.uzgc2.com/');
-await page.getByRole('textbox', { name: 'Email * Email *' }).fill("admin@urbanzoo.io");
-await page.getByRole('textbox', { name: 'Password * Password *' }).fill('hsP25v9\\quT{');
+await page.getByRole('textbox', { name: 'Email * Email *' }).fill("automation@urbanzoo.io");
+await page.getByRole('textbox', { name: 'Password * Password *' }).fill('hsP25v9\\\\quT{');
 await page.getByRole('button', { name: 'Sign in' }).click();
 await page.getByRole('link', { name: 'Pages' }).click();
 await expect(page.locator('#app-screens')).toBeVisible();
@@ -437,8 +437,8 @@ await page.waitForTimeout(5000);
 test('App Screen Builder - Content - Promo', async ({ page }) => {
   // Navigate to the login page..
 await page.goto('https://cms.gc.uzgc2.com/');
-await page.getByRole('textbox', { name: 'Email * Email *' }).fill("admin@urbanzoo.io");
-await page.getByRole('textbox', { name: 'Password * Password *' }).fill('hsP25v9\\quT{');
+await page.getByRole('textbox', { name: 'Email * Email *' }).fill("automation@urbanzoo.io");
+await page.getByRole('textbox', { name: 'Password * Password *' }).fill('hsP25v9\\\\quT{');
 await page.getByRole('button', { name: 'Sign in' }).click();
 await page.getByRole('link', { name: 'Pages' }).click();
 await expect(page.locator('#app-screens')).toBeVisible();
@@ -529,8 +529,8 @@ await page.waitForTimeout(5000);
 test('App Screen Builder - Content - Button', async ({ page }) => {
   // Navigate to the login page..
 await page.goto('https://cms.gc.uzgc2.com/');
-await page.getByRole('textbox', { name: 'Email * Email *' }).fill("admin@urbanzoo.io");
-await page.getByRole('textbox', { name: 'Password * Password *' }).fill('hsP25v9\\quT{');
+await page.getByRole('textbox', { name: 'Email * Email *' }).fill("automation@urbanzoo.io");
+await page.getByRole('textbox', { name: 'Password * Password *' }).fill('hsP25v9\\\\quT{');
 await page.getByRole('button', { name: 'Sign in' }).click();
 await page.getByRole('link', { name: 'Pages' }).click();
 await expect(page.locator('#app-screens')).toBeVisible();

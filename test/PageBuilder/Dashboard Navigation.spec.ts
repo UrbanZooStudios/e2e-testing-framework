@@ -12,8 +12,8 @@ test('CMS Homepage Dashboard Navigation', async ({ page }) => {
 await page.goto('https://cms.gc.gc2stagingservices.co.uk/');
 
 // Enter email and password for authentication
-await page.getByRole('textbox', { name: 'Email * Email *' }).fill("admin@urbanzoo.io");
-await page.getByRole('textbox', { name: 'Password * Password *' }).fill("?+C:mL8FD46#'up]4w");
+await page.getByRole('textbox', { name: 'Email * Email *' }).fill("automation@urbanzoo.io");
+await page.getByRole('textbox', { name: 'Password * Password *' }).fill('hsP25v9\\\\quT{');
 
 // Click the "Sign in" button
 await page.getByRole('button', { name: 'Sign in' }).click();

@@ -82,8 +82,8 @@ test('Regression - Page Management', async ({ page }) => {
     await page.goto('https://cms.gc.uzstaging1.co.uk/');
 
     // Fill in login credentials and sign in
-    await page.getByRole('textbox', { name: 'Email * Email *' }).fill("admin@urbanzoo.io");
-    await page.getByRole('textbox', { name: 'Password * Password *' }).fill("?+C:mL8FD46#'up]4w");    
+    await page.getByRole('textbox', { name: 'Email * Email *' }).fill("automation@urbanzoo.io");
+    await page.getByRole('textbox', { name: 'Password * Password *' }).fill('hsP25v9\\\\quT{');
     await page.getByRole('button', { name: 'Sign in' }).click();
 
     // Navigate to the 'Pages' section and then to 'Edit pages'
