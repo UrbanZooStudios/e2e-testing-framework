@@ -36,7 +36,7 @@ test('Forgotten Password Flow', async ({ page }) => {
   await expect(page.getByRole('textbox', { name: 'Email * Email *' })).toBeVisible();
   await expect(page.locator('form div').filter({ hasText: 'Send Reset Code' })).toBeVisible();
 
-  await page.getByRole('textbox', { name: 'Email * Email *' }).fill("test@urbanzoo.io");
+  await page.getByRole('textbox', { name: 'Email * Email *' }).fill(process.env.PLAYWRIGHT_TEST_EMAIL!);
   await page.getByRole('button', { name: 'Send Reset Code' }).click();
 
   await page.waitForTimeout(3000); // Consider replacing with waitForSelector when possible
@@ -45,7 +45,7 @@ test('Forgotten Password Flow', async ({ page }) => {
   await expect(page.getByRole('paragraph')).toContainText('Your password has been reset');
   await expect(page.getByText('Your password has been reset')).toBeVisible();
 
-  await page.getByRole('textbox', { name: 'Email * Email *' }).fill("test@urbanzoo.io");
+  await page.getByRole('textbox', { name: 'Email * Email *' }).fill(process.env.PLAYWRIGHT_TEST_EMAIL!);
   await page.getByRole('textbox', { name: 'Code Code' }).fill('123456');
   await page.getByRole('textbox', { name: 'Password Password' }).fill("testing1234!");
 
