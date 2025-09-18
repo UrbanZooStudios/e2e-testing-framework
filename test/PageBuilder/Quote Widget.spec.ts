@@ -6,26 +6,17 @@ import * as dotenv from 'dotenv';
 dotenv.config();
 
 // Fetch environment variables for authentication
-const email = process.env.PLAYWRIGHT_EMAIL;
-const password = process.env.PLAYWRIGHT_PASSWORD;
-const testEmail = process.env.PLAYWRIGHT_TEST_EMAIL;
-const testPassword = process.env.PLAYWRIGHT_TEST_PASSWORD;
 const previewUsername = process.env.PREVIEW_USERNAME || 'urbanzoo';
 const previewPassword = process.env.PREVIEW_PASSWORD || 'gamechanger1!';
 
-// Validate that the required environment variables are set
-if (!email || !password) {
-  throw new Error("Main login Email or Password is not set in environment variables.");
-}
-if (!testEmail || !testPassword) {
-  throw new Error("Test Email or Test Password is not set in environment variables.");
-}
 
 test('CMS - Content - Quote Widget', async ({ page }) => {
   // Navigate to the login page..
 await page.goto('https://cms.gc.gc2stagingservices.co.uk/');
-await page.getByRole('textbox', { name: 'Email * Email *' }).fill(email);
-await page.getByRole('textbox', { name: 'Password * Password *' }).fill(password);
+await page.getByRole('textbox', { name: 'Email * Email *' }).fill("admin@urbanzoo.io");
+await page.getByRole('textbox', { name: 'Password * Password *' }).fill("?+C:mL8FD46#'up]4w");
+
+
 await page.getByRole('button', { name: 'Sign in' }).click();
 await page.getByRole('link', { name: 'Pages' }).click();
 await page.getByRole('link', { name: 'Edit pages' }).click();
@@ -109,8 +100,10 @@ await expect(page.getByText('We have a positive').first()).toBeVisible();
 test('CMS - Spilt Container - 1 Container', async ({ page }) => {
     // Navigate to the login page..
 await page.goto('https://cms.gc.uzstaging1.co.uk/');
-await page.getByRole('textbox', { name: 'Email * Email *' }).fill(email);
-await page.getByRole('textbox', { name: 'Password * Password *' }).fill(password);
+await page.getByRole('textbox', { name: 'Email * Email *' }).fill("admin@urbanzoo.io");
+await page.getByRole('textbox', { name: 'Password * Password *' }).fill("?+C:mL8FD46#'up]4w");
+
+
 await page.getByRole('button', { name: 'Sign in' }).click();
 await page.getByRole('link', { name: 'Pages' }).click();
 await page.getByRole('link', { name: 'Edit pages' }).click();

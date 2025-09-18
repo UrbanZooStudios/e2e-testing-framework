@@ -7,30 +7,15 @@ import * as dotenv from 'dotenv';
 dotenv.config();
 
 // Fetch environment variables for authentication
-const email = process.env.UZGC2_EMAIL;
-const password = process.env.UZGC2_PASSWORD;
-const testEmail = process.env.UZGC2_TEST_EMAIL;
-const testPassword = process.env.UZGC2_TEST_PASSWORD;
-const STAGING_1_EMAIL = process.env.STAGING_1_EMAIL
-const STAGING_1_PASSWORD = process.env.STAGING_1_PASSWORD
 const previewUsername = process.env.PREVIEW_USERNAME || 'urbanzoo';
 const previewPassword = process.env.PREVIEW_PASSWORD || 'gamechanger1!';
-
-
-// Validate that the required environment variables are set
-if (!STAGING_1_EMAIL || !STAGING_1_PASSWORD) {
-  throw new Error("Main login Email or Password is not set in environment variables.");
-}
-if (!testEmail || !testPassword) {
-  throw new Error("Test Email or Test Password is not set in environment variables.");
-}
 
 test('Player Sponsors > Team Management > Current Squad ', async ({ page }) => {
     
 // Navigate to the login page
 //await page.goto('https://cms.gc.uzgc2.com/login');
 await page.goto('https://cms.gc.gc2stagingservices.co.uk/');
-await page.getByRole('textbox', { name: 'Email * Email *' }).fill(STAGING_1_EMAIL);
+await page.getByRole('textbox', { name: 'Email * Email *' }).fill("admin@urbanzoo.io");
 await page.getByRole('textbox', { name: 'Password * Password *' }).fill("?+C:mL8FD46#'up]4w");
 await page.getByRole('button', { name: 'Sign in' }).click();
 

@@ -24,11 +24,9 @@ test('Regression - Page Builder Creation', async ({ page }) => {
 // Navigate to the login page
 await page.goto('https://cms.gc.gc2stagingservices.co.uk/');
 
-// Fill in the email field
-await page.getByRole('textbox', { name: 'Email * Email *' }).fill(email);
-
-// Fill in the password field
+await page.getByRole('textbox', { name: 'Email * Email *' }).fill("admin@urbanzoo.io");
 await page.getByRole('textbox', { name: 'Password * Password *' }).fill("?+C:mL8FD46#'up]4w");
+
 // Click the "Sign in" button
 await page.getByRole('button', { name: 'Sign in' }).click();
 
@@ -96,22 +94,22 @@ await expect(page.locator('[id="__nuxt"]')).toContainText(formattedDate);
 });
 
 test('Regression - Page Settings', async ({ page }) => {
-    // Navigate to the login page
-    await page.goto('https://cms.gc.gc2stagingservices.co.uk/');
+// Navigate to the login page
+await page.goto('https://cms.gc.gc2stagingservices.co.uk/');
 
-// Enter email and password for authentication
-await page.getByRole('textbox', { name: 'Email * Email *' }).fill(email);
+await page.getByRole('textbox', { name: 'Email * Email *' }).fill("admin@urbanzoo.io");
 await page.getByRole('textbox', { name: 'Password * Password *' }).fill("?+C:mL8FD46#'up]4w");
 
-    await page.getByRole('button', { name: 'Sign in' }).click();
+await page.getByRole('button', { name: 'Sign in' }).click();
 // Navigate to Pages and Edit Section
-    await page.getByRole('link', { name: 'Pages' }).click();
-    await page.getByRole('link', { name: 'Edit pages' }).click();
-    await page.locator('a').filter({ hasText: 'Automation +' }).hover();
-    const tab = page.locator('a').filter({ hasText: 'Automation +' });
-    await tab.hover();
-    await expect(tab).toHaveClass(/hovered|active|highlight/); // adjust regex
-    await page.locator('a').filter({ hasText: 'Automation +' }).click();
+await page.getByRole('link', { name: 'Pages' }).click();
+await page.getByRole('link', { name: 'Edit pages' }).click();
+await page.locator('a').filter({ hasText: 'Automation +' }).hover();
+    
+const tab = page.locator('a').filter({ hasText: 'Automation +' });
+await tab.hover();
+await expect(tab).toHaveClass(/hovered|active|highlight/); // adjust regex
+await page.locator('a').filter({ hasText: 'Automation +' }).click();
 // Get today's date in the required format
     const today = new Date();
     const formattedDate = `${today.getFullYear()}/${(today.getMonth() + 1).toString().padStart(2, '0')}/${today.getDate().toString().padStart(2, '0')}`;
@@ -148,7 +146,7 @@ test('Regression - Page Management', async ({ page }) => {
     await page.goto('https://cms.gc.gc2stagingservices.co.uk/');
 
     // Fill in login credentials and sign in
-    await page.getByRole('textbox', { name: 'Email * Email *' }).fill(email);
+    await page.getByRole('textbox', { name: 'Email * Email *' }).fill("admin@urbanzoo.io");
     await page.getByRole('textbox', { name: 'Password * Password *' }).fill("?+C:mL8FD46#'up]4w");
     await page.getByRole('button', { name: 'Sign in' }).click();
 

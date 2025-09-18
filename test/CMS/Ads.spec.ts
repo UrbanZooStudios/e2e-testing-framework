@@ -27,7 +27,7 @@ test('Add Advertising', async ({ page }) => {
     await page.goto('https://cms.gc.gc2stagingservices.co.uk/');
 
     // Enter email and password for authentication
-    await page.getByRole('textbox', { name: 'Email * Email *' }).fill(email);
+    await page.getByRole('textbox', { name: 'Email * Email *' }).fill("admin@urbanzoo.io");
     await page.getByRole('textbox', { name: 'Password * Password *' }).fill("?+C:mL8FD46#'up]4w");
 
     // Click the "Sign in" button

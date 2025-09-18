@@ -5,25 +5,11 @@ import * as dotenv from 'dotenv';
 // Load environment variables from the .env file
 dotenv.config();
 
-// Fetch environment variables for authentication
-const email = process.env.UZGC2_EMAIL;
-const password = process.env.UZGC2_PASSWORD;
-const testEmail = process.env.UZGC2_TEST_EMAIL;
-const testPassword = process.env.UZGC2_TEST_PASSWORD;
-
-// Validate that the required environment variables are set
-if (!email || !password) {
-  throw new Error("Main login Email or Password is not set in environment variables.");
-}
-if (!testEmail || !testPassword) {
-  throw new Error("Test Email or Test Password is not set in environment variables.");
-}
-
 test('App Screen Builder - Single List Item - Upcoming Fixtures', async ({ page }) => {
   // Navigate to the login page..
 await page.goto('https://cms.gc.uzgc2.com/');
-await page.getByRole('textbox', { name: 'Email * Email *' }).fill(email);
-await page.getByRole('textbox', { name: 'Password * Password *' }).fill(password);
+await page.getByRole('textbox', { name: 'Email * Email *' }).fill("admin@urbanzoo.io");
+await page.getByRole('textbox', { name: 'Password * Password *' }).fill('hsP25v9\\quT{');
 await page.getByRole('button', { name: 'Sign in' }).click();
 await page.getByRole('link', { name: 'Pages' }).click();
 await expect(page.locator('#app-screens')).toBeVisible();
@@ -83,8 +69,8 @@ await page.waitForTimeout(2000);
 test('App Screen Builder - Single List Item - Fixtures - Results', async ({ page }) => {
   // Navigate to the login page..
 await page.goto('https://cms.gc.uzgc2.com/');
-await page.getByRole('textbox', { name: 'Email * Email *' }).fill(email);
-await page.getByRole('textbox', { name: 'Password * Password *' }).fill(password);
+await page.getByRole('textbox', { name: 'Email * Email *' }).fill("admin@urbanzoo.io");
+await page.getByRole('textbox', { name: 'Password * Password *' }).fill('hsP25v9\\quT{');
 await page.getByRole('button', { name: 'Sign in' }).click();
 await page.getByRole('link', { name: 'Pages' }).click();
 await expect(page.locator('#app-screens')).toBeVisible();
@@ -130,8 +116,8 @@ await page.waitForTimeout(2000);
 test('App Screen Builder - Single List Item - News', async ({ page }) => {
   // Navigate to the login page..
 await page.goto('https://cms.gc.uzgc2.com/');
-await page.getByRole('textbox', { name: 'Email * Email *' }).fill(email);
-await page.getByRole('textbox', { name: 'Password * Password *' }).fill(password);
+await page.getByRole('textbox', { name: 'Email * Email *' }).fill("admin@urbanzoo.io");
+await page.getByRole('textbox', { name: 'Password * Password *' }).fill('hsP25v9\\quT{');
 await page.getByRole('button', { name: 'Sign in' }).click();
 await page.getByRole('link', { name: 'Pages' }).click();
 await expect(page.locator('#app-screens')).toBeVisible();
@@ -192,8 +178,8 @@ await page.waitForLoadState('networkidle');
 test('App Screen Builder - Single List Item - Video', async ({ page }) => {
   // Navigate to the login page..
 await page.goto('https://cms.gc.uzgc2.com/');
-await page.getByRole('textbox', { name: 'Email * Email *' }).fill(email);
-await page.getByRole('textbox', { name: 'Password * Password *' }).fill(password);
+await page.getByRole('textbox', { name: 'Email * Email *' }).fill("admin@urbanzoo.io");
+await page.getByRole('textbox', { name: 'Password * Password *' }).fill('hsP25v9\\quT{');
 await page.getByRole('button', { name: 'Sign in' }).click();
 await page.getByRole('link', { name: 'Pages' }).click();
 await expect(page.locator('#app-screens')).toBeVisible();
@@ -244,8 +230,8 @@ await page.waitForTimeout(2000);
 test('App Screen Builder - Single List Item - Clean Up Script', async ({ page }) => {
   // Navigate to the login page..
 await page.goto('https://cms.gc.uzgc2.com/');
-await page.getByRole('textbox', { name: 'Email * Email *' }).fill(email);
-await page.getByRole('textbox', { name: 'Password * Password *' }).fill(password);
+await page.getByRole('textbox', { name: 'Email * Email *' }).fill("admin@urbanzoo.io");
+await page.getByRole('textbox', { name: 'Password * Password *' }).fill('hsP25v9\\quT{');
 await page.getByRole('button', { name: 'Sign in' }).click();
 await page.getByRole('link', { name: 'Pages' }).click();
 await expect(page.locator('#app-screens')).toBeVisible();
