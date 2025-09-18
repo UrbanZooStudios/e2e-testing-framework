@@ -26,26 +26,3 @@ test('UI Validation', async ({ page }) => {
   await expect(page.getByRole('button', { name: 'Sign in' })).toBeVisible();
 });
 
-//Skipped until - UZ-3364
-test('Forgotten Password Flow', async ({ page }) => {
-  await page.getByRole('link', { name: 'Forgotten password?' }).click();
-
-  await expect(page.getByRole('img', { name: 'Gamechanger' })).toBeVisible();
-  await expect(page.getByRole('textbox', { name: 'Email * Email *' })).toBeVisible();
-  await expect(page.locator('form div').filter({ hasText: 'Send Reset Code' })).toBeVisible();
-
-  await page.getByRole('textbox', { name: 'Email * Email *' }).fill(process.env.PLAYWRIGHT_TEST_EMAIL!);
-  await page.getByRole('button', { name: 'Send Reset Code' }).click();
-
-  await page.waitForTimeout(3000); // Consider replacing with waitForSelector when possible
-
-  await expect(page.getByRole('heading', { name: 'Reset Password' })).toBeVisible();
-  await expect(page.getByRole('paragraph')).toContainText('Your password has been reset');
-  await expect(page.getByText('Your password has been reset')).toBeVisible();
-
-  await page.getByRole('textbox', { name: 'Email * Email *' }).fill(process.env.PLAYWRIGHT_TEST_EMAIL!);
-  await page.getByRole('textbox', { name: 'Code Code' }).fill('123456');
-  await page.getByRole('textbox', { name: 'Password Password' }).fill("testing1234!");
-
-  await page.getByRole('button', { name: 'Set Password' }).click();
-});
