@@ -15,8 +15,8 @@ test('Player Sponsors > Team Management > Current Squad ', async ({ page }) => {
 // Navigate to the login page
 //await page.goto('https://cms.gc.uzgc2.com/login');
 await page.goto('https://cms.gc.gc2stagingservices.co.uk/');
-await page.getByRole('textbox', { name: 'Email * Email *' }).fill("admin@urbanzoo.io");
-await page.getByRole('textbox', { name: 'Password * Password *' }).fill("?+C:mL8FD46#'up]4w");
+await page.getByRole('textbox', { name: 'Email * Email *' }).fill(process.env.PLAYWRIGHT_EMAIL!);
+await page.getByRole('textbox', { name: 'Password * Password *' }).fill(process.env.PLAYWRIGHT_PASSWORD!);
 await page.getByRole('button', { name: 'Sign in' }).click();
 
 // Access CMS > Team Management
