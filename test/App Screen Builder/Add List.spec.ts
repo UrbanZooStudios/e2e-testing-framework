@@ -5,7 +5,7 @@ import * as dotenv from 'dotenv';
 // Load environment variables from the .env file
 dotenv.config();
 
-test.only('App Screen Builder - Add List - News', async ({ page }) => {
+test('App Screen Builder - Add List - News', async ({ page }) => {
   // Navigate to the login page..
 await page.goto('https://cms.gc.uzgc2.com/');
 await page.getByRole('textbox', { name: 'Email * Email *' }).fill("admin@urbanzoo.io");
