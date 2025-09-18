@@ -55,19 +55,20 @@ await page.getByRole('heading', { name: 'Player Sponsors' }).click();
 // Select Add New Sponsor button 
 await page.getByRole('button', { name: 'Add New Sponsor' }).click();
 await page.getByRole('button', { name: 'Open Media library' }).nth(1).click();
+await page.getByRole('button', { name: '󰉋' }).nth(1).click();
 await page.getByRole('textbox', { name: 'Search the library' }).click();
-await page.getByRole('textbox', { name: 'Search the library' }).fill('sponsor');
+await page.getByRole('textbox', { name: 'Search the library' }).fill('logo');
 await page.getByRole('button', { name: 'Search' }).click();
 
 // Select Open Media Library & search for image > Click image and click add then save
-await page.getByRole('article').filter({ hasText: 'Sponsor.png' }).getByRole('button').first().click();
+await page.getByRole('article').getByRole('button').first().click();
 await page.getByText('Cancel Add').click();
 await page.getByRole('button', { name: 'Add', exact: true }).click();
 await page.getByRole('button', { name: 'Delete this sponsor' }).nth(1).click();
 
 });
 
-test('Player Sponsors > Fanside Validation', async ({ browser }, testInfo) => {
+test('Player Profile Sponsors > Fanside Validation', async ({ browser }, testInfo) => {
     test.setTimeout(120000); // 2 minutes
   
     const context = await browser.newContext({
@@ -80,10 +81,35 @@ test('Player Sponsors > Fanside Validation', async ({ browser }, testInfo) => {
     const page = await context.newPage();
   
 // Navigate to the Tranmere Rovers live preview site
-await page.goto('https://beta.gc.uzstaging1.co.uk/teams/men/jordanpickford', { waitUntil: 'networkidle' });
+await page.goto('https://www.gc2staging.co.uk/teams/men/jordanpickford', { waitUntil: 'networkidle' });
 
 // Wait explicitly for the selector before asserting visibility
 const imageLink = page.locator('.mx-2 > a').first();
+
+// Ensure the element is attached to the DOM
+await imageLink.waitFor({ state: 'visible', timeout: 10000 });
+
+// Assert it's visible
+await expect(imageLink).toBeVisible();
+});
+
+test('Team Profile Sponsors > Fanside Validation', async ({ browser }, testInfo) => {
+  test.setTimeout(120000); // 2 minutes
+
+  const context = await browser.newContext({
+    httpCredentials: {
+      username: previewUsername,
+      password: previewPassword,
+    },
+  });
+
+  const page = await context.newPage();
+
+// Navigate to the Tranmere Rovers live preview site
+await page.goto('https://www.gc2staging.co.uk/teams/', { waitUntil: 'networkidle' });
+
+// Wait explicitly for the selector before asserting visibility
+const imageLink = page.locator('img.object-contain.max-h-full.p-1.min-h-10').first();
 
 // Ensure the element is attached to the DOM
 await imageLink.waitFor({ state: 'visible', timeout: 10000 });

@@ -20,7 +20,6 @@ if (!testEmail || !testPassword) {
   throw new Error("Test Email or Test Password is not set in environment variables.");
 }
 
-
 test('Regression - Page Builder Creation', async ({ page }) => {
 // Navigate to the login page
 await page.goto('https://cms.gc.gc2stagingservices.co.uk/');
@@ -49,12 +48,14 @@ await expect(page.getByRole('heading', { name: 'Automation' })).toBeVisible();
 await expect(page.locator('h1')).toContainText('Automation');
 await expect(page.locator('[id="__nuxt"]')).toContainText('Create New Page');
 
+await page.pause();
 
 // Click on the "Create New Page" button (or similar element)
 // List of possible page locators (these may vary per ENV)
 const pageLocators = [
     '#page-0-a718989a-9d5d-4f72-9171-72e3030b4f16 > div > .relative > .grid > .flex',
-    '#page-0-02359036-58bf-4077-9dcf-2e9ae85c9702 > div > div > .grid > .flex'
+    '#page-0-02359036-58bf-4077-9dcf-2e9ae85c9702 > div > div > .grid > .flex',
+    '#page-0-39df85ee-b251-4cf9-ae95-736c4f92f185 > div > .relative > .grid > .flex',
   ];
   
   let clicked = false;
@@ -96,11 +97,11 @@ await expect(page.locator('[id="__nuxt"]')).toContainText(formattedDate);
 
 test('Regression - Page Settings', async ({ page }) => {
     // Navigate to the login page
-    await page.goto('https://cms.gc.uzstaging1.co.uk/');
+    await page.goto('https://cms.gc.gc2stagingservices.co.uk/');
 
 // Enter email and password for authentication
 await page.getByRole('textbox', { name: 'Email * Email *' }).fill(email);
-await page.getByRole('textbox', { name: 'Password * Password *' }).fill(password);
+await page.getByRole('textbox', { name: 'Password * Password *' }).fill("?+C:mL8FD46#'up]4w");
 
     await page.getByRole('button', { name: 'Sign in' }).click();
 // Navigate to Pages and Edit Section
@@ -144,11 +145,11 @@ await page.getByRole('textbox', { name: 'Password * Password *' }).fill(password
 
 test('Regression - Page Management', async ({ page }) => {
     // Navigate to the CMS login page
-    await page.goto('https://cms.gc.uzstaging1.co.uk/');
+    await page.goto('https://cms.gc.gc2stagingservices.co.uk/');
 
     // Fill in login credentials and sign in
     await page.getByRole('textbox', { name: 'Email * Email *' }).fill(email);
-    await page.getByRole('textbox', { name: 'Password * Password *' }).fill(password);
+    await page.getByRole('textbox', { name: 'Password * Password *' }).fill("?+C:mL8FD46#'up]4w");
     await page.getByRole('button', { name: 'Sign in' }).click();
 
     // Navigate to the 'Pages' section and then to 'Edit pages'

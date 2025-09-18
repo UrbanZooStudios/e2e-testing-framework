@@ -1,4 +1,4 @@
-//npx playwright test "test/CMS/CMS Ads.spec.ts" --headed
+//npx playwright test "test/CMS/Ads.spec.ts"
 
 import { test, expect } from '@playwright/test';
 import * as dotenv from 'dotenv';
@@ -47,14 +47,20 @@ await page.getByRole('textbox', { name: 'Campaign Name' }).fill('QA Test');
 await page.locator('.image-uploader__image-container').first().click();
 
 // Select and add an image from the list (first one that matches the text)
-await page.getByRole('article').filter({ hasText: '1920x1080_2024-10-' }).getByRole('button').first().click();
+await page.getByRole('button', { name: '󰉋' }).nth(1).click();
+await page.getByRole('textbox', { name: 'Search the library' }).click();
+await page.getByRole('textbox', { name: 'Search the library' }).fill('logo');
+await page.getByRole('article').getByRole('button').first().click();
 await page.getByRole('button', { name: 'Add' }).click();
 
 // Click to add another image
 await page.locator('.image-uploader__image-container > .mdi-plus').click();
 
 // Select and add another image
-await page.getByRole('article').filter({ hasText: '1920x1080_2024-10-' }).getByRole('button').first().click();
+await page.getByRole('button', { name: '󰉋' }).nth(1).click();
+await page.getByRole('textbox', { name: 'Search the library' }).click();
+await page.getByRole('textbox', { name: 'Search the library' }).fill('logo');
+await page.getByRole('article').getByRole('button').first().click();
 await page.getByRole('button', { name: 'Add' }).click();
 
 // Fill in the advert title
