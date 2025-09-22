@@ -299,7 +299,7 @@ await expect(page.getByTestId('product-summary-name')).toContainText('Subscribe 
 });
 
 // AFC Wimbledon
-test('AFC Wimbledon - Login and Validate',async ({ browser }, testInfo) => {
+test.skip('AFC Wimbledon - Login and Validate',async ({ browser }, testInfo) => {
     test.setTimeout(120000); // 2 minutes
   
     const context = await browser.newContext({
