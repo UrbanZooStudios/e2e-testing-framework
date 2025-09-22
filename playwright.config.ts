@@ -4,7 +4,7 @@ dotenv.config(); // ✅ Load environment variables from .env
 import { defineConfig } from '@playwright/test';
 
 export default defineConfig({
-  testDir: './test/CMS',  // Adjust if your test directory is different
+  testDir: './test/',  // Adjust if your test directory is different
   testIgnore: ['**/EFL/**'],  // Ignore the EFL folder
 
   timeout: 30000,

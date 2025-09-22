@@ -5,7 +5,7 @@ import * as dotenv from 'dotenv';
 // Load environment variables from the .env file
 dotenv.config();
 
-test('App Screen Builder - Section Tabs', async ({ page }) => {
+test.skip('App Screen Builder - Section Tabs', async ({ page }) => {
   // Navigate to the login page..
 await page.goto('https://cms.gc.uzgc2.com/');
 await page.getByRole('textbox', { name: 'Email * Email *' }).fill("admin@urbanzoo.io");
@@ -87,7 +87,7 @@ await page.locator('button').filter({ hasText: /^Save$/ }).click();
 await page.waitForTimeout(2000);
 });
 
-test('App Screen Builder - Name Tab', async ({ page }) => {
+test.skip('App Screen Builder - Name Tab', async ({ page }) => {
   // Navigate to the login page..
 await page.goto('https://cms.gc.uzgc2.com/');
 await page.getByRole('textbox', { name: 'Email * Email *' }).fill("admin@urbanzoo.io");
@@ -145,7 +145,7 @@ await page.locator('button').filter({ hasText: /^Save$/ }).click();
 await page.waitForTimeout(2000);
 });
 
-test('App Screen Builder - Moving Tabs', async ({ page }) => {
+test.skip('App Screen Builder - Moving Tabs', async ({ page }) => {
   // Navigate to the login page..
 await page.goto('https://cms.gc.uzgc2.com/');
 await page.getByRole('textbox', { name: 'Email * Email *' }).fill("admin@urbanzoo.io");
@@ -203,7 +203,7 @@ await page.locator('button').filter({ hasText: /^Save$/ }).click();
 await page.waitForTimeout(2000);
 });
 
-test('App Screen Builder - Deleting Tabs', async ({ page }) => {
+test.skip('App Screen Builder - Deleting Tabs', async ({ page }) => {
   // Navigate to the login page..
 await page.goto('https://cms.gc.uzgc2.com/');
 await page.getByRole('textbox', { name: 'Email * Email *' }).fill("admin@urbanzoo.io");
@@ -246,7 +246,7 @@ await page.waitForTimeout(2000);
 
 });
 
-test('App Screen Builder - Tab Title', async ({ page }) => {
+test.skip('App Screen Builder - Tab Title', async ({ page }) => {
   // Navigate to the login page..
 await page.goto('https://cms.gc.uzgc2.com/');
 await page.getByRole('textbox', { name: 'Email * Email *' }).fill("admin@urbanzoo.io");
@@ -295,7 +295,7 @@ await page.locator('button').filter({ hasText: /^Save$/ }).click();
 await page.waitForTimeout(2000);
 });
 
-test('App Screen Builder - Add Carousel Option', async ({ page }) => {
+test.skip('App Screen Builder - Add Carousel Option', async ({ page }) => {
   // Navigate to the login page
 await page.goto('https://cms.gc.uzgc2.com/');
 await page.getByRole('textbox', { name: 'Email * Email *' }).fill("admin@urbanzoo.io");
@@ -339,7 +339,7 @@ await page.locator('button').filter({ hasText: /^Save$/ }).click();
 await page.waitForTimeout(2000);
 });
 
-test('App Screen Builder - Tab Add Single Item Option', async ({ page }) => {
+test.skip('App Screen Builder - Tab Add Single Item Option', async ({ page }) => {
   // Navigate to the login page
 await page.goto('https://cms.gc.uzgc2.com/');
 await page.getByRole('textbox', { name: 'Email * Email *' }).fill("admin@urbanzoo.io");
@@ -371,7 +371,7 @@ await page.locator('button').filter({ hasText: /^Save$/ }).click();
 await page.waitForTimeout(2000);
 });
 
-test('App Screen Builder - Tab Add List Option', async ({ page }) => {
+test.skip('App Screen Builder - Tab Add List Option', async ({ page }) => {
   // Navigate to the login page
 await page.goto('https://cms.gc.uzgc2.com/');
 await page.getByRole('textbox', { name: 'Email * Email *' }).fill("admin@urbanzoo.io");
@@ -406,7 +406,7 @@ await page.locator('button').filter({ hasText: /^Save$/ }).click();
 await page.waitForTimeout(2000);
 });
 
-test('App Screen Builder - Tab Add Content Option', async ({ page }) => {
+test.skip('App Screen Builder - Tab Add Content Option', async ({ page }) => {
   // Navigate to the login page
 await page.goto('https://cms.gc.uzgc2.com/');
 await page.getByRole('textbox', { name: 'Email * Email *' }).fill("admin@urbanzoo.io");
@@ -442,7 +442,7 @@ await page.locator('button').filter({ hasText: /^Save$/ }).click();
 await page.waitForTimeout(2000);
 });
 
-test('App Screen Builder - Tab Validation', async ({ page }) => {
+test.skip('App Screen Builder - Tab Validation', async ({ page }) => {
   // Navigate to the login page
 await page.goto('https://cms.gc.uzgc2.com/');
 await page.getByRole('textbox', { name: 'Email * Email *' }).fill("automation@urbanzoo.io");

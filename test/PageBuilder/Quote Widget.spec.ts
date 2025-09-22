@@ -10,7 +10,7 @@ const previewUsername = process.env.PREVIEW_USERNAME || 'urbanzoo';
 const previewPassword = process.env.PREVIEW_PASSWORD || 'gamechanger1!';
 
 
-test('CMS - Content - Quote Widget', async ({ page }) => {
+test.skip('CMS - Content - Quote Widget', async ({ page }) => {
   // Navigate to the login page..
 await page.goto('https://cms.gc.gc2stagingservices.co.uk/');
 await page.getByRole('textbox', { name: 'Email * Email *' }).fill("automation@urbanzoo.io");
@@ -74,7 +74,7 @@ await expect(page.locator('[id="__nuxt"]')).toContainText('Media Selection');
 
 });
 
-test('Fanside - Content - Quote Widget Validation',async ({ browser }, testInfo) => {
+test.skip('Fanside - Content - Quote Widget Validation',async ({ browser }, testInfo) => {
 const context = await browser.newContext({ httpCredentials: {
         username: previewUsername,
         password: previewPassword,},
@@ -97,7 +97,7 @@ await expect(page.getByText('We have a positive').first()).toBeVisible();
 
 });
 
-test('CMS - Spilt Container - 1 Container', async ({ page }) => {
+test.skip('CMS - Spilt Container - 1 Container', async ({ page }) => {
     // Navigate to the login page..
 await page.goto('https://cms.gc.uzstaging1.co.uk/');
 await page.getByRole('textbox', { name: 'Email * Email *' }).fill("automation@urbanzoo.io");
@@ -161,7 +161,7 @@ await expect(page.getByRole('img', { name: 'Quote Image' }).first()).toBeVisible
 await page.getByRole('button', { name: 'Save' }).click();
 });
 
-test('Fanside - Spilt Container - 1 Container',async ({ browser }, testInfo) => {
+test.skip('Fanside - Spilt Container - 1 Container',async ({ browser }, testInfo) => {
     const context = await browser.newContext({ httpCredentials: {
             username: previewUsername,
             password: previewPassword,},

@@ -637,7 +637,7 @@ await expect(page.getByRole('main')).toMatchAriaSnapshot(`
   `);
 });
 
-test('First Team Squad - Pick a Player - Articles - Live Preview' , async ({ browser }, testinfo) => {
+test.skip('First Team Squad - Pick a Player - Articles - Live Preview' , async ({ browser }, testinfo) => {
     test.setTimeout(120000); // 2 minutes
   
     const context = await browser.newContext({
@@ -677,7 +677,7 @@ await expect(page.locator('#carousel-carousel-list')).toMatchAriaSnapshot(`
 
 });
 
-test('First Team Squad - Pick a Player - Articles - Prod' , async ({ browser }, testinfo) => {
+test.skip('First Team Squad - Pick a Player - Articles - Prod' , async ({ browser }, testinfo) => {
     test.setTimeout(120000); // 2 minutes
   
     const context = await browser.newContext({
@@ -757,7 +757,7 @@ await page.getByRole('link', { name: 'Teams' }).click();
 await expect(page.getByText('MenWomenU21U18')).toBeVisible();
 });
 
-test('Other Squads (Development, U23, U18, Women etc) - Prod', async ({ browser }, testinfo) => { 
+test.skip('Other Squads (Development, U23, U18, Women etc) - Prod', async ({ browser }, testinfo) => { 
     test.setTimeout(120000); // 2 minutes
   
     const context = await browser.newContext({

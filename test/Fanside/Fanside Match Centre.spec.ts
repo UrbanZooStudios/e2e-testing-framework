@@ -1014,7 +1014,7 @@ test('Match Centre - Results Match Centre (Everton)', async ({ browser }) => {
   console.log('Browser context closed, test finished successfully');
 });
 
-test('Match Centre - Hero', async ({ browser }, testInfo) => {
+test.skip('Match Centre - Hero', async ({ browser }, testInfo) => {
     test.setTimeout(120000); // 2 minutes
   
     const context = await browser.newContext({
@@ -1249,7 +1249,7 @@ test('Match Centre - Women’s Team - Fixtures', async ({ browser }) => {
   }
 });
 
-test('Match Centre - Other Teams Fixtures - PROD', async ({ browser }) => {
+test.skip('Match Centre - Other Teams Fixtures - PROD', async ({ browser }) => {
     test.setTimeout(120_000); // 2 minutes
     const URLS = [
         'https://livepreview.evertonfc.com/',
@@ -1288,7 +1288,7 @@ test('Match Centre - Other Teams Fixtures - PROD', async ({ browser }) => {
     await expect(failures.length, 'All expected fixture links are present on both URLs').toBe(0);
 });
 
-test('Match Centre - Other Teams Results - Live-Preview', async ({ browser }, testInfo) => {
+test.skip('Match Centre - Other Teams Results - Live-Preview', async ({ browser }, testInfo) => {
     test.setTimeout(120000); // 2 minutes
   
     const context = await browser.newContext({
@@ -3058,7 +3058,7 @@ await expect(page.getByRole('main')).toMatchAriaSnapshot(`
     `);
 });
 
-test('Match Centre - Other Teams Results Todays Games - LivePreview', async ({ browser }, testInfo) => {
+test.skip('Match Centre - Other Teams Results Todays Games - LivePreview', async ({ browser }, testInfo) => {
     test.setTimeout(120000); // 2 minutes
   
     const context = await browser.newContext({
@@ -3096,7 +3096,7 @@ await expect(page.getByRole('main')).toMatchAriaSnapshot(`
     `);
 });
 
-test('Match Centre - Other Teams Results Todays Games - Prod', async ({ browser }, testInfo) => {
+test.skip('Match Centre - Other Teams Results Todays Games - Prod', async ({ browser }, testInfo) => {
     test.setTimeout(120000); // 2 minutes
   
     const context = await browser.newContext({

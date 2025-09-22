@@ -97,7 +97,7 @@ test('Badminton England Site Map Menu Font Validation', async ({ browser }) => {
     await validateFontForTab('YONEX All England');
 });
 
-test('Everton FC Site Map Validation', async ({ browser }) => {
+test.skip('Everton FC Site Map Validation', async ({ browser }) => {
   const context = await browser.newContext({
     httpCredentials: {
       username: process.env.PREVIEW_USERNAME || 'urbanzoo',

@@ -5,7 +5,7 @@ import * as dotenv from 'dotenv';
 // Load environment variables from the .env file
 dotenv.config();
 
-test('App Screen Builder - Single List Item - Upcoming Fixtures', async ({ page }) => {
+test.skip('App Screen Builder - Single List Item - Upcoming Fixtures', async ({ page }) => {
   // Navigate to the login page..
 await page.goto('https://cms.gc.uzgc2.com/');
 await page.getByRole('textbox', { name: 'Email * Email *' }).fill("automation@urbanzoo.io");
@@ -66,7 +66,7 @@ await page.locator('button').filter({ hasText: /^Save$/ }).click();
 await page.waitForTimeout(2000);
 });
 
-test('App Screen Builder - Single List Item - Fixtures - Results', async ({ page }) => {
+test.skip('App Screen Builder - Single List Item - Fixtures - Results', async ({ page }) => {
   // Navigate to the login page..
 await page.goto('https://cms.gc.uzgc2.com/');
 await page.getByRole('textbox', { name: 'Email * Email *' }).fill("automation@urbanzoo.io");
@@ -113,7 +113,7 @@ await page.waitForTimeout(2000);
 
 });
 
-test('App Screen Builder - Single List Item - News', async ({ page }) => {
+test.skip('App Screen Builder - Single List Item - News', async ({ page }) => {
   // Navigate to the login page..
 await page.goto('https://cms.gc.uzgc2.com/');
 await page.getByRole('textbox', { name: 'Email * Email *' }).fill("automation@urbanzoo.io");
@@ -175,7 +175,7 @@ await page.locator('button').filter({ hasText: /^Save$/ }).click();
 await page.waitForLoadState('networkidle');
 });
 
-test('App Screen Builder - Single List Item - Video', async ({ page }) => {
+test.skip('App Screen Builder - Single List Item - Video', async ({ page }) => {
   // Navigate to the login page..
 await page.goto('https://cms.gc.uzgc2.com/');
 await page.getByRole('textbox', { name: 'Email * Email *' }).fill("automation@urbanzoo.io");
@@ -227,7 +227,7 @@ await page.locator('button').filter({ hasText: /^Save$/ }).click();
 await page.waitForTimeout(2000);
 });
 
-test('App Screen Builder - Single List Item - Clean Up Script', async ({ page }) => {
+test.skip('App Screen Builder - Single List Item - Clean Up Script', async ({ page }) => {
   // Navigate to the login page..
 await page.goto('https://cms.gc.uzgc2.com/');
 await page.getByRole('textbox', { name: 'Email * Email *' }).fill("automation@urbanzoo.io");

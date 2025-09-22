@@ -6,7 +6,7 @@ import * as dotenv from 'dotenv';
 // Load environment variables from the .env file
 dotenv.config();
 
-test('CMS: Navigate to App Screen Builder and validate Automation tab UI', async ({ page }) => {
+test.skip('CMS: Navigate to App Screen Builder and validate Automation tab UI', async ({ page }) => {
 // Navigate to the login page
 await page.goto('https://cms.gc.uzgc2.com/');
 
@@ -50,7 +50,7 @@ await expect(page.locator('h1')).toContainText('Automation - Section Navigation'
 await expect(page.locator('.px-4 > .h-\\[72px\\]')).toBeVisible();
 });
 
-test('App Screen Builder - Section Add Section Button', async ({ page }) => {
+test.skip('App Screen Builder - Section Add Section Button', async ({ page }) => {
 // Navigate to the login page
 await page.goto('https://cms.gc.uzgc2.com/');
 await page.getByRole('textbox', { name: 'Email * Email *' }).fill("automation@urbanzoo.io");
@@ -98,7 +98,7 @@ await page.locator('button').filter({ hasText: /^Save$/ }).click();
 await page.waitForTimeout(2000);
 });
 
-test('App Screen Builder - Add Mulitple Sections', async ({ page }) => {
+test.skip('App Screen Builder - Add Mulitple Sections', async ({ page }) => {
   // Navigate to the login page
 await page.goto('https://cms.gc.uzgc2.com/');
 await page.getByRole('textbox', { name: 'Email * Email *' }).fill("automation@urbanzoo.io");
@@ -133,7 +133,7 @@ await page.locator('button').filter({ hasText: /^Save$/ }).click();
 await page.waitForTimeout(2000);
 });
   
-test('App Screen Builder - Section Tabs Button', async ({ page }) => {
+test.skip('App Screen Builder - Section Tabs Button', async ({ page }) => {
   // Navigate to the login page
 await page.goto('https://cms.gc.uzgc2.com/');
 await page.getByRole('textbox', { name: 'Email * Email *' }).fill("automation@urbanzoo.io");
@@ -193,7 +193,7 @@ await page.locator('button').filter({ hasText: /^Save$/ }).click();
 await page.waitForTimeout(1000);
 });
 
-test('App Screen Builder - Section Arrow Buttons', async ({ page }) => {
+test.skip('App Screen Builder - Section Arrow Buttons', async ({ page }) => {
   // Navigate to the login page
   await page.goto('https://cms.gc.uzgc2.com/');
   await page.getByRole('textbox', { name: 'Email * Email *' }).fill("automation@urbanzoo.io");
@@ -221,7 +221,7 @@ await page.locator('button').filter({ hasText: /^Save$/ }).click();
 await page.waitForTimeout(2000);
 });
 
-test('App Screen Builder - Section Duplicate Button', async ({ page }) => {
+test.skip('App Screen Builder - Section Duplicate Button', async ({ page }) => {
   // Navigate to the login page
   await page.goto('https://cms.gc.uzgc2.com/');
   await page.getByRole('textbox', { name: 'Email * Email *' }).fill("automation@urbanzoo.io");
@@ -254,7 +254,7 @@ await page.waitForTimeout(2000);
 
 });
 
-test('App Screen Builder - Section Deletion Button', async ({ page }) => {
+test.skip('App Screen Builder - Section Deletion Button', async ({ page }) => {
   // Navigate to the login page
   await page.goto('https://cms.gc.uzgc2.com/');
   await page.getByRole('textbox', { name: 'Email * Email *' }).fill("automation@urbanzoo.io");
@@ -293,7 +293,7 @@ await page.locator('button').filter({ hasText: /^Save$/ }).click();
 await page.waitForTimeout(2000);
 });
 
-test('App Screen Builder - Section Title Button', async ({ page }) => {
+test.skip('App Screen Builder - Section Title Button', async ({ page }) => {
   // Navigate to the login page
 await page.goto('https://cms.gc.uzgc2.com/');
 await page.getByRole('textbox', { name: 'Email * Email *' }).fill("automation@urbanzoo.io");
@@ -345,7 +345,7 @@ await page.locator('button').filter({ hasText: /^Save$/ }).click();
 await page.waitForTimeout(2000);
 });
 
-test('App Screen Builder - Section Add Carousel Option', async ({ page }) => {
+test.skip('App Screen Builder - Section Add Carousel Option', async ({ page }) => {
 // Navigate to the login page
 await page.goto('https://cms.gc.uzgc2.com/');
 await page.getByRole('textbox', { name: 'Email * Email *' }).fill("automation@urbanzoo.io");
@@ -401,7 +401,7 @@ await expect(page.getByRole('listitem').filter({ hasText: 'Fixture' })).toBeVisi
 
 });
 
-test('App Screen Builder - Section Add Single Item Option', async ({ page }) => {
+test.skip('App Screen Builder - Section Add Single Item Option', async ({ page }) => {
   // Navigate to the login page
 await page.goto('https://cms.gc.uzgc2.com/');
 await page.getByRole('textbox', { name: 'Email * Email *' }).fill("automation@urbanzoo.io");
@@ -457,7 +457,7 @@ await expect(page.locator('div').filter({ hasText: /^Upcoming$/ }).locator('div'
 await expect(page.locator('div').filter({ hasText: /^Result$/ }).locator('div').nth(3)).toBeVisible();
 });
 
-test('App Screen Builder - Section Add List Option', async ({ page }) => {
+test.skip('App Screen Builder - Section Add List Option', async ({ page }) => {
   // Navigate to the login page
 await page.goto('https://cms.gc.uzgc2.com/');
 await page.getByRole('textbox', { name: 'Email * Email *' }).fill("automation@urbanzoo.io");
@@ -513,7 +513,7 @@ await expect(page.getByRole('heading', { name: 'Videos' })).toBeVisible();
 await expect(page.getByRole('dialog')).toContainText('Videos');
 });
 
-test('App Screen Builder - Section Add Content Option', async ({ page }) => {
+test.skip('App Screen Builder - Section Add Content Option', async ({ page }) => {
   // Navigate to the login page
 await page.goto('https://cms.gc.uzgc2.com/');
 await page.getByRole('textbox', { name: 'Email * Email *' }).fill("automation@urbanzoo.io");

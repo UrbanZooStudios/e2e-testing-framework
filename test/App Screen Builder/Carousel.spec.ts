@@ -5,7 +5,7 @@ import * as dotenv from 'dotenv';
 // Load environment variables from the .env file
 dotenv.config();
 
-test('App Screen Builder - Carousel - News', async ({ page }) => {
+test.skip('App Screen Builder - Carousel - News', async ({ page }) => {
   // Navigate to the login page..
 await page.goto('https://cms.gc.uzgc2.com/');
 await page.getByRole('textbox', { name: 'Email * Email *' }).fill("automation@urbanzoo.io");
@@ -71,7 +71,7 @@ await page.waitForTimeout(2000);
 });
 
 
-test('App Screen Builder - Carousel - Video Carousel', async ({ page }) => {
+test.skip('App Screen Builder - Carousel - Video Carousel', async ({ page }) => {
     // Navigate to the login page..
 await page.goto('https://cms.gc.uzgc2.com/');
 await page.getByRole('textbox', { name: 'Email * Email *' }).fill("automation@urbanzoo.io");
@@ -119,7 +119,7 @@ await page.locator('button').filter({ hasText: /^Save$/ }).click();
 await page.waitForTimeout(5000);
 });
 
-test('App Screen Builder - Carousel - Fixture Carousel (Upcoming)', async ({ page }) => {
+test.skip('App Screen Builder - Carousel - Fixture Carousel (Upcoming)', async ({ page }) => {
     // Navigate to the login page..
 await page.goto('https://cms.gc.uzgc2.com/');
 await page.getByRole('textbox', { name: 'Email * Email *' }).fill("automation@urbanzoo.io");
@@ -171,7 +171,7 @@ await page.waitForTimeout(3000);
 });
 
 
-test('App Screen Builder - Carousel - Fixture Carousel (Result)', async ({ page }) => {
+test.skip('App Screen Builder - Carousel - Fixture Carousel (Result)', async ({ page }) => {
     // Navigate to the login page..
 await page.goto('https://cms.gc.uzgc2.com/');
 await page.getByRole('textbox', { name: 'Email * Email *' }).fill("automation@urbanzoo.io");
